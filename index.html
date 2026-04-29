@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Cook What You Have</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+:root {
+  --green:#2A7A50; --green2:#3DAA6E; --green-light:#EAF6F0;
+  --orange:#F06B2B; --orange-light:#FFF0E8;
+  --yellow:#F5C518; --red:#E53935; --red-light:#FDEAEA;
+  --bg:#F8F9F5; --card:#FFFFFF; --text:#1C1C1E; --text2:#555; --text3:#999;
+  --border:#EBEBEB; --shadow:0 4px 20px rgba(0,0,0,0.08); --shadow2:0 2px 10px rgba(0,0,0,0.05);
+  --r:20px; --r2:14px;
+}
+body.dark {
+  --bg:#0f1117; --card:#1c1f2a; --text:#f0f0f0; --text2:#b0b0b0; --text3:#555;
+  --border:#2a2d3a; --shadow:0 4px 20px rgba(0,0,0,0.4); --shadow2:0 2px 10px rgba(0,0,0,0.3);
+  --green-light:#1a3a28; --orange-light:#2a1a10; --red-light:#2a1010;
+}
+html,body { font-family:'Nunito',sans-serif; background:var(--bg); color:var(--text); max-width:430px; margin:0 auto; min-height:100vh; overflow-x:hidden; transition:background .3s,color .3s; }
+.screen { display:none; animation:fadeIn .28s ease; }
+.screen.active { display:block; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+
+/* BOTTOM NAV */
+.bottom-nav { position:fixed; bottom:0; left:50%; transform:translateX(-50%); width:100%; max-width:430px; background:var(--card); border-top:1px solid var(--border); display:flex; justify-content:space-around; align-items:center; padding:10px 0 22px; z-index:100; box-shadow:0 -4px 20px rgba(0,0,0,0.06); transition:background .3s; }
+.nav-btn { display:flex; flex-direction:column; align-items:center; gap:4px; font-size:10px; font-weight:700; color:var(--text3); cursor:pointer; padding:4px 16px; border-radius:12px; background:none; border:none; font-family:'Nunito',sans-serif; transition:color .2s; }
+.nav-btn.active { color:var(--green); }
+.nav-btn svg { width:22px; height:22px; }
+.nav-dot { width:5px; height:5px; background:var(--green); border-radius:50%; }
+.page { padding-bottom:90px; }
+.section-title { font-size:17px; font-weight:800; color:var(--text); margin-bottom:14px; }
+
+/* HOME */
+.home-hero { background:linear-gradient(145deg,#1e5e3a 0%,#2d8a56 60%,#3daa6e 100%); padding:54px 24px 28px; position:relative; overflow:hidden; }
+.home-hero::before { content:''; position:absolute; top:-40px; right:-40px; width:180px; height:180px; background:rgba(255,255,255,0.06); border-radius:50%; }
+.hero-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; }
+.hero-greeting { font-size:13px; color:rgba(255,255,255,0.75); font-weight:600; }
+.hero-avatar { width:38px; height:38px; border-radius:50%; background:rgba(255,255,255,0.2); display:flex; align-items:center; justify-content:center; font-size:16px; font-weight:800; color:#fff; border:2px solid rgba(255,255,255,0.3); cursor:pointer; }
+.hero-title { font-family:'Playfair Display',serif; font-size:30px; font-weight:900; color:#fff; line-height:1.15; margin-bottom:8px; position:relative; z-index:1; }
+.hero-title span { color:#A8F0C6; }
+.hero-sub { font-size:13px; color:rgba(255,255,255,0.7); position:relative; z-index:1; }
+.search-bar { margin:-20px 20px 0; background:var(--card); border-radius:16px; box-shadow:0 8px 30px rgba(0,0,0,0.14); padding:6px 6px 6px 16px; display:flex; align-items:center; gap:10px; position:relative; z-index:10; transition:background .3s; }
+.search-bar input { flex:1; border:none; outline:none; font-family:'Nunito',sans-serif; font-size:15px; color:var(--text); background:transparent; }
+.search-bar input::placeholder { color:var(--text3); }
+.btn-add { padding:12px 18px; background:var(--green); color:#fff; border:none; border-radius:12px; font-family:'Nunito',sans-serif; font-size:14px; font-weight:800; cursor:pointer; box-shadow:0 4px 12px rgba(42,122,80,0.4); transition:transform .15s; }
+.btn-add:active { transform:scale(0.96); }
+.ingredients-wrap { padding:20px 20px 0; }
+.ing-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
+.ing-header span { font-size:14px; font-weight:800; }
+.clear-btn { font-size:13px; color:var(--green); font-weight:700; cursor:pointer; }
+.chips-row { display:flex; flex-wrap:wrap; gap:9px; }
+.chip { display:flex; align-items:center; gap:8px; background:var(--card); border:1.5px solid var(--border); border-radius:50px; padding:7px 12px 7px 8px; font-size:13px; font-weight:700; color:var(--text); box-shadow:var(--shadow2); }
+.chip-emoji { font-size:20px; line-height:1; }
+.chip-x { width:18px; height:18px; background:var(--border); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:10px; color:#888; font-weight:900; cursor:pointer; }
+.find-btn { margin:18px 20px 0; width:calc(100% - 40px); padding:18px; background:linear-gradient(135deg,var(--orange),#e85a1e); color:#fff; border:none; border-radius:var(--r); font-family:'Playfair Display',serif; font-size:19px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:10px; box-shadow:0 6px 22px rgba(240,107,43,0.42); transition:transform .15s; }
+.find-btn:active { transform:scale(0.98); }
+.filters-section { padding:22px 20px 0; }
+.filter-chips-row { display:flex; gap:10px; flex-wrap:wrap; }
+.fcchip { display:flex; align-items:center; gap:6px; padding:9px 15px; background:var(--card); border:1.5px solid var(--border); border-radius:50px; font-size:12px; font-weight:700; color:var(--text2); box-shadow:var(--shadow2); cursor:pointer; transition:all .2s; }
+.fcchip.active { background:var(--green-light); border-color:var(--green); color:var(--green); }
+.fcchip svg { width:14px; height:14px; }
+
+/* CSS FOOD VISUALS */
+.food-img { width:100%; height:100%; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; border-radius:inherit; }
+.food-aloo    { background:radial-gradient(ellipse at 40% 40%,#c0392b,#5d1010); }
+.food-pasta   { background:radial-gradient(ellipse at 50% 50%,#f0a500,#8b5e00); }
+.food-pakora  { background:radial-gradient(ellipse at 40% 35%,#8B4513,#3B1A06); }
+.food-omelette{ background:radial-gradient(ellipse at 50% 50%,#f9d342,#b8860b); }
+.food-curry   { background:radial-gradient(ellipse at 40% 40%,#27ae60,#0d4d2b); }
+.food-jeera   { background:radial-gradient(ellipse at 40% 40%,#d4a017,#6b5000); }
+.food-rice    { background:radial-gradient(ellipse at 50% 50%,#e8d8a0,#8a6a10); }
+.food-dal     { background:radial-gradient(ellipse at 50% 40%,#e8a020,#7a4500); }
+.food-sabzi   { background:radial-gradient(ellipse at 40% 40%,#4CAF50,#1B5E20); }
+.food-soup    { background:radial-gradient(ellipse at 50% 30%,#ff7043,#7f2000); }
+.food-roti    { background:radial-gradient(ellipse at 50% 50%,#f5deb3,#a0713a); }
+.food-biryani { background:radial-gradient(ellipse at 50% 40%,#FF8F00,#BF360C); }
+.food-salad   { background:radial-gradient(ellipse at 40% 40%,#8BC34A,#33691E); }
+.food-paneer  { background:radial-gradient(ellipse at 40% 40%,#ff6f00,#bf360c); }
+.food-sandwich{ background:radial-gradient(ellipse at 50% 50%,#f9a825,#e65100); }
+.food-khichdi { background:radial-gradient(ellipse at 50% 50%,#fdd835,#e65100); }
+.food-emoji   { position:absolute; bottom:8px; right:10px; font-size:26px; filter:drop-shadow(0 2px 4px rgba(0,0,0,0.3)); }
+
+/* LIST */
+.list-topbar { background:var(--card); padding:54px 20px 0; border-bottom:1px solid var(--border); box-shadow:var(--shadow2); transition:background .3s; }
+.list-topbar-row { display:flex; align-items:center; justify-content:space-between; margin-bottom:4px; }
+.back-btn { width:36px; height:36px; background:var(--bg); border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; border:1.5px solid var(--border); }
+.back-btn svg { stroke:var(--text); fill:none; }
+.page-h { font-family:'Playfair Display',serif; font-size:20px; font-weight:800; color:var(--text); }
+.icon-btn { width:36px; height:36px; background:var(--bg); border-radius:50%; display:flex; align-items:center; justify-content:center; border:1.5px solid var(--border); }
+.icon-btn svg { stroke:var(--text); fill:none; }
+.list-sub { font-size:12px; color:var(--text3); margin-bottom:14px; }
+.tabs-row { display:flex; gap:8px; overflow-x:auto; }
+.tabs-row::-webkit-scrollbar { display:none; }
+.tab { padding:9px 20px; border-radius:50px; font-size:13px; font-weight:700; background:var(--bg); color:var(--text2); border:1.5px solid var(--border); white-space:nowrap; cursor:pointer; transition:all .2s; font-family:'Nunito',sans-serif; }
+.tab.active { background:var(--green); color:#fff; border-color:var(--green); }
+.recipe-cards { padding:16px 20px 0; display:flex; flex-direction:column; gap:14px; }
+.rcard { background:var(--card); border-radius:var(--r); box-shadow:var(--shadow); display:flex; gap:14px; padding:12px; border:1px solid var(--border); cursor:pointer; transition:transform .15s; }
+.rcard:active { transform:scale(0.99); }
+.rcard-img { width:92px; height:92px; border-radius:14px; flex-shrink:0; overflow:hidden; position:relative; }
+.rcard-body { flex:1; }
+.rcard-body h3 { font-size:15px; font-weight:800; margin-bottom:7px; line-height:1.25; color:var(--text); }
+.rmeta { display:flex; align-items:center; gap:12px; margin-bottom:8px; }
+.rmeta span { font-size:12px; color:var(--text2); display:flex; align-items:center; gap:3px; }
+.rmeta svg { width:12px; height:12px; stroke:var(--text2); fill:none; }
+.star { color:var(--yellow); }
+.itag { font-size:11px; font-weight:700; padding:3px 9px; border-radius:7px; display:inline-block; }
+.itag.g { color:var(--green); background:var(--green-light); }
+.itag.o { color:var(--orange); background:var(--orange-light); }
+.itag.ai { color:#7c3aed; background:#f5f3ff; }
+.heart-ico { flex-shrink:0; cursor:pointer; }
+.heart-ico svg { width:20px; height:20px; stroke:var(--text3); fill:none; }
+.heart-ico.liked svg { fill:var(--red); stroke:var(--red); }
+
+/* AI LOADER */
+.ai-loader { padding:32px 20px; display:flex; flex-direction:column; align-items:center; gap:16px; }
+.ai-spinner { width:52px; height:52px; border-radius:50%; background:linear-gradient(135deg,#7c3aed,#4f46e5); display:flex; align-items:center; justify-content:center; font-size:22px; animation:pulse 1.2s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(1.1);opacity:0.8} }
+.ai-loader p { font-size:14px; font-weight:700; color:var(--text2); text-align:center; }
+.ai-label { font-size:11px; color:#7c3aed; font-weight:800; background:#f5f3ff; padding:4px 12px; border-radius:20px; }
+
+/* DETAIL */
+.detail-hero-img { width:100%; height:280px; position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center; }
+.detail-hero-overlay { position:absolute; inset:0; background:linear-gradient(to top,rgba(0,0,0,0.65) 0%,rgba(0,0,0,0.1) 50%,transparent 100%); z-index:1; }
+.detail-hero-btns { position:absolute; top:52px; left:0; right:0; display:flex; justify-content:space-between; padding:0 20px; z-index:5; }
+.glass-btn { width:38px; height:38px; background:rgba(255,255,255,0.2); backdrop-filter:blur(10px); border-radius:50%; display:flex; align-items:center; justify-content:center; border:1px solid rgba(255,255,255,0.35); cursor:pointer; }
+.glass-btn svg { width:18px; height:18px; stroke:#fff; fill:none; }
+.detail-emoji-big { position:absolute; bottom:20px; right:24px; font-size:80px; filter:drop-shadow(0 4px 12px rgba(0,0,0,0.4)); z-index:2; }
+.detail-body { padding:20px 20px 10px; background:var(--bg); transition:background .3s; }
+.detail-title-row { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; margin-bottom:16px; }
+.detail-title-row h2 { font-family:'Playfair Display',serif; font-size:24px; font-weight:800; flex:1; line-height:1.2; color:var(--text); }
+.rate-badge { background:var(--yellow); color:#fff; padding:5px 10px; border-radius:10px; font-size:13px; font-weight:800; flex-shrink:0; }
+.info-strip { display:flex; background:var(--card); border-radius:14px; border:1px solid var(--border); margin-bottom:22px; box-shadow:var(--shadow2); overflow:hidden; }
+.istrip-item { flex:1; display:flex; flex-direction:column; align-items:center; padding:14px 8px; gap:5px; border-right:1px solid var(--border); }
+.istrip-item:last-child { border-right:none; }
+.istrip-item svg { width:20px; height:20px; stroke:var(--green); fill:none; }
+.istrip-item .val { font-size:14px; font-weight:800; color:var(--text); }
+.istrip-item .lbl { font-size:10px; color:var(--text3); font-weight:600; }
+.ing-list { background:var(--card); border-radius:14px; border:1px solid var(--border); padding:6px 16px; margin-bottom:22px; box-shadow:var(--shadow2); }
+.ing-row { display:flex; align-items:center; justify-content:space-between; padding:11px 0; border-bottom:1px solid var(--border); }
+.ing-row:last-child { border-bottom:none; }
+.ing-left { display:flex; align-items:center; gap:10px; }
+.ck { width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:900; flex-shrink:0; }
+.ck.y { background:var(--green-light); color:var(--green); }
+.ck.n { background:var(--red-light); color:var(--red); }
+.ing-name { font-size:14px; font-weight:700; color:var(--text); }
+.ing-st { font-size:12px; font-weight:800; }
+.ing-st.y { color:var(--green); }
+.ing-st.n { color:var(--red); }
+.steps-list { display:flex; flex-direction:column; gap:14px; margin-bottom:24px; }
+.step-row { display:flex; gap:14px; align-items:flex-start; }
+.step-num { width:30px; height:30px; border-radius:50%; background:var(--green); color:#fff; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:900; flex-shrink:0; }
+.step-txt { font-size:14px; color:var(--text2); line-height:1.55; padding-top:5px; font-weight:600; }
+.tips-box { background:var(--green-light); border-radius:14px; padding:14px 16px; margin-bottom:22px; border:1px solid #c8e6d6; }
+.tips-title { font-size:12px; font-weight:800; color:var(--green); margin-bottom:6px; }
+.tips-box p { font-size:13px; color:var(--green); font-weight:700; line-height:1.5; }
+.action-row { display:flex; gap:12px; margin-bottom:8px; }
+.btn-sec { flex:1; padding:16px; background:var(--card); color:var(--green); border:2px solid var(--green); border-radius:var(--r2); font-family:'Nunito',sans-serif; font-size:14px; font-weight:800; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:7px; transition:transform .15s; }
+.btn-pri { flex:1; padding:16px; background:var(--green); color:#fff; border:none; border-radius:var(--r2); font-family:'Nunito',sans-serif; font-size:14px; font-weight:800; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:7px; box-shadow:0 4px 16px rgba(42,122,80,0.38); transition:transform .15s; }
+.btn-sec:active,.btn-pri:active { transform:scale(0.97); }
+
+/* SAVED */
+.saved-topbar { padding:54px 20px 16px; background:var(--card); border-bottom:1px solid var(--border); transition:background .3s; }
+.saved-topbar h2 { font-family:'Playfair Display',serif; font-size:24px; font-weight:800; color:var(--text); }
+.saved-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; padding:16px 20px 0; }
+.sgrid-card { background:var(--card); border-radius:var(--r); box-shadow:var(--shadow); overflow:hidden; border:1px solid var(--border); cursor:pointer; }
+.sgrid-img { width:100%; height:130px; position:relative; overflow:hidden; }
+.sgrid-heart { position:absolute; top:8px; right:8px; width:30px; height:30px; background:rgba(255,255,255,0.92); border-radius:50%; display:flex; align-items:center; justify-content:center; }
+.sgrid-body { padding:10px 12px 12px; }
+.sgrid-body h4 { font-size:13px; font-weight:800; margin-bottom:5px; line-height:1.3; color:var(--text); }
+.sgrid-meta { display:flex; align-items:center; gap:5px; font-size:11px; color:var(--orange); font-weight:700; }
+
+/* FAVORITES */
+.fav-topbar { padding:54px 20px 16px; background:var(--card); border-bottom:1px solid var(--border); transition:background .3s; }
+.fav-topbar h2 { font-family:'Playfair Display',serif; font-size:24px; font-weight:800; color:var(--text); }
+.fav-list { padding:16px 20px 0; display:flex; flex-direction:column; gap:12px; }
+.fav-item { background:var(--card); border-radius:var(--r); box-shadow:var(--shadow); padding:12px; display:flex; gap:14px; align-items:center; border:1px solid var(--border); cursor:pointer; }
+.fav-img { width:74px; height:74px; border-radius:14px; overflow:hidden; flex-shrink:0; }
+.fav-body { flex:1; }
+.fav-body h4 { font-size:14px; font-weight:800; margin-bottom:6px; color:var(--text); }
+.fav-meta-row { display:flex; gap:14px; }
+.fav-meta-row span { font-size:11px; color:var(--text2); display:flex; align-items:center; gap:3px; font-weight:600; }
+.heart-filled svg { width:22px; height:22px; fill:var(--red); stroke:var(--red); }
+
+/* PROFILE */
+.profile-hero { background:linear-gradient(145deg,#1e5e3a,#2d8a56); padding:52px 24px 24px; display:flex; align-items:center; gap:16px; }
+.profile-logo-wrap { width:58px; height:58px; background:rgba(255,255,255,0.18); border-radius:18px; display:flex; align-items:center; justify-content:center; border:1.5px solid rgba(255,255,255,0.35); flex-shrink:0; }
+.profile-logo-wrap svg { width:30px; height:30px; stroke:#fff; fill:none; }
+.profile-app h2 { font-family:'Playfair Display',serif; font-size:20px; font-weight:800; color:#fff; }
+.profile-app p { font-size:12px; color:rgba(255,255,255,0.7); margin-top:2px; }
+.user-card { margin:16px 20px 0; background:var(--card); border-radius:var(--r); padding:16px; display:flex; align-items:center; gap:14px; box-shadow:var(--shadow); border:1px solid var(--border); cursor:pointer; }
+.user-avatar-big { width:52px; height:52px; border-radius:50%; background:linear-gradient(135deg,var(--green),var(--green2)); display:flex; align-items:center; justify-content:center; font-size:22px; font-weight:900; color:#fff; flex-shrink:0; }
+.user-info h4 { font-size:15px; font-weight:800; color:var(--text); }
+.user-info p { font-size:12px; color:var(--text3); margin-top:2px; }
+.settings-list { padding:16px 20px 0; }
+.settings-section { background:var(--card); border-radius:var(--r); border:1px solid var(--border); box-shadow:var(--shadow); margin-bottom:14px; overflow:hidden; transition:background .3s; }
+.sitem { display:flex; align-items:center; justify-content:space-between; padding:16px; border-bottom:1px solid var(--border); cursor:pointer; }
+.sitem:last-child { border-bottom:none; }
+.sitem-left { display:flex; align-items:center; gap:14px; }
+.sicon { width:38px; height:38px; border-radius:12px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.sicon.green { background:var(--green-light); } .sicon.green svg { stroke:var(--green); fill:none; }
+.sicon.red { background:var(--red-light); } .sicon.red svg { stroke:var(--red); fill:none; }
+.sicon svg { width:18px; height:18px; }
+.sitem-label { font-size:14px; font-weight:700; color:var(--text); }
+.sitem-right { display:flex; align-items:center; gap:8px; }
+.sitem-right svg { width:16px; height:16px; stroke:var(--text3); fill:none; }
+.toggle-sw { width:46px; height:26px; background:var(--border); border-radius:13px; position:relative; cursor:pointer; transition:background .3s; flex-shrink:0; }
+.toggle-sw.on { background:var(--green); }
+.toggle-sw::after { content:''; position:absolute; width:20px; height:20px; background:#fff; border-radius:50%; top:3px; left:3px; transition:left .3s; box-shadow:0 1px 4px rgba(0,0,0,0.25); }
+.toggle-sw.on::after { left:23px; }
+
+/* PROFILE EDIT MODAL */
+.modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:200; display:flex; align-items:flex-end; justify-content:center; animation:fadeIn .2s ease; }
+.modal-box { background:var(--card); border-radius:24px 24px 0 0; padding:24px 24px 40px; width:100%; max-width:430px; }
+.modal-box h3 { font-family:'Playfair Display',serif; font-size:20px; font-weight:800; margin-bottom:20px; color:var(--text); }
+.modal-input { width:100%; border:1.5px solid var(--border); border-radius:12px; padding:14px 16px; font-size:15px; font-family:'Nunito',sans-serif; font-weight:700; outline:none; color:var(--text); background:var(--bg); margin-bottom:16px; }
+.modal-input:focus { border-color:var(--green); }
+.modal-btns { display:flex; gap:12px; }
+.modal-cancel { flex:1; padding:14px; background:var(--bg); color:var(--text2); border:1.5px solid var(--border); border-radius:var(--r2); font-family:'Nunito',sans-serif; font-size:14px; font-weight:800; cursor:pointer; }
+.modal-save { flex:1; padding:14px; background:var(--green); color:#fff; border:none; border-radius:var(--r2); font-family:'Nunito',sans-serif; font-size:14px; font-weight:800; cursor:pointer; }
+
+/* PRIVACY POLICY */
+.privacy-topbar { background:var(--card); padding:54px 20px 16px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:14px; transition:background .3s; }
+.privacy-topbar h2 { font-family:'Playfair Display',serif; font-size:20px; font-weight:800; color:var(--text); }
+.privacy-body { padding:20px; }
+.privacy-updated { font-size:12px; color:var(--text3); font-weight:600; margin-bottom:20px; }
+.privacy-section { margin-bottom:20px; }
+.privacy-section h3 { font-size:14px; font-weight:800; color:var(--green); margin-bottom:8px; }
+.privacy-section p { font-size:13px; color:var(--text2); line-height:1.7; font-weight:600; margin-bottom:6px; }
+.privacy-section ul { padding-left:18px; display:flex; flex-direction:column; gap:4px; }
+.privacy-section li { font-size:13px; color:var(--text2); line-height:1.7; font-weight:600; }
+.privacy-divider { height:1px; background:var(--border); margin-bottom:20px; }
+.privacy-contact { background:var(--green-light); border-radius:14px; padding:14px 16px; border:1px solid #c8e6d6; margin-top:8px; }
+.privacy-contact p { font-size:13px; color:var(--green); font-weight:700; }
+
+/* NO RESULTS */
+.no-results { padding:40px 20px; text-align:center; }
+.no-results p { font-size:15px; font-weight:700; color:var(--text2); }
+.no-results span { font-size:12px; color:var(--text3); margin-top:6px; display:block; }
+
+/* TOAST */
+.toast { position:fixed; top:20px; left:50%; transform:translateX(-50%) translateY(-80px); background:var(--text); color:var(--card); padding:12px 20px; border-radius:50px; font-size:13px; font-weight:700; z-index:999; transition:transform .3s ease; white-space:nowrap; }
+.toast.show { transform:translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+
+<div class="toast" id="toast"></div>
+
+<!-- ══ HOME ══ -->
+<div class="screen active" id="s-home">
+  <div class="page">
+    <div class="home-hero">
+      <div class="hero-top">
+        <span class="hero-greeting" id="greeting-txt">👋 Good morning!</span>
+        <div class="hero-avatar" id="hero-avatar">U</div>
+      </div>
+      <div class="hero-title">What's in your<br><span>kitchen?</span></div>
+      <div class="hero-sub">Add ingredients &amp; find the best recipes 🌿</div>
+    </div>
+    <div class="search-bar">
+      <input type="text" id="ingInput" placeholder="Add ingredient (e.g. Potato)...">
+      <button class="btn-add" onclick="addIngredient()">+ Add</button>
+    </div>
+    <div class="ingredients-wrap">
+      <div class="ing-header">
+        <span id="ing-count">Your Ingredients (0)</span>
+        <span class="clear-btn" onclick="clearAll()">Clear all</span>
+      </div>
+      <div class="chips-row" id="chips-row"></div>
+    </div>
+    <button class="find-btn" onclick="findRecipes()">🍳 Find Recipes</button>
+    <div class="filters-section">
+      <div class="section-title">Quick Filters</div>
+      <div class="filter-chips-row">
+        <div class="fcchip active" onclick="toggleFilter(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Under 20 min</div>
+        <div class="fcchip" onclick="toggleFilter(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>Veg Only</div>
+        <div class="fcchip" onclick="toggleFilter(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>Healthy</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ LIST ══ -->
+<div class="screen" id="s-list">
+  <div class="page">
+    <div class="list-topbar">
+      <div class="list-topbar-row">
+        <div class="back-btn" onclick="goTo('s-home')"><svg width="18" height="18" viewBox="0 0 24 24" stroke-width="2.5"><polyline points="15,18 9,12 15,6"/></svg></div>
+        <span class="page-h">Recipes for you</span>
+        <div class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg></div>
+      </div>
+      <div class="list-sub" id="list-sub-txt">Based on your ingredients</div>
+      <div class="tabs-row" style="padding-bottom:14px;">
+        <div class="tab active" onclick="setTab(this,'all')">All</div>
+        <div class="tab" onclick="setTab(this,'veg')">Veg</div>
+        <div class="tab" onclick="setTab(this,'quick')">Quick</div>
+        <div class="tab" onclick="setTab(this,'healthy')">Healthy</div>
+      </div>
+    </div>
+    <div id="recipe-cards-container" class="recipe-cards"></div>
+  </div>
+</div>
+
+<!-- ══ DETAIL ══ -->
+<div class="screen" id="s-detail">
+  <div class="page">
+    <div class="detail-hero-img" id="detail-hero">
+      <div class="detail-hero-overlay"></div>
+      <div class="detail-hero-btns">
+        <div class="glass-btn" onclick="goTo('s-list')"><svg viewBox="0 0 24 24"><polyline points="15,18 9,12 15,6"/></svg></div>
+        <div style="display:flex;gap:10px;">
+          <div class="glass-btn" onclick="toggleFavDetail()"><svg id="fav-glass-icon" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+          <div class="glass-btn"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></div>
+        </div>
+      </div>
+      <div class="detail-emoji-big" id="detail-emoji-big"></div>
+    </div>
+    <div class="detail-body">
+      <div class="detail-title-row"><h2 id="detail-title"></h2><div class="rate-badge" id="detail-rating"></div></div>
+      <div class="info-strip">
+        <div class="istrip-item"><svg viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span class="val" id="detail-time"></span><span class="lbl">Cook Time</span></div>
+        <div class="istrip-item"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg><span class="val" id="detail-servings"></span><span class="lbl">Servings</span></div>
+        <div class="istrip-item"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M18 8h1a4 4 0 010 8h-1M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/></svg><span class="val" id="detail-cal"></span><span class="lbl">Calories</span></div>
+      </div>
+      <div class="section-title">Ingredients</div>
+      <div class="ing-list" id="detail-ing-list"></div>
+      <div class="section-title">Steps</div>
+      <div class="steps-list" id="detail-steps-list"></div>
+      <div class="tips-box" id="detail-tips-box" style="display:none;"><div class="tips-title">💡 Pro Tips</div><p id="detail-tips"></p></div>
+      <div class="action-row">
+        <button class="btn-sec" onclick="goTo('s-list')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1,4 1,10 7,10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>Try Another</button>
+        <button class="btn-pri" onclick="saveRecipe()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>Save Recipe</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SAVED ══ -->
+<div class="screen" id="s-saved">
+  <div class="page">
+    <div class="saved-topbar"><h2>Saved Recipes</h2></div>
+    <div class="saved-grid" id="saved-grid">
+      <div style="grid-column:1/-1;padding:40px 0;text-align:center;color:var(--text3);font-size:14px;font-weight:700;">No saved recipes yet 🍽️<br><span style="font-size:12px;font-weight:500;">Find and save recipes from home</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FAVORITES ══ -->
+<div class="screen" id="s-fav">
+  <div class="page">
+    <div class="fav-topbar"><h2>Favorites ❤️</h2></div>
+    <div class="fav-list" id="fav-list">
+      <div style="padding:40px 0;text-align:center;color:var(--text3);font-size:14px;font-weight:700;">No favorites yet ❤️<br><span style="font-size:12px;font-weight:500;">Heart recipes to add them here</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PROFILE ══ -->
+<div class="screen" id="s-profile">
+  <div class="page">
+    <div class="profile-hero">
+      <div class="profile-logo-wrap"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M3 2h18l-2 7H5L3 2z"/><path d="M5 9s0 4 7 4 7-4 7-4"/><circle cx="9" cy="19" r="2"/><circle cx="15" cy="19" r="2"/></svg></div>
+      <div class="profile-app"><h2>Cook What You Have</h2><p>Cook smart, waste less 🌿</p></div>
+    </div>
+    <div class="user-card" onclick="openProfileEdit()">
+      <div class="user-avatar-big" id="prof-avatar">U</div>
+      <div class="user-info"><h4 id="prof-name">Your Name</h4><p>Tap to edit your name ✏️</p></div>
+    </div>
+    <div class="settings-list">
+      <div class="settings-section">
+        <div class="sitem" onclick="openProfileEdit()">
+          <div class="sitem-left"><div class="sicon green"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><span class="sitem-label">My Profile</span></div>
+          <div class="sitem-right"><svg viewBox="0 0 24 24"><polyline points="9,18 15,12 9,6"/></svg></div>
+        </div>
+        <div class="sitem">
+          <div class="sitem-left"><div class="sicon green"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg></div><span class="sitem-label">Dark Mode</span></div>
+          <div class="toggle-sw" id="dark-toggle" onclick="toggleDarkMode()"></div>
+        </div>
+      </div>
+      <div class="settings-section">
+        <div class="sitem" onclick="clearHistory()">
+          <div class="sitem-left"><div class="sicon red"><svg viewBox="0 0 24 24" stroke-width="2"><polyline points="3,6 5,6 21,6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a1 1 0 011-1h4a1 1 0 011 1v2"/></svg></div><span class="sitem-label">Clear History</span></div>
+          <div class="sitem-right"><svg viewBox="0 0 24 24"><polyline points="9,18 15,12 9,6"/></svg></div>
+        </div>
+        <div class="sitem" onclick="goTo('s-privacy')">
+          <div class="sitem-left"><div class="sicon green"><svg viewBox="0 0 24 24" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div><span class="sitem-label">Privacy Policy</span></div>
+          <div class="sitem-right"><svg viewBox="0 0 24 24"><polyline points="9,18 15,12 9,6"/></svg></div>
+        </div>
+        <div class="sitem" onclick="shareApp()">
+          <div class="sitem-left"><div class="sicon green"><svg viewBox="0 0 24 24" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></div><span class="sitem-label">Share App</span></div>
+          <div class="sitem-right"><svg viewBox="0 0 24 24"><polyline points="9,18 15,12 9,6"/></svg></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PRIVACY POLICY ══ -->
+<div class="screen" id="s-privacy">
+  <div class="page">
+    <div class="privacy-topbar">
+      <div class="back-btn" onclick="goTo('s-profile')"><svg width="18" height="18" viewBox="0 0 24 24" stroke-width="2.5"><polyline points="15,18 9,12 15,6"/></svg></div>
+      <h2>Privacy Policy</h2>
+    </div>
+    <div class="privacy-body">
+      <p class="privacy-updated">Last Updated: March 2026</p>
+      <div class="privacy-section"><p>Welcome to <strong>Cook What You Have</strong>. We respect your privacy and are committed to protecting your information.</p></div>
+      <div class="privacy-divider"></div>
+      <div class="privacy-section"><h3>1. Information We Collect</h3><p><strong>a) User Information</strong></p><ul><li>We do not collect email addresses.</li><li>Users may create a profile using a username only.</li><li>This username is used only inside the app for personalization.</li></ul><br><p><strong>b) Non-Personal Information</strong></p><ul><li>Device information (device type, OS version)</li><li>App usage data (features used, interactions)</li><li>Crash logs and performance data</li></ul><br><p><strong>c) User Input Data</strong></p><ul><li>Ingredients entered by users</li><li>Search queries</li></ul></div>
+      <div class="privacy-divider"></div>
+      <div class="privacy-section"><h3>2. Camera Usage</h3><p>Our app may request access to your device camera to:</p><ul><li>Capture images of ingredients</li><li>Help identify food items (if feature enabled)</li></ul><br><ul><li>Camera access is used only when you choose to use this feature</li><li>We do not store or share your photos on any server</li><li>Images are processed temporarily (if AI feature is used)</li></ul></div>
+      <div class="privacy-divider"></div>
+      <div class="privacy-section"><h3>3. How We Use Information</h3><ul><li>Suggest recipes based on ingredients</li><li>Improve app performance</li><li>Enhance user experience</li></ul></div>
+      <div class="privacy-divider"></div>
+      <div class="privacy-section"><h3>4. Third-Party Services</h3><p>We may use third-party services such as:</p><ul><li>Advertising services (e.g., Google AdMob)</li><li>Analytics tools</li><li>AI services (for generating recipes or suggestions)</li></ul><br><p>These services may process limited data according to their own privacy policies.</p></div>
+      <div class="privacy-divider"></div>
+      <div class="privacy-section"><h3>5. Data Sharing</h3><p>We do not sell or share your personal data with third parties except when required by law or to provide app functionality through trusted services.</p></div>
+      <div class="privacy-divider"></div>
+      <div class="privacy-section"><h3>6. Data Security</h3><p>We take reasonable measures to protect your data. However, no system is completely secure.</p></div>
+      <div class="privacy-divider"></div>
+      <div class="privacy-section"><h3>7. Children's Privacy</h3><p>This app is not intended for children under 13. We do not knowingly collect personal data from children.</p></div>
+      <div class="privacy-divider"></div>
+      <div class="privacy-section"><h3>8. Your Rights</h3><ul><li>Stop using the app anytime</li><li>Clear app data from device settings</li></ul></div>
+      <div class="privacy-divider"></div>
+      <div class="privacy-section"><h3>9. Changes to This Policy</h3><p>We may update this policy. Changes will be reflected with an updated date.</p></div>
+      <div class="privacy-divider"></div>
+      <div class="privacy-section"><h3>10. Contact Us</h3><div class="privacy-contact"><p>📧 Email: sarimforbusiness@gmail.com</p></div></div>
+      <div class="privacy-section"><h3>11. Consent</h3><p>By using this app, you agree to this Privacy Policy.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PROFILE EDIT MODAL ══ -->
+<div class="modal-overlay" id="profile-modal" style="display:none;" onclick="if(event.target===this)closeProfileEdit()">
+  <div class="modal-box">
+    <h3>✏️ Edit Your Name</h3>
+    <input type="text" class="modal-input" id="profile-name-input" placeholder="Enter your name..." maxlength="30">
+    <div class="modal-btns">
+      <button class="modal-cancel" onclick="closeProfileEdit()">Cancel</button>
+      <button class="modal-save" onclick="saveProfileName()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ BOTTOM NAV ══ -->
+<nav class="bottom-nav" id="bottom-nav">
+  <button class="nav-btn active" onclick="navTo('s-home',this)" id="nb-home">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+    Home<div class="nav-dot"></div>
+  </button>
+  <button class="nav-btn" onclick="navTo('s-saved',this)" id="nb-saved">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
+    Saved
+  </button>
+  <button class="nav-btn" onclick="navTo('s-fav',this)" id="nb-fav">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+    Favorites
+  </button>
+  <button class="nav-btn" onclick="navTo('s-profile',this)" id="nb-profile">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    Profile
+  </button>
+</nav>
+
+<script>
+// ══════════════════════════════════════
+// STATE
+// ══════════════════════════════════════
+let savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')||'[]');
+let favRecipes   = JSON.parse(localStorage.getItem('favRecipes')||'[]');
+let currentRecipe = null;
+let currentListRecipes = [];
+let activeTabFilter = 'all';
+let userName = localStorage.getItem('userName')||'Your Name';
+let darkMode = localStorage.getItem('darkMode')==='true';
+
+// Init dark mode
+if(darkMode){ document.body.classList.add('dark'); }
+setTimeout(function(){
+  if(darkMode && document.getElementById('dark-toggle')) document.getElementById('dark-toggle').classList.add('on');
+},0);
+
+// Init profile
+function updateProfileUI(){
+  const initial = (userName && userName !== 'Your Name') ? userName.charAt(0).toUpperCase() : '👤';
+  document.getElementById('prof-name').textContent = userName;
+  document.getElementById('prof-avatar').textContent = initial;
+  const heroAv = document.getElementById('hero-avatar');
+  if(heroAv) heroAv.textContent = initial;
+}
+updateProfileUI();
+
+// GROQ API key — stored in sessionStorage, entered by user or set via environment
+let GROQ_API_KEY = sessionStorage.getItem('groqKey') || '';
+
+// ══════════════════════════════════════
+// 75 RECIPE DATABASE
+// ══════════════════════════════════════
+const DB = [
+  {id:1,title:"Aloo Tamatar Sabzi",time:15,cal:180,servings:2,rating:4.6,veg:true,healthy:false,emoji:"🍛",css:"food-aloo",ingredients:["potato","tomato","onion","oil","cumin","turmeric","salt"],steps:["Heat oil, add cumin seeds till they crackle.","Add chopped onion, sauté till golden.","Add tomatoes, cook till soft.","Add diced potatoes, turmeric, salt. Mix well.","Cover and cook 10 min on low heat. Serve hot!"],tips:"Add a squeeze of lemon and fresh coriander at the end for freshness."},
+  {id:2,title:"Masala Omelette",time:10,cal:220,servings:1,rating:4.3,veg:false,healthy:true,emoji:"🍳",css:"food-omelette",ingredients:["egg","onion","tomato","green chili","salt","oil"],steps:["Beat 2 eggs with salt.","Add finely chopped onion, tomato, chili to eggs.","Heat oil in pan on medium heat.","Pour egg mixture, spread evenly.","Fold and cook 2 min each side. Serve hot."],tips:"Add cheese inside before folding for extra richness."},
+  {id:3,title:"Aloo Onion Pakora",time:18,cal:280,servings:2,rating:4.5,veg:true,healthy:false,emoji:"🧆",css:"food-pakora",ingredients:["potato","onion","besan","salt","chili powder","oil"],steps:["Thinly slice potatoes and onions.","Mix with besan, salt, chili powder and water to thick batter.","Heat oil in deep pan.","Drop spoonfuls into hot oil.","Fry till golden brown on both sides. Drain and serve."],tips:"Serve with green chutney and hot chai!"},
+  {id:4,title:"Masala Potato Pasta",time:20,cal:380,servings:2,rating:4.4,veg:true,healthy:false,emoji:"🍝",css:"food-pasta",ingredients:["pasta","potato","tomato","onion","oil","garam masala","cheese"],steps:["Boil pasta al dente, drain and set aside.","Dice potatoes and boil separately.","Sauté onions and tomatoes in oil till soft.","Add garam masala, then potatoes and pasta.","Toss everything together, top with cheese."],tips:"Use penne or fusilli for best results."},
+  {id:5,title:"Spicy Potato Curry",time:25,cal:210,servings:2,rating:4.7,veg:true,healthy:false,emoji:"🍲",css:"food-curry",ingredients:["potato","tomato","onion","garlic","ginger","chili","cumin","garam masala"],steps:["Heat oil, add cumin and let it splutter.","Add onion, garlic, ginger paste. Cook 5 min.","Add tomatoes, chili, cook till oil separates.","Add boiled potatoes, garam masala and water.","Simmer 10 min. Garnish with coriander."],tips:"For richer curry, add 2 tbsp cream at the end."},
+  {id:6,title:"Jeera Aloo",time:15,cal:160,servings:2,rating:4.2,veg:true,healthy:true,emoji:"🥘",css:"food-jeera",ingredients:["potato","cumin","oil","turmeric","salt","coriander"],steps:["Boil and cube potatoes.","Heat oil, add cumin seeds, let them sizzle.","Add potatoes, turmeric, salt.","Toss on high heat for 5 min.","Garnish with fresh coriander and serve."],tips:"Adding amchur (dry mango powder) gives a great tangy kick."},
+  {id:7,title:"Dal Tadka",time:30,cal:220,servings:3,rating:4.8,veg:true,healthy:true,emoji:"🍛",css:"food-dal",ingredients:["dal","onion","tomato","garlic","cumin","turmeric","ghee"],steps:["Pressure cook dal with turmeric till soft.","In a pan, heat ghee, add cumin and garlic.","Add onion and tomato, cook till soft.","Pour tadka over cooked dal.","Stir, simmer 5 min. Serve with rice or roti."],tips:"Using a mix of toor and masoor dal gives best flavor."},
+  {id:8,title:"Egg Fried Rice",time:15,cal:340,servings:2,rating:4.5,veg:false,healthy:false,emoji:"🍚",css:"food-rice",ingredients:["rice","egg","soy sauce","garlic","spring onion","oil","salt"],steps:["Use day-old cooked rice for best results.","Scramble eggs in hot oiled wok, remove.","Fry garlic, add rice, toss on high heat.","Add soy sauce, spring onion, eggs back.","Toss everything 2 min and serve hot."],tips:"High flame is key for authentic wok-style fried rice."},
+  {id:9,title:"Tomato Soup",time:20,cal:120,servings:2,rating:4.3,veg:true,healthy:true,emoji:"🍲",css:"food-soup",ingredients:["tomato","onion","garlic","butter","cream","salt","pepper"],steps:["Roast tomatoes, onion and garlic in butter.","Add water and simmer 10 min.","Blend smooth with a blender.","Strain, add cream, salt and pepper.","Heat through and serve with crusty bread."],tips:"Add a pinch of sugar to balance the acidity of tomatoes."},
+  {id:10,title:"Chapati / Roti",time:20,cal:100,servings:4,rating:4.9,veg:true,healthy:true,emoji:"🫓",css:"food-roti",ingredients:["wheat flour","water","salt","oil"],steps:["Mix flour with salt and water to make soft dough.","Knead 5 min, rest 10 min covered.","Divide into balls, roll into thin circles.","Cook on hot tawa 1 min each side till brown spots appear.","Apply ghee and serve hot."],tips:"Resting the dough makes softer rotis."},
+  {id:11,title:"Vegetable Khichdi",time:25,cal:280,servings:2,rating:4.6,veg:true,healthy:true,emoji:"🥘",css:"food-khichdi",ingredients:["rice","dal","onion","tomato","cumin","turmeric","ghee","salt"],steps:["Wash and soak rice and dal 15 min.","Heat ghee in pressure cooker, add cumin.","Add onion, tomato, sauté 3 min.","Add rice, dal, turmeric, salt, and 3 cups water.","Pressure cook 2 whistles. Serve with pickle."],tips:"A dollop of ghee on top before serving makes it heavenly."},
+  {id:12,title:"Paneer Bhurji",time:15,cal:290,servings:2,rating:4.7,veg:true,healthy:true,emoji:"🥚",css:"food-paneer",ingredients:["paneer","onion","tomato","green chili","turmeric","coriander","oil"],steps:["Crumble paneer and keep aside.","Sauté onion and green chili in oil till soft.","Add tomatoes, cook till mushy.","Add turmeric, crumbled paneer, mix well.","Cook 3 min, garnish with coriander."],tips:"Add a pinch of kasuri methi for restaurant-style flavor."},
+  {id:13,title:"Aloo Paratha",time:25,cal:320,servings:2,rating:4.8,veg:true,healthy:false,emoji:"🫓",css:"food-roti",ingredients:["wheat flour","potato","onion","green chili","cumin","ghee","salt"],steps:["Make soft dough with flour and water.","Mash boiled potatoes with onion, chili, cumin, salt.","Roll small dough, place filling, seal and roll again.","Cook on hot tawa with ghee both sides.","Serve with yogurt and pickle."],tips:"Keep filling dry to avoid tearing the paratha."},
+  {id:14,title:"Vegetable Biryani",time:45,cal:420,servings:3,rating:4.9,veg:true,healthy:false,emoji:"🍚",css:"food-biryani",ingredients:["rice","carrot","peas","potato","onion","yogurt","biryani masala","ghee","saffron"],steps:["Parboil basmati rice with whole spices.","Fry thinly sliced onions till crispy brown.","Cook vegetables with yogurt and biryani masala.","Layer rice over vegetables in heavy pot.","Add saffron milk and fried onions. Seal and dum cook 20 min."],tips:"Dum cooking on low flame is what gives biryani its magic aroma."},
+  {id:15,title:"Cucumber Raita",time:5,cal:80,servings:2,rating:4.3,veg:true,healthy:true,emoji:"🥗",css:"food-salad",ingredients:["yogurt","cucumber","cumin powder","salt","mint"],steps:["Whisk yogurt till smooth.","Grate or finely dice cucumber, squeeze out water.","Add cucumber to yogurt.","Add cumin powder, salt, fresh mint.","Mix and serve chilled."],tips:"Perfect with biryani, paratha or any spicy dish."},
+  {id:16,title:"Chana Masala",time:35,cal:260,servings:3,rating:4.7,veg:true,healthy:true,emoji:"🍛",css:"food-curry",ingredients:["chickpea","onion","tomato","garlic","ginger","chana masala","oil"],steps:["Soak and pressure cook chickpeas till tender.","Make paste of onion, garlic, ginger.","Sauté paste in oil till golden.","Add tomatoes and chana masala, cook 5 min.","Add chickpeas and water, simmer 15 min."],tips:"Adding raw mango powder (amchur) gives authentic tangy flavor."},
+  {id:17,title:"Saag Paneer",time:30,cal:310,servings:2,rating:4.8,veg:true,healthy:true,emoji:"🥬",css:"food-sabzi",ingredients:["spinach","paneer","onion","garlic","ginger","cream","garam masala"],steps:["Blanch spinach and blend smooth.","Fry paneer cubes till golden, keep aside.","Sauté onion, garlic, ginger in oil.","Add spinach puree and garam masala.","Add paneer, cream, cook 5 min. Serve hot."],tips:"Don't overcook spinach to retain its bright green color."},
+  {id:18,title:"Baingan Bharta",time:30,cal:170,servings:2,rating:4.5,veg:true,healthy:true,emoji:"🍆",css:"food-sabzi",ingredients:["eggplant","onion","tomato","garlic","green chili","oil","garam masala"],steps:["Roast eggplant directly on flame till charred.","Peel, mash the flesh.","Sauté onion, garlic, green chili in oil.","Add tomatoes, cook soft, then add mashed eggplant.","Mix with garam masala, cook 5 min."],tips:"Charring on open flame gives the authentic smoky flavor."},
+  {id:19,title:"Poha",time:15,cal:200,servings:2,rating:4.4,veg:true,healthy:true,emoji:"🍽️",css:"food-khichdi",ingredients:["poha","onion","potato","mustard seeds","turmeric","peanuts","curry leaves","lemon"],steps:["Wash poha, drain well and keep aside.","Heat oil, add mustard seeds, peanuts, curry leaves.","Add onion, potato and turmeric. Cook 5 min.","Add poha, salt, mix gently without breaking.","Cover 2 min on low heat. Squeeze lemon and serve."],tips:"Adding a teaspoon of sugar balances the flavors perfectly."},
+  {id:20,title:"Upma",time:15,cal:220,servings:2,rating:4.2,veg:true,healthy:true,emoji:"🥣",css:"food-khichdi",ingredients:["semolina","onion","mustard seeds","curry leaves","green chili","oil","salt"],steps:["Dry roast semolina till lightly golden. Keep aside.","Heat oil, add mustard, curry leaves, green chili.","Add onion, sauté till soft.","Add 2 cups boiling water and salt.","Add semolina gradually, stir constantly. Cook till thick."],tips:"Adding vegetables like peas and carrots makes it more nutritious."},
+  {id:21,title:"Moong Dal Cheela",time:20,cal:190,servings:2,rating:4.5,veg:true,healthy:true,emoji:"🥞",css:"food-roti",ingredients:["moong dal","green chili","ginger","cumin","salt","oil"],steps:["Soak moong dal 2 hours, drain.","Blend with green chili, ginger, cumin, salt and water.","Heat non-stick pan with little oil.","Pour a ladleful of batter, spread in circle.","Cook both sides till golden. Serve with chutney."],tips:"The batter should be like dosa batter consistency."},
+  {id:22,title:"Bread Pakora",time:15,cal:310,servings:2,rating:4.6,veg:true,healthy:false,emoji:"🍞",css:"food-pakora",ingredients:["bread","besan","potato","green chili","salt","chili powder","oil"],steps:["Make thick batter with besan, salt and spices.","Mash boiled potato with salt and chili.","Sandwich potato filling between 2 bread slices.","Dip in besan batter.","Deep fry till golden brown on both sides."],tips:"Press the sandwiched bread firmly before dipping in batter."},
+  {id:23,title:"Rice Kheer",time:35,cal:290,servings:3,rating:4.7,veg:true,healthy:false,emoji:"🍚",css:"food-rice",ingredients:["rice","milk","sugar","cardamom","cashew","raisin","saffron"],steps:["Wash rice and soak 15 min.","Boil milk in heavy pan on low flame.","Add rice, stir frequently to prevent burning.","Cook 25 min till rice is very soft and milk thickens.","Add sugar, cardamom, nuts. Cook 5 more min."],tips:"Stirring constantly prevents the milk from sticking to the bottom."},
+  {id:24,title:"Aloo Gobi",time:25,cal:190,servings:2,rating:4.6,veg:true,healthy:true,emoji:"🥦",css:"food-sabzi",ingredients:["potato","cauliflower","onion","tomato","turmeric","cumin","oil","garam masala"],steps:["Heat oil, add cumin, then onion. Sauté 3 min.","Add tomatoes, turmeric, garam masala.","Add potatoes and cauliflower florets. Mix well.","Sprinkle 2 tbsp water, cover and cook 15 min.","Stir occasionally. Garnish with coriander."],tips:"Don't add too much water – let it cook in its own steam."},
+  {id:25,title:"Matar Paneer",time:25,cal:330,servings:2,rating:4.8,veg:true,healthy:true,emoji:"🫛",css:"food-paneer",ingredients:["paneer","peas","onion","tomato","ginger","garlic","cream","garam masala"],steps:["Make smooth paste of onion, tomato, ginger, garlic.","Cook paste in oil till oil separates.","Add garam masala and peas.","Add paneer cubes, mix gently.","Add cream and water, simmer 8 min."],tips:"Fry paneer cubes before adding to prevent them from breaking."},
+  {id:26,title:"Mixed Vegetable Salad",time:10,cal:90,servings:2,rating:4.2,veg:true,healthy:true,emoji:"🥗",css:"food-salad",ingredients:["cucumber","tomato","onion","carrot","lemon","salt","pepper","coriander"],steps:["Dice all vegetables finely.","Mix in a large bowl.","Squeeze lemon juice over.","Add salt, pepper and fresh coriander.","Toss and serve immediately."],tips:"Add chaat masala for an Indian twist!"},
+  {id:27,title:"Curd Rice",time:15,cal:240,servings:2,rating:4.5,veg:true,healthy:true,emoji:"🍚",css:"food-rice",ingredients:["rice","yogurt","mustard seeds","curry leaves","green chili","ginger","oil","salt"],steps:["Cook rice till very soft. Cool completely.","Mix with yogurt till creamy. Add salt.","Heat oil, add mustard seeds till they pop.","Add curry leaves, green chili, ginger.","Pour tadka over rice mixture. Mix and serve."],tips:"Best served chilled in summer."},
+  {id:28,title:"Vegetable Maggi",time:10,cal:370,servings:1,rating:4.3,veg:true,healthy:false,emoji:"🍜",css:"food-pasta",ingredients:["instant noodles","onion","tomato","peas","carrot","butter","masala"],steps:["Boil water in a pan.","Add instant noodles and cook 2 min.","Add masala packet and butter.","Add chopped vegetables.","Cook 2 more min stirring. Serve hot."],tips:"Add an egg for extra protein."},
+  {id:29,title:"Pav Bhaji",time:30,cal:380,servings:3,rating:4.9,veg:true,healthy:false,emoji:"🧈",css:"food-curry",ingredients:["potato","peas","carrot","tomato","onion","pav bhaji masala","butter","pav"],steps:["Boil and mash all vegetables.","Cook onion and tomatoes in butter till soft.","Add pav bhaji masala and mashed vegetables.","Mash everything together, add water. Cook 10 min.","Toast pav with butter on tawa. Serve with bhaji."],tips:"Extra butter and lemon juice before serving is the street food secret!"},
+  {id:30,title:"Banana Pancakes",time:15,cal:220,servings:2,rating:4.4,veg:true,healthy:true,emoji:"🥞",css:"food-roti",ingredients:["banana","egg","flour","milk","sugar","butter","vanilla"],steps:["Mash ripe bananas in a bowl.","Add eggs, flour, milk, sugar, vanilla. Mix well.","Heat butter in non-stick pan on medium heat.","Pour small circles of batter.","Cook 2 min each side till golden. Serve with honey."],tips:"Riper bananas = sweeter and more flavorful pancakes."},
+  {id:31,title:"Rajma Chawal",time:40,cal:390,servings:3,rating:4.9,veg:true,healthy:true,emoji:"🍛",css:"food-dal",ingredients:["kidney beans","rice","onion","tomato","garlic","ginger","rajma masala","ghee"],steps:["Soak rajma overnight, pressure cook 6 whistles.","Make thick gravy with onion, tomato, garlic, ginger.","Add rajma masala, cook 5 min.","Add cooked rajma with its water.","Simmer 20 min. Serve over steamed rice with ghee."],tips:"Soaking overnight is non-negotiable for properly cooked rajma."},
+  {id:32,title:"Oats Porridge",time:10,cal:180,servings:1,rating:4.1,veg:true,healthy:true,emoji:"🥣",css:"food-khichdi",ingredients:["oats","milk","banana","honey","nuts"],steps:["Bring milk to boil in a saucepan.","Add oats, stir continuously on medium heat.","Cook 3-5 min till oats are soft and creamy.","Pour in bowl, top with sliced banana.","Drizzle honey and add your favorite nuts."],tips:"Steel-cut oats take longer but have better nutrition and texture."},
+  {id:33,title:"Spinach Dal",time:30,cal:200,servings:3,rating:4.6,veg:true,healthy:true,emoji:"🥬",css:"food-sabzi",ingredients:["dal","spinach","tomato","garlic","cumin","turmeric","ghee"],steps:["Pressure cook dal with turmeric till soft.","Blanch and puree spinach.","Heat ghee, add cumin and garlic till golden.","Add tomatoes, cook soft. Add spinach puree.","Mix in cooked dal, simmer 10 min."],tips:"Use masoor dal for faster cooking time."},
+  {id:34,title:"Garlic Bread",time:12,cal:260,servings:2,rating:4.4,veg:true,healthy:false,emoji:"🍞",css:"food-sandwich",ingredients:["bread","butter","garlic","herbs","cheese"],steps:["Mix softened butter with minced garlic and herbs.","Slice bread and spread garlic butter generously.","Add cheese on top if desired.","Bake at 180°C for 8-10 min.","Serve hot while cheese is melted and bubbly."],tips:"Broiling the last 2 min gives a perfect golden crust."},
+  {id:35,title:"Anda Curry",time:25,cal:280,servings:2,rating:4.7,veg:false,healthy:true,emoji:"🥚",css:"food-curry",ingredients:["egg","onion","tomato","garlic","ginger","garam masala","oil","turmeric"],steps:["Hard boil eggs, peel and make small slits.","Lightly fry the eggs till skin is golden.","Make gravy with onion, tomato, garlic, ginger.","Add garam masala and turmeric.","Add eggs and water, simmer 10 min."],tips:"Making slits in eggs lets the masala soak in deeply."},
+  {id:36,title:"Sambar",time:35,cal:160,servings:4,rating:4.7,veg:true,healthy:true,emoji:"🍲",css:"food-dal",ingredients:["toor dal","tamarind","onion","tomato","vegetables","sambar powder","mustard","curry leaves"],steps:["Pressure cook toor dal with turmeric.","Soak tamarind, extract pulp.","In a pot, cook vegetables with tamarind water.","Add cooked dal and sambar powder.","Make tadka with mustard, curry leaves and pour over. Simmer 10 min."],tips:"Drumstick (moringa) is the classic sambar vegetable."},
+  {id:37,title:"Sooji Halwa",time:15,cal:310,servings:3,rating:4.6,veg:true,healthy:false,emoji:"🍮",css:"food-dal",ingredients:["semolina","sugar","ghee","milk","cardamom","cashew","raisin"],steps:["Heat ghee in pan, add semolina.","Roast on low heat till golden and fragrant, 8 min.","Separately heat milk, add sugar and dissolve.","Pour hot milk into semolina carefully.","Stir constantly till thick. Add cardamom and nuts."],tips:"The semolina must be properly roasted or it will taste raw."},
+  {id:38,title:"Chicken Curry",time:40,cal:380,servings:3,rating:4.9,veg:false,healthy:true,emoji:"🍗",css:"food-curry",ingredients:["chicken","onion","tomato","yogurt","garlic","ginger","garam masala","oil","turmeric"],steps:["Marinate chicken with yogurt, turmeric and salt 20 min.","Make paste of onion, garlic, ginger.","Cook paste in oil till golden brown.","Add tomatoes and garam masala, cook 5 min.","Add chicken, sear, then add water. Simmer 20 min."],tips:"Marination is key for tender, flavorful chicken."},
+  {id:39,title:"Ven Pongal",time:25,cal:300,servings:2,rating:4.6,veg:true,healthy:true,emoji:"🥘",css:"food-khichdi",ingredients:["rice","moong dal","pepper","cumin","ginger","ghee","cashew","curry leaves"],steps:["Dry roast moong dal 2 min. Wash rice.","Pressure cook rice and dal together with water.","Heat ghee, add pepper, cumin, ginger.","Add curry leaves and cashews.","Mix tadka into rice-dal mixture. Serve hot."],tips:"Best served with coconut chutney and sambar."},
+  {id:40,title:"Masoor Dal",time:25,cal:195,servings:2,rating:4.5,veg:true,healthy:true,emoji:"🫘",css:"food-dal",ingredients:["masoor dal","onion","tomato","garlic","turmeric","cumin","ghee"],steps:["Boil dal with turmeric till soft (no pressure cooker needed).","Heat ghee, add cumin and garlic.","Add onion, cook golden, add tomatoes.","Pour tadka over cooked dal.","Simmer 5 min, add salt. Serve with rice."],tips:"Masoor dal needs no soaking and cooks quickly – great for weeknights."},
+  {id:41,title:"Bread Upma",time:12,cal:250,servings:2,rating:4.3,veg:true,healthy:false,emoji:"🍞",css:"food-sandwich",ingredients:["bread","onion","tomato","mustard seeds","curry leaves","green chili","oil","salt"],steps:["Tear bread into small pieces.","Heat oil, add mustard seeds, curry leaves, chili.","Add onion, sauté 2 min. Add tomato.","Add bread pieces, toss gently.","Add salt and a splash of water. Mix and serve."],tips:"Perfect use for stale bread!"},
+  {id:42,title:"Palak Soup",time:20,cal:110,servings:2,rating:4.4,veg:true,healthy:true,emoji:"🥬",css:"food-soup",ingredients:["spinach","onion","garlic","cream","butter","salt","pepper","nutmeg"],steps:["Sauté onion and garlic in butter.","Add spinach, wilt for 3 min.","Add water or stock, simmer 10 min.","Blend smooth, strain if desired.","Add cream, salt, pepper, pinch of nutmeg. Serve hot."],tips:"A pinch of nutmeg elevates spinach soup to restaurant level."},
+  {id:43,title:"Coconut Rice",time:20,cal:280,servings:2,rating:4.5,veg:true,healthy:false,emoji:"🥥",css:"food-rice",ingredients:["rice","coconut","mustard seeds","curry leaves","cashew","ghee","salt"],steps:["Cook rice, let it cool slightly.","Heat ghee, fry cashews till golden.","Add mustard seeds, curry leaves.","Add grated coconut, stir 2 min.","Mix everything with rice. Serve warm."],tips:"Use freshly grated coconut for the best flavor."},
+  {id:44,title:"Lemon Rice",time:15,cal:260,servings:2,rating:4.6,veg:true,healthy:true,emoji:"🍋",css:"food-rice",ingredients:["rice","lemon","mustard seeds","peanuts","turmeric","curry leaves","oil","salt"],steps:["Cook rice and let it cool.","Heat oil, fry peanuts till crispy.","Add mustard, curry leaves, turmeric.","Add rice and lemon juice, toss well.","Adjust salt and serve at room temperature."],tips:"Cooling the rice first prevents it from becoming mushy."},
+  {id:45,title:"Egg Bhurji",time:10,cal:200,servings:2,rating:4.5,veg:false,healthy:true,emoji:"🥚",css:"food-omelette",ingredients:["egg","onion","tomato","green chili","turmeric","oil","salt","coriander"],steps:["Heat oil in pan, add onion and chili.","Sauté 2 min till onion softens.","Add tomato and turmeric, cook 2 min.","Crack eggs directly into pan.","Scramble on medium heat till just set. Add coriander."],tips:"Add a small cube of butter at the end for richness."},
+  {id:46,title:"Vegetable Sandwich",time:10,cal:290,servings:2,rating:4.3,veg:true,healthy:true,emoji:"🥪",css:"food-sandwich",ingredients:["bread","cucumber","tomato","onion","cheese","green chutney","butter"],steps:["Spread green chutney on one side of bread.","Layer cucumber, tomato, onion slices.","Add cheese slice.","Butter the outside of bread.","Grill in sandwich maker till golden and crispy."],tips:"Adding a layer of cheese prevents the sandwich from getting soggy."},
+  {id:47,title:"Besan Cheela",time:15,cal:180,servings:2,rating:4.4,veg:true,healthy:true,emoji:"🥞",css:"food-roti",ingredients:["besan","onion","tomato","green chili","cumin","turmeric","oil","salt"],steps:["Make smooth batter with besan, water and spices.","Add finely chopped onion, tomato, chili to batter.","Heat non-stick pan with little oil.","Pour batter, spread thin.","Cook both sides till golden. Serve with yogurt."],tips:"Besan cheela batter should be lump-free for even cooking."},
+  {id:48,title:"Pumpkin Curry",time:25,cal:160,servings:2,rating:4.4,veg:true,healthy:true,emoji:"🎃",css:"food-curry",ingredients:["pumpkin","onion","tomato","mustard seeds","cumin","turmeric","oil","amchur"],steps:["Peel and dice pumpkin into cubes.","Heat oil, add mustard seeds and cumin.","Add onion, sauté 3 min.","Add tomatoes, turmeric, cook soft.","Add pumpkin, amchur, cook covered 15 min."],tips:"Amchur (dry mango powder) balances the sweetness of pumpkin perfectly."},
+  {id:49,title:"Methi Paratha",time:25,cal:290,servings:2,rating:4.6,veg:true,healthy:true,emoji:"🌿",css:"food-roti",ingredients:["wheat flour","fenugreek leaves","garlic","cumin","green chili","ghee","salt"],steps:["Mix chopped fenugreek leaves into flour.","Add garlic, cumin, chili, salt and water.","Knead to soft dough, rest 10 min.","Roll into medium thick circles.","Cook on hot tawa with ghee both sides."],tips:"The slight bitterness of methi makes these incredibly healthy and tasty."},
+  {id:50,title:"Shahi Tukda",time:20,cal:420,servings:2,rating:4.7,veg:true,healthy:false,emoji:"🍮",css:"food-rice",ingredients:["bread","milk","sugar","cardamom","saffron","cream","rose water","ghee","pistachio"],steps:["Fry bread in ghee till golden brown.","Make rabri: reduce milk with sugar till thick.","Add cardamom, saffron, rose water to rabri.","Place fried bread in serving dish.","Pour warm rabri over bread. Top with pistachios."],tips:"Soaking the fried bread in sugar syrup first makes it even richer."},
+  {id:51,title:"Kadai Paneer",time:30,cal:360,servings:2,rating:4.8,veg:true,healthy:false,emoji:"🥘",css:"food-paneer",ingredients:["paneer","capsicum","onion","tomato","garlic","ginger","kadai masala","cream"],steps:["Make fresh kadai masala by coarsely grinding coriander, red chili.","Cook onion, garlic, ginger paste in oil.","Add tomatoes, cook till oil separates.","Add capsicum, cook 3 min. Add kadai masala.","Add paneer cubes and cream. Cook 5 min."],tips:"Coarsely ground fresh spices are what makes kadai dishes special."},
+  {id:52,title:"Thepla",time:20,cal:230,servings:3,rating:4.5,veg:true,healthy:true,emoji:"🫓",css:"food-roti",ingredients:["wheat flour","fenugreek leaves","yogurt","turmeric","cumin","sesame seeds","oil"],steps:["Mix all ingredients together to make soft dough.","Use yogurt as binding agent.","Roll into thin flat circles.","Cook on hot tawa with little oil.","Press with spatula for even cooking."],tips:"Theplas stay fresh for 3-4 days – great for travel."},
+  {id:53,title:"Moong Dal Soup",time:20,cal:140,servings:2,rating:4.4,veg:true,healthy:true,emoji:"🥣",css:"food-soup",ingredients:["moong dal","ginger","garlic","cumin","turmeric","lemon","salt"],steps:["Wash moong dal thoroughly.","Pressure cook with ginger, garlic, turmeric.","Blend smooth or leave chunky as preferred.","In pan, add cumin tadka in oil.","Pour over dal soup, add lemon juice and salt."],tips:"This light soup is perfect for sick days or weight loss."},
+  {id:54,title:"French Toast",time:10,cal:300,servings:2,rating:4.5,veg:false,healthy:false,emoji:"🍞",css:"food-sandwich",ingredients:["bread","egg","milk","sugar","vanilla","butter","cinnamon"],steps:["Beat eggs with milk, sugar, vanilla and cinnamon.","Soak bread slices in egg mixture 30 seconds each side.","Heat butter in pan on medium heat.","Cook soaked bread 2 min each side till golden.","Serve with maple syrup or honey."],tips:"Use thick brioche bread for the most indulgent French toast."},
+  {id:55,title:"Choley Bhature",time:50,cal:480,servings:2,rating:4.9,veg:true,healthy:false,emoji:"🫓",css:"food-pakora",ingredients:["chickpea","flour","yogurt","baking soda","onion","tomato","chana masala","oil"],steps:["Soak chickpeas overnight, pressure cook with spices.","Make bhatura dough with flour, yogurt, baking soda.","Rest dough 1 hour.","Make thick gravy for chole with onion, tomato, masala.","Roll and deep fry bhaturas till puffed. Serve together."],tips:"Bhatura dough needs proper resting time to develop gluten."},
+  {id:56,title:"Aloo Baingan",time:25,cal:180,servings:2,rating:4.4,veg:true,healthy:true,emoji:"🍆",css:"food-sabzi",ingredients:["potato","eggplant","onion","tomato","turmeric","cumin","oil","garam masala"],steps:["Cube potatoes and eggplant.","Heat oil, add cumin seeds.","Add onion, sauté golden.","Add tomatoes, turmeric, garam masala.","Add vegetables, cover and cook 15 min stirring occasionally."],tips:"Salting eggplant pieces and resting 10 min removes bitterness."},
+  {id:57,title:"Mango Lassi",time:5,cal:180,servings:2,rating:4.8,veg:true,healthy:true,emoji:"🥭",css:"food-soup",ingredients:["mango","yogurt","milk","sugar","cardamom","ice"],steps:["Peel and dice ripe mango.","Blend mango with yogurt and milk.","Add sugar and cardamom powder.","Add ice cubes, blend till frothy.","Pour in tall glasses and serve immediately."],tips:"Alphonso mangoes make the best lassi. Frozen mango works great year-round."},
+  {id:58,title:"Gajar Ka Halwa",time:40,cal:350,servings:4,rating:4.9,veg:true,healthy:false,emoji:"🥕",css:"food-dal",ingredients:["carrot","milk","sugar","ghee","cardamom","cashew","khoya"],steps:["Grate carrots finely.","Cook in heavy pan with milk on medium heat, stirring.","Cook till milk is absorbed, about 25 min.","Add ghee, sugar and cook till dry.","Add khoya, cardamom, nuts. Stir and serve."],tips:"Slow cooking brings out the natural sweetness of carrots."},
+  {id:59,title:"Cabbage Sabzi",time:15,cal:120,servings:2,rating:4.2,veg:true,healthy:true,emoji:"🥬",css:"food-sabzi",ingredients:["cabbage","mustard seeds","green chili","turmeric","oil","salt","lemon"],steps:["Shred cabbage finely.","Heat oil, add mustard seeds till they pop.","Add green chili, then shredded cabbage.","Add turmeric and salt, toss on high heat.","Cook 5-7 min till slightly tender. Squeeze lemon and serve."],tips:"Don't overcook – cabbage is best when it still has a slight crunch."},
+  {id:60,title:"Matar Pulao",time:25,cal:310,servings:3,rating:4.6,veg:true,healthy:true,emoji:"🫛",css:"food-biryani",ingredients:["rice","peas","onion","cumin","bay leaf","cardamom","ghee","salt"],steps:["Wash and soak rice 15 min.","Heat ghee, add whole spices and cumin.","Add onion, sauté golden.","Add peas and rice, sauté 2 min.","Add water (1:2 ratio) and salt. Cook covered till rice is done."],tips:"Whole spices should be tempered before adding onion for maximum aroma."},
+  {id:61,title:"Crispy Bhindi",time:20,cal:160,servings:2,rating:4.7,veg:true,healthy:true,emoji:"🥗",css:"food-sabzi",ingredients:["okra","onion","turmeric","chili powder","amchur","oil","salt","besan"],steps:["Wash okra, dry thoroughly. Slice into thin rounds.","Mix with besan, turmeric, chili, amchur, salt.","Heat oil in wide pan.","Spread okra in single layer, cook on medium-high.","Toss every 3 min till crispy and golden."],tips:"Okra must be completely dry before cooking or it becomes slimy."},
+  {id:62,title:"Paneer Paratha",time:25,cal:360,servings:2,rating:4.8,veg:true,healthy:false,emoji:"🫓",css:"food-paneer",ingredients:["wheat flour","paneer","green chili","ginger","cumin","coriander","ghee","salt"],steps:["Grate paneer, mix with green chili, ginger, cumin, coriander.","Make soft dough with flour and water.","Roll dough circle, place paneer filling in center.","Seal edges, roll gently without breaking.","Cook on tawa with ghee both sides till golden."],tips:"Keep paneer filling slightly dry by pressing in a cloth first."},
+  {id:63,title:"Shakshuka",time:20,cal:240,servings:2,rating:4.6,veg:false,healthy:true,emoji:"🍅",css:"food-omelette",ingredients:["egg","tomato","onion","garlic","capsicum","cumin","paprika","oil"],steps:["Heat oil, sauté onion, garlic and capsicum.","Add tomatoes, cumin, paprika.","Simmer sauce 10 min till thick.","Make small wells in sauce.","Crack eggs into wells, cover, cook 5 min till whites set."],tips:"Serve directly from the pan with crusty bread."},
+  {id:64,title:"Lauki Dal",time:30,cal:180,servings:3,rating:4.4,veg:true,healthy:true,emoji:"🥬",css:"food-dal",ingredients:["lauki","moong dal","tomato","garlic","cumin","turmeric","ghee","salt"],steps:["Peel and dice lauki (bottle gourd).","Pressure cook moong dal and lauki together.","Heat ghee, add cumin and garlic.","Add tomatoes, cook soft.","Mix into dal, simmer 5 min. Adjust salt."],tips:"Lauki adds a cooling effect – great for summer meals."},
+  {id:65,title:"Chili Paneer",time:25,cal:380,servings:2,rating:4.8,veg:true,healthy:false,emoji:"🌶️",css:"food-paneer",ingredients:["paneer","capsicum","onion","soy sauce","chili sauce","garlic","cornstarch","oil"],steps:["Coat paneer cubes in cornstarch, fry till golden.","Heat oil in wok, add garlic.","Add onion and capsicum, toss on high heat.","Add soy sauce and chili sauce, toss 2 min.","Add fried paneer, toss everything together. Serve hot."],tips:"High flame stir-frying gives the authentic Indo-Chinese smoky flavor."},
+  {id:66,title:"Mango Salad",time:10,cal:130,servings:2,rating:4.5,veg:true,healthy:true,emoji:"🥭",css:"food-salad",ingredients:["raw mango","onion","tomato","green chili","coriander","lemon","chaat masala","salt"],steps:["Dice raw mango, onion, tomato finely.","Slice green chili thin.","Mix all vegetables together in bowl.","Add lemon juice and chaat masala.","Toss well with coriander. Serve immediately."],tips:"Raw mango salad pairs perfectly with dal and rice."},
+  {id:67,title:"Dahi Aloo",time:20,cal:240,servings:2,rating:4.5,veg:true,healthy:true,emoji:"🥔",css:"food-aloo",ingredients:["potato","yogurt","cumin","red chili","turmeric","oil","coriander","salt"],steps:["Boil and cube potatoes.","Beat yogurt smooth.","Heat oil, add cumin seeds.","Add potatoes and turmeric, toss.","Add beaten yogurt on low heat, mix gently. Add coriander."],tips:"Adding yogurt on low heat prevents it from curdling."},
+  {id:68,title:"Sprouts Salad",time:10,cal:100,servings:2,rating:4.4,veg:true,healthy:true,emoji:"🌱",css:"food-salad",ingredients:["moong sprouts","tomato","onion","cucumber","lemon","chaat masala","salt","coriander"],steps:["Steam sprouts 5 min to soften slightly.","Dice tomato, onion and cucumber.","Mix sprouts with vegetables.","Add lemon juice, chaat masala and salt.","Toss with coriander and serve."],tips:"Sprouting at home is easy – soak dal overnight, drain and keep moist for 2 days."},
+  {id:69,title:"Dal Makhani",time:45,cal:380,servings:3,rating:4.9,veg:true,healthy:false,emoji:"🍛",css:"food-dal",ingredients:["black dal","kidney beans","butter","cream","onion","tomato","garlic","ginger","garam masala"],steps:["Soak dal and rajma overnight, pressure cook till very soft.","Make onion-tomato-garlic-ginger masala.","Combine dal with masala, simmer 20 min.","Add butter and cream, stir gently.","Simmer on lowest heat 10 min. Serve with naan."],tips:"The longer you simmer, the richer and creamier it gets."},
+  {id:70,title:"Vegetable Soup",time:20,cal:100,servings:3,rating:4.3,veg:true,healthy:true,emoji:"🥦",css:"food-soup",ingredients:["carrot","potato","peas","onion","garlic","salt","pepper","herbs"],steps:["Dice all vegetables evenly.","Sauté onion and garlic in a splash of oil.","Add all vegetables and water.","Simmer 15 min till vegetables are tender.","Add salt, pepper and fresh herbs. Serve hot."],tips:"A parmesan rind added during simmering gives incredible depth."},
+  {id:71,title:"Chicken Fried Rice",time:20,cal:420,servings:2,rating:4.7,veg:false,healthy:false,emoji:"🍗",css:"food-biryani",ingredients:["rice","chicken","egg","soy sauce","garlic","spring onion","oil","sesame oil"],steps:["Use day-old rice for best texture.","Stir-fry chicken pieces in hot oil till golden.","Push aside, scramble eggs in same wok.","Add garlic, then rice, toss on high heat.","Add soy sauce, spring onion, sesame oil. Toss and serve."],tips:"Sesame oil is added at the very end for maximum flavor."},
+  {id:72,title:"Aloo Sabzi (Simple)",time:12,cal:150,servings:2,rating:4.4,veg:true,healthy:true,emoji:"🥔",css:"food-aloo",ingredients:["potato","mustard seeds","turmeric","oil","salt","curry leaves"],steps:["Boil and peel potatoes, cut into cubes.","Heat oil, add mustard seeds till they pop.","Add curry leaves, then turmeric.","Add potatoes and salt.","Toss on medium heat 4-5 min. Serve with dal and rice."],tips:"Using slightly undercooked boiled potatoes gives better texture when fried."},
+  {id:73,title:"Avocado Toast",time:8,cal:280,servings:1,rating:4.5,veg:true,healthy:true,emoji:"🥑",css:"food-sandwich",ingredients:["bread","avocado","lemon","salt","pepper","red chili flakes","olive oil"],steps:["Toast bread till golden and crispy.","Mash ripe avocado with fork.","Season with lemon juice, salt and pepper.","Spread on toast.","Top with chili flakes and a drizzle of olive oil."],tips:"Ripe avocado should yield to gentle pressure. Never refrigerate unripe avocados."},
+  {id:74,title:"Sooji Upma",time:15,cal:240,servings:2,rating:4.3,veg:true,healthy:true,emoji:"🍽️",css:"food-khichdi",ingredients:["semolina","onion","mustard seeds","curry leaves","green chili","ghee","salt","cashew"],steps:["Dry roast semolina till lightly golden.","Heat ghee, add mustard, cashews, curry leaves.","Add onion and chili, cook 2 min.","Add 2 cups boiling water, salt.","Add semolina slowly, stir till thick. Serve hot."],tips:"Kashmiri version adds cardamom and saffron for a festive twist."},
+  {id:75,title:"Gajar Matar Sabzi",time:18,cal:140,servings:2,rating:4.4,veg:true,healthy:true,emoji:"🥕",css:"food-sabzi",ingredients:["carrot","peas","onion","tomato","cumin","turmeric","oil","garam masala"],steps:["Heat oil, add cumin seeds.","Add onion, sauté 3 min.","Add tomatoes, turmeric and garam masala.","Add diced carrots and peas. Mix well.","Add splash of water, cover and cook 12 min."],tips:"A squeeze of lemon at the end brightens all the flavors."}
+];
+
+// ══════════════════════════════════════
+// NAVIGATION
+// ══════════════════════════════════════
+const SCREENS = ['s-home','s-list','s-detail','s-saved','s-fav','s-profile','s-privacy'];
+const NAV_MAP = {'s-home':'nb-home','s-list':'nb-home','s-detail':'nb-home','s-saved':'nb-saved','s-fav':'nb-fav','s-profile':'nb-profile','s-privacy':'nb-profile'};
+
+function goTo(id){
+  SCREENS.forEach(s=>document.getElementById(s).classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+  document.getElementById('bottom-nav').style.display = (id==='s-detail'||id==='s-privacy') ? 'none' : 'flex';
+  document.querySelectorAll('.nav-btn').forEach(b=>{ b.classList.remove('active'); const d=b.querySelector('.nav-dot'); if(d)d.remove(); });
+  const nb=document.getElementById(NAV_MAP[id]);
+  if(nb){ nb.classList.add('active'); const dot=document.createElement('div'); dot.className='nav-dot'; nb.appendChild(dot); }
+}
+function navTo(id){ goTo(id); }
+function setTab(el,filter){
+  el.closest('.tabs-row').querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active'); activeTabFilter=filter||'all'; renderList();
+}
+function toggleFilter(el){ el.classList.toggle('active'); }
+
+// ══════════════════════════════════════
+// DARK MODE
+// ══════════════════════════════════════
+function toggleDarkMode(){
+  darkMode=!darkMode;
+  document.body.classList.toggle('dark',darkMode);
+  document.getElementById('dark-toggle').classList.toggle('on',darkMode);
+  localStorage.setItem('darkMode',darkMode);
+}
+
+// ══════════════════════════════════════
+// PROFILE
+// ══════════════════════════════════════
+function openProfileEdit(){
+  document.getElementById('profile-name-input').value=userName;
+  document.getElementById('profile-modal').style.display='flex';
+}
+function closeProfileEdit(){ document.getElementById('profile-modal').style.display='none'; }
+function saveProfileName(){
+  const v=document.getElementById('profile-name-input').value.trim();
+  if(!v) return;
+  userName=v;
+  localStorage.setItem('userName',userName);
+  updateProfileUI();
+  closeProfileEdit();
+  toast('✅ Name updated!');
+}
+
+// ══════════════════════════════════════
+// INGREDIENTS
+// ══════════════════════════════════════
+const EMOJI_MAP={potato:'🥔',tomato:'🍅',onion:'🧅',garlic:'🧄',chili:'🌶️',egg:'🥚',cheese:'🧀',carrot:'🥕',spinach:'🥬',rice:'🍚',lemon:'🍋',ginger:'🫚',peas:'🫛',dal:'🫘',bread:'🍞',milk:'🥛',mango:'🥭',banana:'🍌',cucumber:'🥒',avocado:'🥑',paneer:'🧀',chickpea:'🫘',pasta:'🍝',oats:'🌾',cabbage:'🥬',eggplant:'🍆',cauliflower:'🥦',okra:'🥗',yogurt:'🍶',flour:'🫙',butter:'🧈',chicken:'🍗',mushroom:'🍄',capsicum:'🫑',corn:'🌽',besan:'🫙',semolina:'🫙',coconut:'🥥',pumpkin:'🎃'};
+function addIngredient(){
+  const inp=document.getElementById('ingInput');
+  const v=inp.value.trim(); if(!v) return;
+  const em=EMOJI_MAP[v.toLowerCase()]||'🥗';
+  const c=document.createElement('div'); c.className='chip';
+  c.innerHTML=`<span class="chip-emoji">${em}</span>${v}<span class="chip-x" onclick="removeChip(this)">✕</span>`;
+  document.getElementById('chips-row').appendChild(c);
+  inp.value=''; updateCount();
+}
+function removeChip(x){ x.closest('.chip').remove(); updateCount(); }
+function clearAll(){ document.getElementById('chips-row').innerHTML=''; updateCount(); }
+function updateCount(){
+  document.getElementById('ing-count').textContent=`Your Ingredients (${document.getElementById('chips-row').children.length})`;
+}
+document.getElementById('ingInput').addEventListener('keypress',e=>{ if(e.key==='Enter') addIngredient(); });
+
+// ══════════════════════════════════════
+// MATCHING
+// ══════════════════════════════════════
+function getUserIngs(){
+  return Array.from(document.getElementById('chips-row').querySelectorAll('.chip'))
+    .map(c=>c.textContent.replace('✕','').trim().toLowerCase());
+}
+function score(r,uIngs){
+  if(!uIngs.length) return {matched:r.ingredients.length,total:r.ingredients.length,pct:100};
+  let m=0;
+  r.ingredients.forEach(i=>{ const il=i.toLowerCase(); if(uIngs.some(u=>il.includes(u)||u.includes(il.split(' ')[0]))) m++; });
+  return {matched:m,total:r.ingredients.length,pct:Math.round(m/r.ingredients.length*100)};
+}
+function findRecipes(){
+  const uIngs=getUserIngs();
+  document.getElementById('list-sub-txt').textContent=uIngs.length?`Based on your ${uIngs.length} ingredient${uIngs.length!==1?'s':''}`:'Popular recipes for you';
+  activeTabFilter='all';
+  document.querySelectorAll('#s-list .tab').forEach((t,i)=>t.classList.toggle('active',i===0));
+  let scored=DB.map(r=>({...r,...score(r,uIngs)}));
+  if(uIngs.length) scored=scored.filter(r=>r.pct>0).sort((a,b)=>b.pct-a.pct||b.rating-a.rating);
+  else scored=scored.sort((a,b)=>b.rating-a.rating);
+  if(scored.length){
+    currentListRecipes=scored.slice(0,12); renderList(); goTo('s-list');
+  } else {
+    currentListRecipes=[]; goTo('s-list');
+    if(GROQ_API_KEY) aiGenerate(uIngs);
+    else document.getElementById('recipe-cards-container').innerHTML=`<div class="no-results"><p>No matches found 🤔</p><span>Try adding more common ingredients like potato, tomato, onion, egg...</span></div>`;
+  }
+}
+function renderList(){
+  const c=document.getElementById('recipe-cards-container');
+  let list=currentListRecipes;
+  if(activeTabFilter==='veg') list=list.filter(r=>r.veg);
+  if(activeTabFilter==='quick') list=list.filter(r=>r.time<=20);
+  if(activeTabFilter==='healthy') list=list.filter(r=>r.healthy);
+  if(!list.length){ c.innerHTML=`<div class="no-results"><p>No recipes for this filter 🔍</p><span>Try a different tab</span></div>`; return; }
+  c.innerHTML=list.map(r=>{
+    const liked=favRecipes.includes(r.id);
+    const tagCls=r.aiGenerated?'ai':(r.pct>=80?'g':'o');
+    const tagTxt=r.aiGenerated?'✨ AI Generated':(r.pct===100?'✓ You have all ingredients':`You have ${r.matched}/${r.total} ingredients`);
+    return `<div class="rcard" onclick="showDetail(${r.id})">
+      <div class="rcard-img"><div class="food-img ${r.css}"><div class="food-emoji">${r.emoji}</div></div></div>
+      <div class="rcard-body">
+        <h3>${r.title}</h3>
+        <div class="rmeta">
+          <span><svg viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>${r.time} min</span>
+          <span><span class="star">★</span>${r.rating}</span>
+        </div>
+        <span class="itag ${tagCls}">${tagTxt}</span>
+      </div>
+      <div class="heart-ico ${liked?'liked':''}" onclick="event.stopPropagation();toggleFavById(${r.id},this)">
+        <svg viewBox="0 0 24 24" fill="${liked?'var(--red)':'none'}" stroke="${liked?'var(--red)':'currentColor'}" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ══════════════════════════════════════
+// DETAIL
+// ══════════════════════════════════════
+const GRAD={
+  'food-aloo':'linear-gradient(145deg,#c0392b,#5d1010)',
+  'food-pasta':'linear-gradient(145deg,#f0a500,#8b5e00)',
+  'food-pakora':'linear-gradient(145deg,#8B4513,#3B1A06)',
+  'food-omelette':'linear-gradient(145deg,#f9d342,#b8860b)',
+  'food-curry':'linear-gradient(145deg,#27ae60,#0d4d2b)',
+  'food-jeera':'linear-gradient(145deg,#d4a017,#6b5000)',
+  'food-rice':'linear-gradient(145deg,#e8d8a0,#8a6a10)',
+  'food-dal':'linear-gradient(145deg,#e8a020,#7a4500)',
+  'food-sabzi':'linear-gradient(145deg,#4CAF50,#1B5E20)',
+  'food-soup':'linear-gradient(145deg,#ff7043,#7f2000)',
+  'food-roti':'linear-gradient(145deg,#f5deb3,#a0713a)',
+  'food-biryani':'linear-gradient(145deg,#FF8F00,#BF360C)',
+  'food-salad':'linear-gradient(145deg,#8BC34A,#33691E)',
+  'food-paneer':'linear-gradient(145deg,#ff6f00,#bf360c)',
+  'food-sandwich':'linear-gradient(145deg,#f9a825,#e65100)',
+  'food-khichdi':'linear-gradient(145deg,#fdd835,#e65100)'
+};
+function showDetail(id){
+  const r=currentListRecipes.find(x=>x.id===id)||savedRecipes.find(x=>x.id===id)||DB.find(x=>x.id===id);
+  if(!r) return;
+  currentRecipe=r;
+  const uIngs=getUserIngs();
+  document.getElementById('detail-title').textContent=r.title;
+  document.getElementById('detail-rating').textContent=`⭐ ${r.rating}`;
+  document.getElementById('detail-time').textContent=`${r.time} min`;
+  document.getElementById('detail-servings').textContent=r.servings;
+  document.getElementById('detail-cal').textContent=r.cal;
+  // Hero
+  const hero=document.getElementById('detail-hero');
+  hero.style.background=GRAD[r.css]||'linear-gradient(145deg,#2d8a56,#0d4d2b)';
+  document.getElementById('detail-emoji-big').textContent=r.emoji;
+  // Ingredients
+  document.getElementById('detail-ing-list').innerHTML=r.ingredients.map(ing=>{
+    const have=uIngs.some(u=>ing.toLowerCase().includes(u)||u.includes(ing.toLowerCase().split(' ')[0]));
+    return `<div class="ing-row"><div class="ing-left"><div class="ck ${have?'y':'n'}">${have?'✓':'✕'}</div><span class="ing-name">${ing.charAt(0).toUpperCase()+ing.slice(1)}</span></div><span class="ing-st ${have?'y':'n'}">${have?'You have':'Get this'}</span></div>`;
+  }).join('');
+  // Steps
+  document.getElementById('detail-steps-list').innerHTML=r.steps.map((s,i)=>`<div class="step-row"><div class="step-num">${i+1}</div><div class="step-txt">${s}</div></div>`).join('');
+  // Tips
+  if(r.tips){ document.getElementById('detail-tips').textContent=r.tips; document.getElementById('detail-tips-box').style.display='block'; }
+  else document.getElementById('detail-tips-box').style.display='none';
+  // Fav icon
+  const fi=document.getElementById('fav-glass-icon');
+  if(favRecipes.includes(r.id)){ fi.setAttribute('fill','var(--red)'); fi.setAttribute('stroke','var(--red)'); }
+  else { fi.setAttribute('fill','none'); fi.setAttribute('stroke','#fff'); }
+  goTo('s-detail');
+}
+
+// ══════════════════════════════════════
+// AI (GROQ)
+// ══════════════════════════════════════
+async function aiGenerate(ings){
+  if(!GROQ_API_KEY){
+    const k=prompt('Enter your Groq API key to use AI recipes:');
+    if(!k){ document.getElementById('recipe-cards-container').innerHTML=`<div class="no-results"><p>API key needed 🔑</p><span>Enter a Groq API key to generate AI recipes.</span></div>`; return; }
+    GROQ_API_KEY=k.trim();
+    sessionStorage.setItem('groqKey',GROQ_API_KEY);
+  }
+  document.getElementById('recipe-cards-container').innerHTML=`<div class="ai-loader"><div class="ai-spinner">🤖</div><div class="ai-label">✨ AI is cooking...</div><p>Generating custom recipes with AI...</p></div>`;
+  try{
+    const res=await fetch('https://api.groq.com/openai/v1/chat/completions',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':`Bearer ${GROQ_API_KEY}`},
+      body:JSON.stringify({model:'llama3-8b-8192',messages:[{role:'user',content:`Generate 3 home cooking recipes using: ${ings.join(', ')}. Respond ONLY with a valid JSON array (no markdown):\n[{"title":"...","time":20,"cal":250,"servings":2,"rating":4.5,"veg":true,"healthy":false,"emoji":"🍛","ingredients":["..."],"steps":["Step 1","Step 2","Step 3"],"tips":"..."}]`}],max_tokens:1500,temperature:0.7})
+    });
+    if(!res.ok) throw new Error(`API error ${res.status}`);
+    const data=await res.json();
+    const txt=data.choices[0].message.content.trim();
+    const match=txt.match(/\[[\s\S]*\]/);
+    if(!match) throw new Error('No JSON in response');
+    const recipes=JSON.parse(match[0]);
+    currentListRecipes=recipes.map((r,i)=>({...r,id:1000+i,css:'food-curry',matched:ings.length,total:ings.length,pct:90,aiGenerated:true}));
+    renderList();
+  }catch(e){
+    document.getElementById('recipe-cards-container').innerHTML=`<div class="no-results"><p>AI generation failed 😕</p><span>${e.message}</span></div>`;
+  }
+}
+
+// ══════════════════════════════════════
+// SAVE / FAV / TOAST
+// ══════════════════════════════════════
+function toast(msg){
+  const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2200);
+}
+function saveRecipe(){
+  if(!currentRecipe) return;
+  if(!savedRecipes.find(r=>r.id===currentRecipe.id)){
+    savedRecipes.push(currentRecipe);
+    localStorage.setItem('savedRecipes',JSON.stringify(savedRecipes));
+    updateSavedScreen();
+  }
+  toast('✅ Recipe saved!');
+}
+function toggleFavById(id,btn){
+  const idx=favRecipes.indexOf(id);
+  if(idx===-1) favRecipes.push(id); else favRecipes.splice(idx,1);
+  localStorage.setItem('favRecipes',JSON.stringify(favRecipes));
+  const liked=favRecipes.includes(id);
+  btn.classList.toggle('liked',liked);
+  btn.querySelector('svg').setAttribute('fill',liked?'var(--red)':'none');
+  btn.querySelector('svg').setAttribute('stroke',liked?'var(--red)':'currentColor');
+  updateFavScreen();
+}
+function toggleFavDetail(){
+  if(!currentRecipe) return;
+  const id=currentRecipe.id;
+  const idx=favRecipes.indexOf(id);
+  if(idx===-1) favRecipes.push(id); else favRecipes.splice(idx,1);
+  localStorage.setItem('favRecipes',JSON.stringify(favRecipes));
+  const fi=document.getElementById('fav-glass-icon');
+  if(favRecipes.includes(id)){ fi.setAttribute('fill','var(--red)'); fi.setAttribute('stroke','var(--red)'); }
+  else { fi.setAttribute('fill','none'); fi.setAttribute('stroke','#fff'); }
+  updateFavScreen();
+}
+function updateSavedScreen(){
+  const g=document.getElementById('saved-grid');
+  if(!savedRecipes.length){ g.innerHTML=`<div style="grid-column:1/-1;padding:40px 0;text-align:center;color:var(--text3);font-size:14px;font-weight:700;">No saved recipes yet 🍽️<br><span style="font-size:12px;font-weight:500;">Find and save recipes from home</span></div>`; return; }
+  g.innerHTML=savedRecipes.map(r=>`
+    <div class="sgrid-card" onclick="showDetail(${r.id})">
+      <div class="sgrid-img"><div class="food-img ${r.css}" style="width:100%;height:100%;"><div class="food-emoji" style="font-size:32px;">${r.emoji}</div></div>
+        <div class="sgrid-heart"><svg viewBox="0 0 24 24" fill="var(--red)" width="15" height="15"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+      </div>
+      <div class="sgrid-body"><h4>${r.title}</h4><div class="sgrid-meta"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>${r.time} min</div></div>
+    </div>`).join('');
+}
+function updateFavScreen(){
+  const fl=document.getElementById('fav-list');
+  const all=[...DB,...savedRecipes.filter(r=>r.id>=1000)];
+  const favs=all.filter(r=>favRecipes.includes(r.id));
+  if(!favs.length){ fl.innerHTML=`<div style="padding:40px 0;text-align:center;color:var(--text3);font-size:14px;font-weight:700;">No favorites yet ❤️<br><span style="font-size:12px;font-weight:500;">Heart recipes to add them here</span></div>`; return; }
+  fl.innerHTML=favs.map(r=>`
+    <div class="fav-item" onclick="showDetail(${r.id})">
+      <div class="fav-img"><div class="food-img ${r.css}" style="width:100%;height:100%;"><div class="food-emoji" style="font-size:22px;">${r.emoji}</div></div></div>
+      <div class="fav-body"><h4>${r.title}</h4><div class="fav-meta-row"><span><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>${r.time} min</span><span><span style="color:var(--yellow)">★</span>${r.rating}</span></div></div>
+      <div class="heart-filled"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+    </div>`).join('');
+}
+function clearHistory(){
+  if(!confirm('Clear all saved & favorites?')) return;
+  savedRecipes=[]; favRecipes=[];
+  localStorage.removeItem('savedRecipes'); localStorage.removeItem('favRecipes');
+  updateSavedScreen(); updateFavScreen(); toast('🗑️ History cleared');
+}
+function shareApp(){
+  if(navigator.share) navigator.share({title:'Cook What You Have',text:'Find recipes from ingredients you already have! 🍳',url:window.location.href});
+  else navigator.clipboard.writeText(window.location.href).then(()=>toast('🔗 Link copied!'));
+}
+
+// ══════════════════════════════════════
+// INIT
+// ══════════════════════════════════════
+const h=new Date().getHours();
+document.getElementById('greeting-txt').textContent=h<12?'👋 Good morning!':h<17?'👋 Good afternoon!':'👋 Good evening!';
+updateSavedScreen();
+updateFavScreen();
+</script>
+</body>
+</html>
