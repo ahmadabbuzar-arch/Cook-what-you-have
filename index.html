@@ -154,6 +154,7 @@ html,body { font-family:'Nunito',sans-serif; background:var(--bg); color:var(--t
 .step-row { display:flex; gap:14px; align-items:flex-start; }
 .step-num { width:30px; height:30px; border-radius:50%; background:var(--green); color:#fff; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:900; flex-shrink:0; }
 .step-txt { font-size:14px; color:var(--text2); line-height:1.55; padding-top:5px; font-weight:600; }
+.step-txt-hi { font-size:13px; color:var(--text3); line-height:1.5; font-weight:600; margin-top:3px; font-style:italic; }
 .tips-box { background:var(--green-light); border-radius:14px; padding:14px 16px; margin-bottom:22px; border:1px solid #c8e6d6; }
 .tips-title { font-size:12px; font-weight:800; color:var(--green); margin-bottom:6px; }
 .tips-box p { font-size:13px; color:var(--green); font-weight:700; line-height:1.5; }
@@ -244,6 +245,70 @@ html,body { font-family:'Nunito',sans-serif; background:var(--bg); color:var(--t
 /* TOAST */
 .toast { position:fixed; top:20px; left:50%; transform:translateX(-50%) translateY(-80px); background:var(--text); color:var(--card); padding:12px 20px; border-radius:50px; font-size:13px; font-weight:700; z-index:999; transition:transform .3s ease; white-space:nowrap; }
 .toast.show { transform:translateX(-50%) translateY(0); }
+
+/* CAMERA BUTTON */
+.btn-cam { padding:10px 12px; background:var(--green-light); color:var(--green); border:none; border-radius:12px; font-size:14px; font-weight:800; cursor:pointer; transition:transform .15s; display:flex; align-items:center; gap:4px; }
+.btn-cam:active { transform:scale(0.93); }
+.btn-cam svg { width:16px; height:16px; stroke:var(--green); fill:none; }
+
+/* CAMERA SCREEN */
+.cam-screen-topbar { background:linear-gradient(145deg,#1e5e3a 0%,#2d8a56 60%,#3daa6e 100%); padding:54px 24px 24px; }
+.cam-screen-topbar h2 { font-family:'Playfair Display',serif; font-size:24px; font-weight:800; color:#fff; margin-top:8px; }
+.cam-screen-topbar p { font-size:13px; color:rgba(255,255,255,0.75); margin-top:4px; }
+.cam-screen-body { padding:20px; }
+.cam-zone { border:2.5px dashed var(--green); border-radius:20px; min-height:200px; display:flex; align-items:center; justify-content:center; overflow:hidden; cursor:pointer; background:var(--green-light); transition:all .2s; margin-bottom:16px; }
+.cam-zone:hover { border-color:var(--green2); background:rgba(61,170,110,0.15); }
+.cam-zone-placeholder { text-align:center; padding:30px 20px; }
+.cam-zone-placeholder svg { width:56px; height:56px; stroke:var(--green); fill:none; opacity:0.7; margin-bottom:12px; }
+.cam-zone-placeholder h3 { font-size:16px; font-weight:800; color:var(--green); margin-bottom:6px; }
+.cam-zone-placeholder p { font-size:13px; color:var(--text3); font-weight:600; }
+.cam-info-box { background:var(--orange-light); border-radius:14px; padding:14px 16px; border:1px solid rgba(240,107,43,0.2); margin-top:16px; }
+.cam-info-box p { font-size:12px; color:var(--text2); line-height:1.6; font-weight:600; }
+
+/* RECIPE REAL IMAGE */
+.rcard-img img { width:100%; height:100%; object-fit:cover; border-radius:14px; }
+.detail-hero-img img { width:100%; height:100%; object-fit:cover; }
+.cat-card-img img { width:100%; height:100%; object-fit:cover; }
+.rcard-img .img-wrapper { width:100%; height:100%; position:relative; overflow:hidden; border-radius:14px; }
+.rcard-img .img-wrapper img { width:100%; height:100%; object-fit:cover; }
+.rcard-img .img-fallback { display:none; }
+.rcard-img .img-wrapper img.loaded + .img-fallback { display:none; }
+
+/* CAMERA CARD */
+.cam-card { margin:14px 20px 0; background:var(--card); border:1.5px solid var(--border); border-radius:16px; padding:16px 18px; display:flex; align-items:center; gap:14px; cursor:pointer; box-shadow:var(--shadow2); transition:transform .15s; }
+.cam-card:active { transform:scale(0.98); }
+.cam-card-icon { width:44px; height:44px; background:var(--green-light); border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.cam-card-icon svg { width:22px; height:22px; stroke:var(--green); }
+.cam-card-title { font-size:14px; font-weight:800; color:var(--text); }
+.cam-card-sub { font-size:12px; color:var(--text3); font-weight:600; margin-top:2px; }
+
+/* CAMERA BUTTON (kept for compatibility) */
+.btn-cam { display:none; }
+
+/* MODAL */
+.modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.55); z-index:500; display:flex; align-items:flex-end; justify-content:center; }
+.modal-box { background:var(--card); border-radius:24px 24px 0 0; padding:24px 20px 36px; width:100%; max-width:430px; max-height:88vh; overflow-y:auto; }
+.modal-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; }
+.modal-title { font-size:17px; font-weight:800; }
+.modal-close { width:30px; height:30px; background:var(--border); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:14px; cursor:pointer; font-weight:800; }
+.cam-preview-box { border:2px dashed var(--border); border-radius:16px; min-height:140px; display:flex; align-items:center; justify-content:center; overflow:hidden; cursor:pointer; }
+.cam-placeholder { text-align:center; padding:20px; }
+#cam-preview-box img { width:100%; border-radius:14px; }
+
+/* CATEGORY SECTION */
+.cat-section { padding:20px 0 10px; }
+.cat-scroll { display:flex; gap:10px; overflow-x:auto; padding:0 20px 14px; scrollbar-width:none; }
+.cat-scroll::-webkit-scrollbar { display:none; }
+.cat-tab { flex-shrink:0; padding:8px 16px; border-radius:50px; font-size:13px; font-weight:800; cursor:pointer; border:2px solid var(--border); color:var(--text2); background:var(--card); white-space:nowrap; transition:all .2s; }
+.cat-tab.active { background:var(--green); color:#fff; border-color:var(--green); }
+.cat-recipes-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; padding:0 20px 10px; }
+.cat-card { background:var(--card); border-radius:var(--r2); overflow:hidden; box-shadow:var(--shadow2); cursor:pointer; transition:transform .15s; }
+.cat-card:active { transform:scale(0.97); }
+.cat-card-img { height:90px; display:flex; align-items:center; justify-content:center; font-size:36px; position:relative; }
+.cat-card-body { padding:10px 10px 12px; }
+.cat-card-body h4 { font-size:13px; font-weight:800; margin-bottom:4px; line-height:1.3; }
+.cat-card-meta { font-size:11px; color:var(--text3); font-weight:600; display:flex; gap:8px; align-items:center; }
+.cat-more-btn { grid-column:1/-1; text-align:center; padding:10px; font-size:13px; font-weight:700; color:var(--green); cursor:pointer; }
 </style>
 </head>
 <body>
@@ -262,7 +327,7 @@ html,body { font-family:'Nunito',sans-serif; background:var(--bg); color:var(--t
       <div class="hero-sub">Add ingredients &amp; find the best recipes 🌿</div>
     </div>
     <div class="search-bar">
-      <input type="text" id="ingInput" placeholder="Add ingredient (e.g. Potato)...">
+      <input type="text" id="ingInput" placeholder="Add ingredient (e.g. Aalu, potato)...">
       <button class="btn-add" onclick="addIngredient()">+ Add</button>
     </div>
     <div class="ingredients-wrap">
@@ -272,7 +337,42 @@ html,body { font-family:'Nunito',sans-serif; background:var(--bg); color:var(--t
       </div>
       <div class="chips-row" id="chips-row"></div>
     </div>
+    <!-- CAMERA CARD -->
+    <div class="cam-card" onclick="openCameraModal()">
+      <div class="cam-card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg>
+      </div>
+      <div>
+        <div class="cam-card-title">Scan Ingredients</div>
+        <div class="cam-card-sub">Take a photo of your leftovers</div>
+      </div>
+    </div>
     <button class="find-btn" onclick="findRecipes()">🍳 Find Recipes</button>
+    <!-- CAMERA MODAL -->
+    <div class="modal-overlay" id="cam-modal" style="display:none;" onclick="if(event.target===this)closeCameraModal()">
+      <div class="modal-box">
+        <div class="modal-header">
+          <span class="modal-title">Scan Ingredients</span>
+          <div class="modal-close" onclick="closeCameraModal()">✕</div>
+        </div>
+        <p style="font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.5;">AI will detect your ingredients automatically!</p>
+        <input type="file" id="cam-input" accept="image/*" capture="environment" style="display:none" onchange="analyzeImage(this)">
+        <div class="cam-preview-box" id="cam-preview-box" onclick="document.getElementById('cam-input').click()">
+          <div class="cam-placeholder">
+            <svg viewBox="0 0 24 24" width="44" height="44" stroke="var(--green)" fill="none" stroke-width="1.5" style="opacity:0.7;"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg>
+            <div style="font-size:14px;font-weight:700;margin-top:8px;color:var(--text2)">Tap to open camera</div>
+            <div style="font-size:12px;color:var(--text3);margin-top:4px;">or select a photo from gallery</div>
+          </div>
+        </div>
+        <div id="cam-status" style="text-align:center;font-size:13px;font-weight:700;color:var(--green);min-height:20px;margin-top:10px;"></div>
+        <div id="cam-detected-chips" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;"></div>
+        <div style="display:flex;gap:10px;margin-top:16px;">
+          <button class="btn-sec" style="flex:1;" onclick="closeCameraModal()">Cancel</button>
+          <button class="btn-pri" id="cam-add-btn" style="flex:1;display:none;" onclick="addDetectedIngredients()">✅ Add All</button>
+        </div>
+
+      </div>
+    </div>
     <div class="filters-section">
       <div class="section-title">Quick Filters</div>
       <div class="filter-chips-row">
@@ -280,6 +380,12 @@ html,body { font-family:'Nunito',sans-serif; background:var(--bg); color:var(--t
         <div class="fcchip" onclick="toggleFilter(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>Veg Only</div>
         <div class="fcchip" onclick="toggleFilter(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>Healthy</div>
       </div>
+    </div>
+    <!-- CATEGORIES -->
+    <div class="cat-section" id="cat-section">
+      <div class="section-title" style="padding:0 20px;">Browse by Category</div>
+      <div class="cat-scroll" id="cat-tabs-row"></div>
+      <div class="cat-recipes-grid" id="cat-recipes-grid"></div>
     </div>
   </div>
 </div>
@@ -322,15 +428,15 @@ html,body { font-family:'Nunito',sans-serif; background:var(--bg); color:var(--t
     <div class="detail-body">
       <div class="detail-title-row"><h2 id="detail-title"></h2><div class="rate-badge" id="detail-rating"></div></div>
       <div class="info-strip">
-        <div class="istrip-item"><svg viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span class="val" id="detail-time"></span><span class="lbl">Cook Time</span></div>
-        <div class="istrip-item"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg><span class="val" id="detail-servings"></span><span class="lbl">Servings</span></div>
-        <div class="istrip-item"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M18 8h1a4 4 0 010 8h-1M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/></svg><span class="val" id="detail-cal"></span><span class="lbl">Calories</span></div>
+        <div class="istrip-item"><svg viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span class="val" id="detail-time"></span><span class="lbl">Cook Time / समय</span></div>
+        <div class="istrip-item"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg><span class="val" id="detail-servings"></span><span class="lbl">Servings / लोग</span></div>
+        <div class="istrip-item"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M18 8h1a4 4 0 010 8h-1M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/></svg><span class="val" id="detail-cal"></span><span class="lbl">Calories / कैलोरी</span></div>
       </div>
-      <div class="section-title">Ingredients</div>
+      <div class="section-title">Ingredients <span style="font-size:13px;font-weight:600;color:var(--text3)">/ सामग्री</span></div>
       <div class="ing-list" id="detail-ing-list"></div>
-      <div class="section-title">Steps</div>
+      <div class="section-title">Steps <span style="font-size:13px;font-weight:600;color:var(--text3)">/ बनाने का तरीका</span></div>
       <div class="steps-list" id="detail-steps-list"></div>
-      <div class="tips-box" id="detail-tips-box" style="display:none;"><div class="tips-title">💡 Pro Tips</div><p id="detail-tips"></p></div>
+      <div class="tips-box" id="detail-tips-box" style="display:none;"><div class="tips-title">💡 Pro Tips / टिप्स</div><p id="detail-tips"></p><p id="detail-tips-hi" style="margin-top:6px;color:var(--green);font-size:13px;font-weight:700;"></p></div>
       <div class="action-row">
         <button class="btn-sec" onclick="goTo('s-list')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1,4 1,10 7,10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>Try Another</button>
         <button class="btn-pri" onclick="saveRecipe()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>Save Recipe</button>
@@ -494,25 +600,22 @@ function updateProfileUI(){
 }
 updateProfileUI();
 
-// GROQ API key — stored in sessionStorage, entered by user or set via environment
-let GROQ_API_KEY = sessionStorage.getItem('groqKey') || '';
-
 // ══════════════════════════════════════
 // 75 RECIPE DATABASE
 // ══════════════════════════════════════
 const DB = [
-  {id:1,title:"Aloo Tamatar Sabzi",time:15,cal:180,servings:2,rating:4.6,veg:true,healthy:false,emoji:"🍛",css:"food-aloo",ingredients:["potato","tomato","onion","oil","cumin","turmeric","salt"],steps:["Heat oil, add cumin seeds till they crackle.","Add chopped onion, sauté till golden.","Add tomatoes, cook till soft.","Add diced potatoes, turmeric, salt. Mix well.","Cover and cook 10 min on low heat. Serve hot!"],tips:"Add a squeeze of lemon and fresh coriander at the end for freshness."},
-  {id:2,title:"Masala Omelette",time:10,cal:220,servings:1,rating:4.3,veg:false,healthy:true,emoji:"🍳",css:"food-omelette",ingredients:["egg","onion","tomato","green chili","salt","oil"],steps:["Beat 2 eggs with salt.","Add finely chopped onion, tomato, chili to eggs.","Heat oil in pan on medium heat.","Pour egg mixture, spread evenly.","Fold and cook 2 min each side. Serve hot."],tips:"Add cheese inside before folding for extra richness."},
-  {id:3,title:"Aloo Onion Pakora",time:18,cal:280,servings:2,rating:4.5,veg:true,healthy:false,emoji:"🧆",css:"food-pakora",ingredients:["potato","onion","besan","salt","chili powder","oil"],steps:["Thinly slice potatoes and onions.","Mix with besan, salt, chili powder and water to thick batter.","Heat oil in deep pan.","Drop spoonfuls into hot oil.","Fry till golden brown on both sides. Drain and serve."],tips:"Serve with green chutney and hot chai!"},
-  {id:4,title:"Masala Potato Pasta",time:20,cal:380,servings:2,rating:4.4,veg:true,healthy:false,emoji:"🍝",css:"food-pasta",ingredients:["pasta","potato","tomato","onion","oil","garam masala","cheese"],steps:["Boil pasta al dente, drain and set aside.","Dice potatoes and boil separately.","Sauté onions and tomatoes in oil till soft.","Add garam masala, then potatoes and pasta.","Toss everything together, top with cheese."],tips:"Use penne or fusilli for best results."},
-  {id:5,title:"Spicy Potato Curry",time:25,cal:210,servings:2,rating:4.7,veg:true,healthy:false,emoji:"🍲",css:"food-curry",ingredients:["potato","tomato","onion","garlic","ginger","chili","cumin","garam masala"],steps:["Heat oil, add cumin and let it splutter.","Add onion, garlic, ginger paste. Cook 5 min.","Add tomatoes, chili, cook till oil separates.","Add boiled potatoes, garam masala and water.","Simmer 10 min. Garnish with coriander."],tips:"For richer curry, add 2 tbsp cream at the end."},
-  {id:6,title:"Jeera Aloo",time:15,cal:160,servings:2,rating:4.2,veg:true,healthy:true,emoji:"🥘",css:"food-jeera",ingredients:["potato","cumin","oil","turmeric","salt","coriander"],steps:["Boil and cube potatoes.","Heat oil, add cumin seeds, let them sizzle.","Add potatoes, turmeric, salt.","Toss on high heat for 5 min.","Garnish with fresh coriander and serve."],tips:"Adding amchur (dry mango powder) gives a great tangy kick."},
-  {id:7,title:"Dal Tadka",time:30,cal:220,servings:3,rating:4.8,veg:true,healthy:true,emoji:"🍛",css:"food-dal",ingredients:["dal","onion","tomato","garlic","cumin","turmeric","ghee"],steps:["Pressure cook dal with turmeric till soft.","In a pan, heat ghee, add cumin and garlic.","Add onion and tomato, cook till soft.","Pour tadka over cooked dal.","Stir, simmer 5 min. Serve with rice or roti."],tips:"Using a mix of toor and masoor dal gives best flavor."},
-  {id:8,title:"Egg Fried Rice",time:15,cal:340,servings:2,rating:4.5,veg:false,healthy:false,emoji:"🍚",css:"food-rice",ingredients:["rice","egg","soy sauce","garlic","spring onion","oil","salt"],steps:["Use day-old cooked rice for best results.","Scramble eggs in hot oiled wok, remove.","Fry garlic, add rice, toss on high heat.","Add soy sauce, spring onion, eggs back.","Toss everything 2 min and serve hot."],tips:"High flame is key for authentic wok-style fried rice."},
-  {id:9,title:"Tomato Soup",time:20,cal:120,servings:2,rating:4.3,veg:true,healthy:true,emoji:"🍲",css:"food-soup",ingredients:["tomato","onion","garlic","butter","cream","salt","pepper"],steps:["Roast tomatoes, onion and garlic in butter.","Add water and simmer 10 min.","Blend smooth with a blender.","Strain, add cream, salt and pepper.","Heat through and serve with crusty bread."],tips:"Add a pinch of sugar to balance the acidity of tomatoes."},
-  {id:10,title:"Chapati / Roti",time:20,cal:100,servings:4,rating:4.9,veg:true,healthy:true,emoji:"🫓",css:"food-roti",ingredients:["wheat flour","water","salt","oil"],steps:["Mix flour with salt and water to make soft dough.","Knead 5 min, rest 10 min covered.","Divide into balls, roll into thin circles.","Cook on hot tawa 1 min each side till brown spots appear.","Apply ghee and serve hot."],tips:"Resting the dough makes softer rotis."},
-  {id:11,title:"Vegetable Khichdi",time:25,cal:280,servings:2,rating:4.6,veg:true,healthy:true,emoji:"🥘",css:"food-khichdi",ingredients:["rice","dal","onion","tomato","cumin","turmeric","ghee","salt"],steps:["Wash and soak rice and dal 15 min.","Heat ghee in pressure cooker, add cumin.","Add onion, tomato, sauté 3 min.","Add rice, dal, turmeric, salt, and 3 cups water.","Pressure cook 2 whistles. Serve with pickle."],tips:"A dollop of ghee on top before serving makes it heavenly."},
-  {id:12,title:"Paneer Bhurji",time:15,cal:290,servings:2,rating:4.7,veg:true,healthy:true,emoji:"🥚",css:"food-paneer",ingredients:["paneer","onion","tomato","green chili","turmeric","coriander","oil"],steps:["Crumble paneer and keep aside.","Sauté onion and green chili in oil till soft.","Add tomatoes, cook till mushy.","Add turmeric, crumbled paneer, mix well.","Cook 3 min, garnish with coriander."],tips:"Add a pinch of kasuri methi for restaurant-style flavor."},
+  {id:1,title:"Aloo Tamatar Sabzi",time:15,cal:180,servings:2,rating:4.6,veg:true,healthy:false,emoji:"🍛",css:"food-aloo",ingredients:["potato","tomato","onion","oil","cumin","turmeric","salt"],steps:["Kadhai mein 2 tbsp tel garam karein. Tel garam ho jaye tab jeeray daalo aur 30 second tak crackle hone do — yahi iska flavor hai.","Ab baariki kata hua pyaaz daalein. Medium aag par 4-5 minute tak sauté karein jab tak golden brown na ho jaye. Pakke pyaaz mein hi curry ka base banta hai.","Iske baad 2 bade tamatar (roughly chopped) daalein. Unhe achhe se press karte hue cook karein jab tak oil sides se alag na ho jaye — iska matlab masala ready hai.","Ab cubed aloo, ek chutki haldi aur swad anusar namak mitalein. Achhe se mix karein taki masala aloo ko coat kare.","Dhakkan lagao aur dhimi aag par 10-12 minute pakne do. Beech-beech mein check karein. Aloo fork se aasaani se ghusne chahiye. Garam parosein!"],tips:"Add a squeeze of lemon and fresh coriander at the end for freshness."},
+  {id:2,title:"Masala Omelette",time:10,cal:220,servings:1,rating:4.3,veg:false,healthy:true,emoji:"🍳",css:"food-omelette",ingredients:["egg","onion","tomato","green chili","salt","oil"],steps:["Ek bowl mein 2 ande todein aur fork ya whisk se achhe se fentein jab tak mixture frothy aur hafka na ho jaye — yahi soft omelette ki secret hai.","Baariki kata hua pyaaz, tamatar, aur hari mirch (beej hata lein agar zyada teekha nahi chahiye) ande mein mix karein. Namak daalein aur ek baar aur achhe se milayein.","Non-stick pan mein 1 tsp tel medium aag par garam karein. Tel garam hai ya nahi check karne ke liye ek bund paani daalein — agar sizzle kare toh ready hai.","Egg mixture pan mein daalein aur spatula se gently spread karein. 2 minute tak bilkul mat chhedein — edges set honge.","Jab omelette set ho jaye, spatula se gently fold karein aur dono taraf 1-2 minute aur pakayein. Plate mein nikalein aur hot serve karein."],tips:"Add cheese inside before folding for extra richness."},
+  {id:3,title:"Aloo Onion Pakora",time:18,cal:280,servings:2,rating:4.5,veg:true,healthy:false,emoji:"🧆",css:"food-pakora",ingredients:["potato","onion","besan","salt","chili powder","oil"],steps:["Aloo aur pyaaz dono ko paper thin slices mein kaatein — mandoline ya knife se. Patla kaatna zaroori hai warna andar se kachcha reh jaata hai.","Ek bade bowl mein besan, namak, lal mirch powder, aur thoda pani milao. Ek thick batter banana hai — chapati paste se thoda ghada. Slice daalo aur achhe se coat karein.","Kadhai mein tel deepak ke liye garam karein (180°C ya wooden chopstick daalein — agar bubbles aayein toh ready hai). Ek samay mein zyada mat daalo warna tel thanda ho jaata hai.","Chammach se batter ke lump garam tel mein daalein. Pehle mat halaayein — 2 minute baad jab neeche se set ho jaaye tab gently palatein.","Dono taraf sone ka rang aane tak fry karein, 3-4 minute total. Paper towel par nikalein ki extra tel absorb ho jaye."],tips:"Serve with green chutney and hot chai!"},
+  {id:4,title:"Masala Potato Pasta",time:20,cal:380,servings:2,rating:4.4,veg:true,healthy:false,emoji:"🍝",css:"food-pasta",ingredients:["pasta","potato","tomato","onion","oil","garam masala","cheese"],steps:["Ek bade pot mein namkeen paani ubaalein aur pasta al dente (packet ke instructions minus 1 minute) paka lein. Drain karein aur ek tsp oil mix karein taki chipke na.","Aloo ko small cubes mein kaatein aur alag pot mein namkeen paani mein soft hone tak (8-10 min) ubaalein. Fork se pierce karein — easily ghusna chahiye.","Ek kadhai mein 2 tbsp tel garam karein. Pyaaz daalein aur 4 minute tak golden hone tak sautéy karein, phir tamatar daalein aur 5 minute pakayein jab tak mushy na ho jaye.","Garam masala, salt, aur ek chutki lal mirch daalein. Mix karein, phir drain kiye aloo daalein aur pasta. Sab kuch ek saath gently toss karein.","Grated cheese upar se daalein aur dhakkan lagao — pighalne mein 2 minute lagenge. Garam serve karein."],tips:"Use penne or fusilli for best results."},
+  {id:5,title:"Spicy Potato Curry",time:25,cal:210,servings:2,rating:4.7,veg:true,healthy:false,emoji:"🍲",css:"food-curry",ingredients:["potato","tomato","onion","garlic","ginger","chili","cumin","garam masala"],steps:["Kadhai mein 2 tbsp tel garam karein. Jeera daalein aur crackle hone do — yeh aahat aapko batati hai ki base ready ho raha hai. Jal jaane se bachao.","Baariki katta pyaaz, lehsun ki 4-5 kaliyan (crushed), aur ek inch adrak (grated) daalein. Medium-high par 5-6 minute pakayein jab tak golden na ho aur kachcha smell chali na jaaye.","Chopped tamatar, hari mirch (beej nikaal lein agar mild chahiye), aur ek chutki namak daalein. Tab tak pakayein jab tak masale se tel alag na ho jaye — yahi signal hai ki base tayaar hai.","Cubed boiled aloo aur garam masala daalein. Ek cup paani daalein curry ki consistency ke liye. Achhe se mix karein.","10-12 minute dhimi aag par simmer karein — sauce thikna chahiye aur aloo masala absorb kar lein. Taaza dhania se garnish karein."],tips:"For richer curry, add 2 tbsp cream at the end."},
+  {id:6,title:"Jeera Aloo",time:15,cal:160,servings:2,rating:4.2,veg:true,healthy:true,emoji:"🥘",css:"food-jeera",ingredients:["potato","cumin","oil","turmeric","salt","coriander"],steps:["Aloo ubaalein jab tak fork-tender (10-12 min). Thanda hone do phir cube mein kaatein. Thande aloo zyada crisp bante hain pan mein.","Ek wide pan mein 2 tbsp tel medium-high par garam karein. Jeera daalein aur sizzle hone do — 30 second mein fragrant ho jaata hai.","Cubed aloo, haldi, aur namak daalein. Gently stir karein taki aloo break na hoon.","Tez aag par 5-6 minute toss karte rehein — yeh step aloo ko golden aur slightly crispy banaata hai. Mat chhodo, nahi toh jal jaayenge.","Aag band karein, fresh coriander sprinkle karein. Roti ya dal ke saath serve karein."],tips:"Adding amchur (dry mango powder) gives a great tangy kick."},
+  {id:7,title:"Dal Tadka",time:30,cal:220,servings:3,rating:4.8,veg:true,healthy:true,emoji:"🍛",css:"food-dal",ingredients:["dal","onion","tomato","garlic","cumin","turmeric","ghee"],steps:["Toor dal dhoke pressure cooker mein daalo. Haldi aur 2.5 cups paani daalein. 4-5 whistles par cook karein jab tak dal bilkul soft na ho jaye. Kholne do aur check karein — smoothly mash hona chahiye.","Tadke ke liye alag pan mein 2 tbsp ghee garam karein. Jeera daalein — yeh instantly sizzle karega aur brown hoga.","Chopped lehsun daalein aur 1 minute pakayein. Phir thinly sliced pyaaz daalein aur golden hone tak (5-6 min) pakayein — yeh base hai pure flavor ka.","Chopped tamatar aur ek chutki namak daalein. 4-5 minute pakayein jab tak oil sides se alag na ho.","Yeh poora tadka paki dal par daalein. Achhe se stir karein aur 5 minute simmer karein. Chawal ya roti ke saath serve karein."],tips:"Using a mix of toor and masoor dal gives best flavor."},
+  {id:8,title:"Egg Fried Rice",time:15,cal:340,servings:2,rating:4.5,veg:false,healthy:false,emoji:"🍚",css:"food-rice",ingredients:["rice","egg","soy sauce","garlic","spring onion","oil","salt"],steps:["Ek raat pehle ka baasi chawal use karein — fresh rice bahut sticky ho jaata hai aur clump banaata hai. Agar naye chawal hain toh thanda karke refrigerate karein ek ghante ke liye.","Wok ya bade pan ko tez aag par bahut garam karein (iske bina fried rice ban nahi sakti — smoke dena chahiye). 1 tbsp oil daalein, phir 2 ande todein. Scramble karein aur pieces mein tod lein. Alag rakh lein.","Aur 1 tbsp oil daalein, crushed lehsun daalein aur 30 second sauté karein. Phir chawal daalein aur tez aag par 2 minute toss karte rehein.","Soy sauce (2 tbsp), ek chutki kaali mirch, aur spring onion whites daalein. Sab toss karein.","Scrambled ande wapis daalein, spring onion greens daalein, aur 1 minute aur toss karein. Garam serve karein."],tips:"High flame is key for authentic wok-style fried rice."},
+  {id:9,title:"Tomato Soup",time:20,cal:120,servings:2,rating:4.3,veg:true,healthy:true,emoji:"🍲",css:"food-soup",ingredients:["tomato","onion","garlic","butter","cream","salt","pepper"],steps:["Ek bade pot mein 2 tbsp butter medium aag par pighlayein. Roughly chopped pyaaz aur lehsun ki 3-4 kaliyan daalein. 5 minute tak pakayein jab tak soft aur slightly caramelized na ho jaaye — bhaagein mat, yeh depth deta hai.","Quartered tamatar (6-7 bade) daalein. Halka namak daalein — yeh juices release karta hai. 2 min pakayein.","1 cup paani ya vegetable stock daalein. Dhakkan lagao aur 12-15 minute simmer karein jab tak tamatar completely soft na ho jaayein.","Immersion blender se (ya regular blender mein batches mein) completely smooth blend karein. Fine mesh strainer se strain karein for silky texture — yeh step skip mat karein.","Strained soup wapis pot mein daalein. 2 tbsp cream, salt, pepper daalein. 2-3 minute garam karein. Crusty bread ke saath serve karein."],tips:"Add a pinch of sugar to balance the acidity of tomatoes."},
+  {id:10,title:"Chapati / Roti",time:20,cal:100,servings:4,rating:4.9,veg:true,healthy:true,emoji:"🫓",css:"food-roti",ingredients:["wheat flour","water","salt","oil"],steps:["Ek cup gehun ka aata bowl mein lein. Aadha tsp namak aur 1 tsp oil milao. Thoda thoda gunguna paani daalein aur mix karte jaao jab tak ek smooth dough na bane — na zyada geela, na zyada sakht.","5 full minute haath se gondhein — isase gluten develop hota hai jo roti ko soft rakhta hai. Dough smooth aur elastic hona chahiye. Ek damp cloth se dhakein aur 10-15 minute rest karne do.","Dough ko 8 equal balls mein baatein. Ek ball lein, haath se gol karein. Light flour se dust karein aur belan se thin circle (6-7 inch) mein belein — even thickness ke liye beech se shuru karein.","Tawa ko medium-high par achhe se garam karein (paani ki bund instantly evaporate honi chahiye). Roti daalein. 45 second mein bubbles aayenge — palatein.","Doosri taraf 30 second pakayein. Phir directly flame par (ya kitchen paper se dabao tawa par) dono taraf phulne do. Ghee lagao aur serve karein."],tips:"Resting the dough makes softer rotis."},
+  {id:11,title:"Vegetable Khichdi",time:25,cal:280,servings:2,rating:4.6,veg:true,healthy:true,emoji:"🥘",css:"food-khichdi",ingredients:["rice","dal","onion","tomato","cumin","turmeric","ghee","salt"],steps:["Chawal aur dal alag-alag achhe se dho lein. Ek saath mix karein aur 15 minute tak paani mein bhigone do — yeh cooking time kam karta hai aur texture better banata hai.","Pressure cooker mein 1 tbsp ghee medium par garam karein. Jeera daalein, 30 second sizzle hone do. Phir baariki kata pyaaz daalein aur 3-4 min pakayein.","Chopped tamatar, ek chutki haldi, aur namak daalein. 2-3 minute pakayein jab tak tamatar soft na ho.","Bhiga hua chawal-dal (paani nikal dein) daalein. 3 cups paani daalein. Mix karein.","Dhakkan lagao aur 2 whistles par pressure cook karein. Steam completely release hone do. Kholo aur mix karein. Achaar aur ghee ke saath serve karein."],tips:"A dollop of ghee on top before serving makes it heavenly."},
+  {id:12,title:"Paneer Bhurji",time:15,cal:290,servings:2,rating:4.7,veg:true,healthy:true,emoji:"🥚",css:"food-paneer",ingredients:["paneer","onion","tomato","green chili","turmeric","coriander","oil"],steps:["200g paneer ko haath se crumble karein — size mein even chunky rakhein, bilkul fine nahi banana. Alag rakh lein.","2 tbsp tel medium par garam karein. Finely chopped pyaaz aur hari mirch (beej nikaal lein agar mild chahiye) daalein. 5-6 minute pakayein jab tak translucent aur edges golden na ho jaayein.","Finely chopped tamatar daalein. Namak ki chutki daalein juice release karne ke liye. 4-5 minute pakayein jab tak mushy na ho jaaye aur oil alag dikhne lage.","Haldi daalein, stir karein. Phir crumbled paneer daalein. Gently mix karein — zyada mat todein.","Dhimi aag par 3-4 minute pakayein jab tak paneer masala absorb kar le. Aag band karein, fresh coriander se garnish karein."],tips:"Add a pinch of kasuri methi for restaurant-style flavor."},
   {id:13,title:"Aloo Paratha",time:25,cal:320,servings:2,rating:4.8,veg:true,healthy:false,emoji:"🫓",css:"food-roti",ingredients:["wheat flour","potato","onion","green chili","cumin","ghee","salt"],steps:["Make soft dough with flour and water.","Mash boiled potatoes with onion, chili, cumin, salt.","Roll small dough, place filling, seal and roll again.","Cook on hot tawa with ghee both sides.","Serve with yogurt and pickle."],tips:"Keep filling dry to avoid tearing the paratha."},
   {id:14,title:"Vegetable Biryani",time:45,cal:420,servings:3,rating:4.9,veg:true,healthy:false,emoji:"🍚",css:"food-biryani",ingredients:["rice","carrot","peas","potato","onion","yogurt","biryani masala","ghee","saffron"],steps:["Parboil basmati rice with whole spices.","Fry thinly sliced onions till crispy brown.","Cook vegetables with yogurt and biryani masala.","Layer rice over vegetables in heavy pot.","Add saffron milk and fried onions. Seal and dum cook 20 min."],tips:"Dum cooking on low flame is what gives biryani its magic aroma."},
   {id:15,title:"Cucumber Raita",time:5,cal:80,servings:2,rating:4.3,veg:true,healthy:true,emoji:"🥗",css:"food-salad",ingredients:["yogurt","cucumber","cumin powder","salt","mint"],steps:["Whisk yogurt till smooth.","Grate or finely dice cucumber, squeeze out water.","Add cucumber to yogurt.","Add cumin powder, salt, fresh mint.","Mix and serve chilled."],tips:"Perfect with biryani, paratha or any spicy dish."},
@@ -629,17 +732,239 @@ function saveProfileName(){
 }
 
 // ══════════════════════════════════════
-// INGREDIENTS
+// HINDI + AUTOCORRECT DICTIONARY
 // ══════════════════════════════════════
-const EMOJI_MAP={potato:'🥔',tomato:'🍅',onion:'🧅',garlic:'🧄',chili:'🌶️',egg:'🥚',cheese:'🧀',carrot:'🥕',spinach:'🥬',rice:'🍚',lemon:'🍋',ginger:'🫚',peas:'🫛',dal:'🫘',bread:'🍞',milk:'🥛',mango:'🥭',banana:'🍌',cucumber:'🥒',avocado:'🥑',paneer:'🧀',chickpea:'🫘',pasta:'🍝',oats:'🌾',cabbage:'🥬',eggplant:'🍆',cauliflower:'🥦',okra:'🥗',yogurt:'🍶',flour:'🫙',butter:'🧈',chicken:'🍗',mushroom:'🍄',capsicum:'🫑',corn:'🌽',besan:'🫙',semolina:'🫙',coconut:'🥥',pumpkin:'🎃'};
+// Maps Hindi names, common misspellings → English canonical name
+const WORD_MAP = {
+  // Potato
+  'aalu':'potato','aloo':'potato','alu':'potato','aaloo':'potato','allu':'potato','poteto':'potato','ptato':'potato','patato':'potato','potatoe':'potato',
+  // Tomato
+  'tamatar':'tomato','tamater':'tomato','tamatr':'tomato','tamoto':'potato','tometo':'tomato','tomatos':'tomato','tomoto':'tomato',
+  // Onion
+  'pyaz':'onion','pyaaz':'onion','piyaz':'onion','onoin':'onion','oinion':'onion','onyen':'onion','onon':'onion',
+  // Garlic
+  'lehsun':'garlic','lasun':'garlic','lahsun':'garlic','garlc':'garlic','garlik':'garlic','gerlic':'garlic',
+  // Ginger
+  'adrak':'ginger','adarak':'ginger','ginjer':'ginger','gingr':'ginger',
+  // Green chili
+  'hari mirch':'chili','mirch':'chili','hari mirchi':'chili','mirchi':'chili','chilli':'chili','chilly':'chili','chilie':'chili','chlie':'chili',
+  // Egg
+  'anda':'egg','ande':'egg','anday':'egg','eeg':'egg','agg':'egg',
+  // Rice
+  'chawal':'rice','chaawal':'rice','rice rice':'rice','rce':'rice','chawl':'rice',
+  // Wheat flour
+  'atta':'flour','aata':'flour','gehu':'flour','gehun':'flour','flor':'flour','maida':'flour',
+  // Oil
+  'tel':'oil','teel':'oil','oyl':'oil',
+  // Salt
+  'namak':'salt','namk':'salt','slt':'salt','nmak':'salt',
+  // Cumin
+  'jeera':'cumin','jira':'cumin','zeera':'cumin','zira':'cumin','jeeera':'cumin',
+  // Turmeric
+  'haldi':'turmeric','haldi powder':'turmeric','tumeric':'turmeric','turmric':'turmeric','termeric':'turmeric',
+  // Coriander
+  'dhania':'coriander','dhaniya':'coriander','corriander':'coriander','coriender':'coriander',
+  // Ghee / butter
+  'ghee':'butter','desi ghee':'butter','butr':'butter','buter':'butter',
+  // Milk
+  'doodh':'milk','dudh':'milk','mlk':'milk',
+  // Yogurt / curd
+  'dahi':'yogurt','curd':'yogurt','dahi dahi':'yogurt','yoghurt':'yogurt','yougurt':'yogurt',
+  // Paneer
+  'panner':'paneer','panier':'paneer','panir':'paneer',
+  // Dal / lentils
+  'daal':'dal','lentil':'dal','lentils':'dal','masoor':'dal','moong':'dal','toor':'dal','arhar':'dal',
+  // Spinach
+  'palak':'spinach','paalak':'spinach','spnach':'spinach','spinch':'spinach',
+  // Eggplant
+  'baingan':'eggplant','baigan':'eggplant','brinjal':'eggplant','bringal':'eggplant',
+  // Carrot
+  'gajar':'carrot','gaajar':'carrot','carot':'carrot','carrot carrot':'carrot',
+  // Peas
+  'matar':'peas','mattar':'peas','pes':'peas','pea':'peas',
+  // Chicken
+  'murgi':'chicken','murga':'chicken','chiken':'chicken','chikn':'chicken','chickin':'chicken',
+  // Lemon
+  'nimbu':'lemon','nimboo':'lemon','nimbo':'lemon','lmeon':'lemon',
+  // Cheese
+  'chiz':'cheese','cheez':'cheese','chees':'cheese',
+  // Bread
+  'roti':'bread','chapati':'bread','paav':'bread','pav':'bread','bred':'bread',
+  // Besan (gram flour)
+  'besan':'besan','basan':'besan','gram flour':'besan',
+  // Semolina
+  'suji':'semolina','sooji':'semolina','rava':'semolina','semoina':'semolina',
+  // Mustard seeds
+  'rai':'mustard','sarson':'mustard','mustrd':'mustard',
+  // Curry leaves
+  'kadi patta':'curry leaves','kadipatta':'curry leaves','meetha neem':'curry leaves',
+  // Coconut
+  'nariyal':'coconut','nariyal':'coconut','cocnut':'coconut','cocount':'coconut',
+  // Mango
+  'aam':'mango','kaccha aam':'mango','mango mango':'mango',
+  // Mushroom
+  'mushrum':'mushroom','mushrrom':'mushroom','khumb':'mushroom',
+  // Capsicum
+  'shimla mirch':'capsicum','shimlamirch':'capsicum','capscium':'capsicum','capsicm':'capsicum','bell pepper':'capsicum',
+  // Corn
+  'makka':'corn','bhutta':'corn','makkai':'corn','crn':'corn',
+  // Chickpea
+  'chana':'chickpea','chole':'chickpea','kabuli chana':'chickpea','chikpea':'chickpea','chickpeas':'chickpea',
+  // Pasta
+  'pastas':'pasta','paasta':'pasta','noodle':'pasta','noodles':'pasta',
+  // Oats
+  'oat':'oats','jaie':'oats','jaai':'oats',
+  // Cabbage
+  'patta gobhi':'cabbage','pattagobhi':'cabbage','cabbage cabbage':'cabbage','cabbge':'cabbage',
+  // Cauliflower
+  'gobhi':'cauliflower','phool gobhi':'cauliflower','phulgobhi':'cauliflower','cauliflwr':'cauliflower',
+  // Okra
+  'bhindi':'okra','lady finger':'okra','ladyfinger':'okra',
+  // Banana
+  'kela':'banana','banana banana':'banana','banan':'banana',
+  // Cucumber
+  'kheera':'cucumber','khira':'cucumber','cucmber':'cucumber','cucumbre':'cucumber',
+  // Pumpkin
+  'kaddu':'pumpkin','sitaphal':'pumpkin','pumkin':'pumpkin',
+  // Avocado
+  'avocado avocado':'avocado','avacado':'avocado','avocdo':'avocado',
+  // Garam masala
+  'garam masala':'garam masala','garammasala':'garam masala','gram masala':'garam masala',
+  // Soy sauce
+  'soya sauce':'soy sauce','soysauce':'soy sauce','soy souce':'soy sauce',
+  // Spring onion
+  'hari pyaz':'spring onion','hara pyaz':'spring onion',
+  // Poha
+  'poha':'poha','pohaa':'poha','chidwa':'poha',
+  // Biryani masala
+  'biryani masala':'biryani masala','biryanimasala':'biryani masala',
+};
+
+// Hindi translations for ingredients
+const ING_HI = {
+  potato:'आलू',tomato:'टमाटर',onion:'प्याज',garlic:'लहसुन',ginger:'अदरक',chili:'मिर्च',egg:'अंडा',
+  rice:'चावल',flour:'आटा / मैदा',oil:'तेल',salt:'नमक',cumin:'जीरा',turmeric:'हल्दी',
+  coriander:'धनिया',butter:'मक्खन / घी',milk:'दूध',yogurt:'दही',paneer:'पनीर',dal:'दाल',
+  spinach:'पालक',eggplant:'बैंगन',carrot:'गाजर',peas:'मटर',chicken:'मुर्गी',lemon:'नींबू',
+  cheese:'चीज़',bread:'रोटी / पाव',besan:'बेसन',semolina:'सूजी',mustard:'राई / सरसों',
+  coconut:'नारियल',mango:'आम',mushroom:'मशरूम',capsicum:'शिमला मिर्च',corn:'मक्का / भुट्टा',
+  chickpea:'चना / छोले',pasta:'पास्ता',oats:'ओट्स',cabbage:'पत्ता गोभी',cauliflower:'फूल गोभी',
+  okra:'भिंडी',banana:'केला',cucumber:'खीरा',pumpkin:'कद्दू',avocado:'एवोकाडो',
+  'garam masala':'गरम मसाला','soy sauce':'सोया सॉस','spring onion':'हरी प्याज',
+  poha:'पोहा','biryani masala':'बिरयानी मसाला','curry leaves':'कड़ी पत्ता',
+  wheat:'गेहूं','green chili':'हरी मिर्च','chana masala':'चना मसाला','ghee':'घी',
+  cream:'क्रीम',water:'पानी',sugar:'चीनी',cardamom:'इलायची',cashew:'काजू',
+  raisin:'किशमिश',saffron:'केसर',cinnamon:'दालचीनी','bay leaf':'तेज पत्ता',
+};
+
+// Hindi translations for recipe steps (by recipe id)
+const STEPS_HI = {
+  1:["Kadhai mein 2 tbsp tel garam karein, jeera daalo aur 30 second crackle hone do — flavor ke liye zaroori hai.","Golden brown pyaaz ke liye 4-5 min medium aag par sauté karein — ruka mat, pyaaz base hai.","2 bade tamatar daalein, press karte pakao jab tak tel sides se alag na ho — masala ready ka sign.","Cubed aloo, haldi, namak daalein — achhe se coat karein taki har piece pe masala lage.","Dhakkan lagao, 10-12 min dhimi aag par pakao. Fork se check karein — aasaani se ghusna chahiye."],
+  2:["2 ande bowl mein toda, fork se frothy hone tak fentein — soft omelette ki secret yehi hai.","Baariki kata pyaaz, tamatar, hari mirch, namak mix karein — ek aur baar achhe se milaao.","Non-stick pan mein 1 tsp tel medium par garam karein — paani ki bund se check karein (sizzle = ready).","Egg daalein, spread karein, 2 min bilkul mat chhedein — edges set ho rahi hain.","Set hone par fold karein, dono taraf 1-2 min aur pakaao. Garam plate mein serve karein."],
+  3:["Aloo aur pyaaz dono ko paper-thin slices mein kaatein — patla kaatna zaroori warna andar kachcha rehta hai.","Besan, namak, lal mirch, paani se thick batter banaao — chapati paste se thoda ghada. Slices coat karein.","Kadhai mein tel 180°C tak garam karein — chopstick mein bubbles aayein toh ready hai.","Chammach se lump tel mein daalein, 2 min mat halaao — set hone do, phir palatein.","3-4 min total fry karein dono taraf golden hone tak. Paper towel par nikaalein."],
+  4:["Namkeen ubalpate paani mein pasta al dente (packet minus 1 min) pakaao. Drain karein, 1 tsp oil mix karein.","Aloo cubes 8-10 min namkeen paani mein ubaalein jab tak fork easily ghuse.","2 tbsp tel mein pyaaz 4 min golden karein, tamatar 5 min mushy hone tak pakao.","Garam masala, namak, lal mirch daalein, phir aloo aur pasta — gently toss karein.","Grated cheese upar daalein, dhakkan 2 min lagao pighalne ke liye. Garam serve karein."],
+  5:["Tel mein jeera crackle karo — yeh sound batati hai ki base ready ho raha hai.","Pyaaz, lehsun, adrak 5-6 min golden hone tak pakaao — kachcha smell jaani chahiye.","Tamatar, hari mirch daalein, tel alag hone tak pakaao — masala ready ka sign.","Cubed aloo, garam masala, 1 cup paani daalein. Mix karein.","10-12 min dhimi aag par simmer karein. Sauce thick hona chahiye. Dhania se garnish karein."],
+  6:["Aloo fork-tender (10-12 min) ubaalein. Thanda karein phir cube mein kaatein — thande aloo crisp bante hain.","Wide pan mein 2 tbsp tel medium-high par garam karein. Jeera 30 sec mein fragrant ho jaata hai.","Cubed aloo, haldi, namak daalein. Gently stir karein taki aloo break na ho.","Tez aag par 5-6 min toss karte rahein — golden aur slightly crispy banaane ke liye.","Aag band, fresh coriander sprinkle karein. Roti ya dal ke saath serve karein."],
+  7:["Toor dal dhoke, haldi aur 2.5 cups paani ke saath 4-5 whistles pressure cook karein. Smoothly mash honi chahiye.","Tadke ke liye ghee mein jeera instant sizzle karega — brown hone tak 30 sec.","Lehsun 1 min, phir pyaaz 5-6 min golden hone tak pakaao — pure flavor ka base yehi hai.","Tamatar aur namak daalein, 4-5 min jab tak tel alag dikhne lage.","Tadka dal par daalein, mix karein, 5 min simmer karein. Chawal ya roti ke saath serve karein."],
+  8:["Baasi chawal use karein — fresh bahut sticky hota hai. Naye hain toh 1 ghante refrigerate karein.","Wok bahut garam karein (smoke aana chahiye). Oil mein ande scramble karein, pieces mein todein. Alag rakhein.","Aur oil mein lehsun 30 sec sautéy, phir chawal tez aag par 2 min toss karein.","Soy sauce, kaali mirch, spring onion whites daalein — toss karein.","Ande wapis daalein, spring onion greens daalein, 1 min aur toss. Garam serve karein."],
+  9:["Ghee mein pyaaz aur lehsun 5 min soft aur caramelized hone tak pakaao — depth deta hai.","Tamatar daalein, namak daalein juice ke liye. 2 min pakao.","1 cup paani/stock daalein, dhakkan laga 12-15 min simmer karein — tamatar completely soft hona chahiye.","Immersion blender se smooth blend karein. Fine strainer se zaroor strain karein — silky texture ke liye.","Strained soup mein cream, namak, kaali mirch daalein. 2-3 min garam karein. Crusty bread saath serve karein."],
+  10:["Aata, namak, 1 tsp oil mix karein. Thoda thoda gunguna paani daalein — smooth, na geela na sakht dough banaao.","5 min gondhein — gluten se roti soft banati hai. Smooth aur elastic hona chahiye. 10-15 min ढako.","8 balls banao. Ek ball lein, flour dust karein, 6-7 inch ka thin circle belein — beech se shuru karein.","Tawa medium-high par achhe se garam karein. Roti daalein — 45 sec mein bubbles aayenge, palto.","Doosri taraf 30 sec, phir flame par phulao. Ghee lagao aur garam serve karein."],
+  11:["Chawal aur dal dono dho lein. Mix karein aur 15 min paani mein bheego — cooking time kam karta hai.","Pressure cooker mein ghee mein jeera 30 sec sizzle karo. Pyaaz 3-4 min pakao.","Tamatar, haldi, namak daalein. 2-3 min pakao.","Bhiga chawal-dal (paani nikaal dein) daalein. 3 cups paani daalein. Mix karein.","2 whistles pressure cook karein. Steam release karo. Kholo, mix karein. Achaar aur ghee saath serve karein."],
+  12:["200g paneer haath se crumble karein — even chunky pieces, bilkul fine nahi.","Tel mein pyaaz aur hari mirch 5-6 min pakao — translucent aur golden edges.","Tamatar daalein, namak ki chutki daalein. 4-5 min mushy hone tak, oil alag dikhne tak.","Haldi daalein, stir karein. Crumbled paneer daalein. Gently mix karein — zyada mat todein.","Dhimi aag par 3-4 min pakao. Aag band, fresh coriander se garnish karein."],
+  13:["आटे और पानी से मुलायम आटा गूंथें।","उबले आलू को प्याज, मिर्च, जीरा, नमक के साथ मैश करें।","छोटा आटा बेलें, भराई डालें, बंद करके दोबारा बेलें।","गरम तवे पर घी से दोनों तरफ सेकें।","दही और अचार के साथ परोसें।"],
+  14:["बासमती चावल साबुत मसालों के साथ आधा उबालें।","प्याज को पतला काटकर कुरकुरा होने तक तलें।","सब्ज़ियों को दही और बिरयानी मसाले से पकाएं।","भारी बर्तन में चावल और सब्ज़ियों की परतें लगाएं।","केसर वाला दूध और तली प्याज डालें। 20 मिनट दम पर पकाएं।"],
+  15:["दही को अच्छे से फेंटें।","खीरे को कद्दूकस करें या बारीक काटें, पानी निचोड़ें।","खीरा दही में मिलाएं।","जीरा पाउडर, नमक, ताज़ा पुदीना डालें।","मिलाएं और ठंडा परोसें।"],
+  16:["चने भिगोकर प्रेशर कुक करें।","प्याज, लहसुन, अदरक का पेस्ट बनाएं।","पेस्ट तेल में सुनहरा होने तक भूनें।","टमाटर और चना मसाला डालें, 5 मिनट पकाएं।","चने और पानी डालें, 15 मिनट उबालें।"],
+  17:["पालक ब्लांच करके मुलायम पीसें।","पनीर के टुकड़े सुनहरे होने तक तलें, अलग रखें।","तेल में प्याज, लहसुन, अदरक भूनें।","पालक की प्यूरी और गरम मसाला डालें।","पनीर, क्रीम डालें, 5 मिनट पकाएं। गर्म परोसें।"],
+  18:["बैंगन को सीधे आंच पर जलने तक भूनें।","छिलका उतारें, गूदा मैश करें।","तेल में प्याज, लहसुन, हरी मिर्च भूनें।","टमाटर डालें, नरम करें, फिर मैश बैंगन डालें।","गरम मसाला के साथ 5 मिनट पकाएं।"],
+  19:["पोहा धोएं, पानी निकालें और रखें।","तेल में राई, मूंगफली, कड़ी पत्ता गरम करें।","प्याज, आलू और हल्दी डालें। 5 मिनट पकाएं।","पोहा, नमक डालें, धीरे मिलाएं।","2 मिनट ढककर रखें। नींबू निचोड़ें और परोसें।"],
+  20:["सूजी को हल्का सुनहरा होने तक भूनें। अलग रखें।","तेल में राई, कड़ी पत्ता, हरी मिर्च चटकाएं।","प्याज डालें, नरम होने तक भूनें।","2 कप उबलता पानी और नमक डालें।","सूजी धीरे-धीरे डालें, लगातार हिलाते रहें। गाढ़ा होने तक पकाएं।"],
+  21:["मूंग दाल 2 घंटे भिगोएं, पानी निकालें।","हरी मिर्च, अदरक, जीरा, नमक और पानी के साथ पीसें।","नॉन-स्टिक पैन थोड़े तेल से गरम करें।","एक करछुल घोल डालें, गोल फैलाएं।","दोनों तरफ सुनहरा होने तक पकाएं। चटनी के साथ परोसें।"],
+  22:["बेसन, नमक और मसालों से गाढ़ा घोल बनाएं।","उबले आलू को नमक और मिर्च के साथ मैश करें।","2 ब्रेड के बीच आलू की भराई करें।","बेसन के घोल में डुबोएं।","दोनों तरफ सुनहरा होने तक तलें।"],
+  23:["चावल धोकर 15 मिनट भिगोएं।","भारी पैन में दूध धीमी आंच पर उबालें।","चावल डालें, जलने से बचाने के लिए बार-बार हिलाएं।","25 मिनट पकाएं जब तक चावल बहुत नरम और दूध गाढ़ा हो।","चीनी, इलायची, मेवे डालें। 5 मिनट और पकाएं।"],
+};
+
+const TIPS_HI = {
+  1:"अंत में नींबू निचोड़ें और ताज़ा धनिया डालें — स्वाद और बढ़ जाएगा।",
+  2:"अंदर से चीज़ डालकर मोड़ें — और भी लज़ीज़ बनेगा।",
+  3:"हरी चटनी और गरम चाय के साथ परोसें!",
+  4:"पेन्ने या फुज़िली पास्ता इस्तेमाल करें — बेहतर रहेगा।",
+  5:"अंत में 2 चम्मच क्रीम डालें — ग्रेवी और अमीर बनेगी।",
+  6:"सूखा आम पाउडर (अमचूर) डालें — खट्टा-मीठा स्वाद आएगा।",
+  7:"तूर और मसूर दाल मिलाकर बनाएं — सबसे अच्छा स्वाद मिलेगा।",
+  8:"तेज़ आंच ज़रूरी है असली वोक-स्टाइल फ्राइड राइस के लिए।",
+  9:"टमाटर की खटास कम करने के लिए एक चुटकी चीनी डालें।",
+  10:"आटा रेस्ट करने से रोटियां नरम बनती हैं।",
+  11:"परोसने से पहले ऊपर से घी का एक टुकड़ा डालें — स्वर्गीय लगेगा।",
+  12:"कसूरी मेथी की एक चुटकी डालें — रेस्टोरेंट जैसा स्वाद आएगा।",
+  13:"भराई सूखी रखें ताकि पराठा न फटे।",
+  14:"धीमी आंच पर दम पकाना ही बिरयानी की असली खुशबू देता है।",
+  15:"बिरयानी, पराठे या किसी भी तीखे खाने के साथ परफेक्ट।",
+  16:"कच्चा आम पाउडर (अमचूर) असली खट्टा स्वाद देता है।",
+  17:"पालक का चटकीला हरा रंग बनाए रखने के लिए ज़्यादा न पकाएं।",
+  18:"खुली आंच पर जलाने से असली धुएंदार स्वाद आता है।",
+  19:"एक चम्मच चीनी स्वाद को परफेक्ट बैलेंस करती है।",
+  20:"मटर और गाजर जैसी सब्ज़ियां डालने से और पौष्टिक बनेगा।",
+  21:"घोल की consistency दोसे के बैटर जैसी होनी चाहिए।",
+  22:"बेसन में डुबोने से पहले सैंडविच को मज़बूती से दबाएं।",
+  23:"लगातार हिलाते रहें ताकि दूध तले में न लगे।",
+};
+
+// Ingredient Hindi name display
+const ING_HI_DISPLAY = ING_HI;
+
+// ── Fuzzy match: Levenshtein distance ──
+function levenshtein(a,b){
+  const m=a.length,n=b.length;
+  const dp=Array.from({length:m+1},(_,i)=>Array.from({length:n+1},(_,j)=>j===0?i:0));
+  for(let j=1;j<=n;j++) dp[0][j]=j;
+  for(let i=1;i<=m;i++) for(let j=1;j<=n;j++){
+    if(a[i-1]===b[j-1]) dp[i][j]=dp[i-1][j-1];
+    else dp[i][j]=1+Math.min(dp[i-1][j],dp[i][j-1],dp[i-1][j-1]);
+  }
+  return dp[m][n];
+}
+
+// Normalize: check WORD_MAP then fuzzy match known ingredients
+function normalizeIngredient(raw){
+  const lower=raw.toLowerCase().trim();
+  // Direct map
+  if(WORD_MAP[lower]) return WORD_MAP[lower];
+  // All known canonical words
+  const allWords=Object.values(WORD_MAP).filter((v,i,a)=>a.indexOf(v)===i);
+  // Fuzzy against map keys
+  let bestKey=null, bestKeyDist=99;
+  for(const k of Object.keys(WORD_MAP)){
+    const d=levenshtein(lower,k);
+    if(d<bestKeyDist){ bestKeyDist=d; bestKey=k; }
+  }
+  if(bestKeyDist<=2) return WORD_MAP[bestKey];
+  // Fuzzy against canonical words directly
+  let bestWord=lower, bestWordDist=99;
+  for(const w of allWords){
+    const d=levenshtein(lower,w);
+    if(d<bestWordDist){ bestWordDist=d; bestWord=w; }
+  }
+  if(bestWordDist<=2) return bestWord;
+  return lower; // return as-is if no match
+}
+
+const EMOJI_MAP={potato:'🥔',tomato:'🍅',onion:'🧅',garlic:'🧄',chili:'🌶️',egg:'🥚',cheese:'🧀',carrot:'🥕',spinach:'🥬',rice:'🍚',lemon:'🍋',ginger:'🫚',peas:'🫛',dal:'🫘',bread:'🍞',milk:'🥛',mango:'🥭',banana:'🍌',cucumber:'🥒',avocado:'🥑',paneer:'🧀',chickpea:'🫘',pasta:'🍝',oats:'🌾',cabbage:'🥬',eggplant:'🍆',cauliflower:'🥦',okra:'🥗',yogurt:'🍶',flour:'🫙',butter:'🧈',chicken:'🍗',mushroom:'🍄',capsicum:'🫑',corn:'🌽',besan:'🫙',semolina:'🫙',coconut:'🥥',pumpkin:'🎃',mustard:'🌿','curry leaves':'🍃',poha:'🌾','garam masala':'🫙','soy sauce':'🥢','spring onion':'🧅','biryani masala':'🫙'};
+
 function addIngredient(){
   const inp=document.getElementById('ingInput');
-  const v=inp.value.trim(); if(!v) return;
-  const em=EMOJI_MAP[v.toLowerCase()]||'🥗';
+  const raw=inp.value.trim(); if(!raw) return;
+  const normalized=normalizeIngredient(raw);
+  const displayName=normalized!==raw.toLowerCase().trim() ? normalized : raw;
+  const showCorrected=normalized.toLowerCase()!==raw.toLowerCase().trim();
+  const em=EMOJI_MAP[normalized]||EMOJI_MAP[displayName.toLowerCase()]||'🥗';
   const c=document.createElement('div'); c.className='chip';
-  c.innerHTML=`<span class="chip-emoji">${em}</span>${v}<span class="chip-x" onclick="removeChip(this)">✕</span>`;
+  const autocorrectBadge=showCorrected?`<span style="font-size:9px;color:var(--green);font-weight:800;background:var(--green-light);padding:1px 5px;border-radius:6px;margin-left:2px;">✓ auto</span>`:'';
+  c.innerHTML=`<span class="chip-emoji">${em}</span>${displayName}${autocorrectBadge}<span class="chip-x" onclick="removeChip(this)">✕</span>`;
+  c.dataset.normalized=normalized;
   document.getElementById('chips-row').appendChild(c);
   inp.value=''; updateCount();
+  if(showCorrected) toast(`✅ "${raw}" → "${displayName}"`);
 }
 function removeChip(x){ x.closest('.chip').remove(); updateCount(); }
 function clearAll(){ document.getElementById('chips-row').innerHTML=''; updateCount(); }
@@ -653,7 +978,7 @@ document.getElementById('ingInput').addEventListener('keypress',e=>{ if(e.key===
 // ══════════════════════════════════════
 function getUserIngs(){
   return Array.from(document.getElementById('chips-row').querySelectorAll('.chip'))
-    .map(c=>c.textContent.replace('✕','').trim().toLowerCase());
+    .map(c=>c.dataset.normalized||c.textContent.replace('✕','').replace('✓ auto','').trim().toLowerCase());
 }
 function score(r,uIngs){
   if(!uIngs.length) return {matched:r.ingredients.length,total:r.ingredients.length,pct:100};
@@ -689,7 +1014,7 @@ function renderList(){
     const tagCls=r.aiGenerated?'ai':(r.pct>=80?'g':'o');
     const tagTxt=r.aiGenerated?'✨ AI Generated':(r.pct===100?'✓ You have all ingredients':`You have ${r.matched}/${r.total} ingredients`);
     return `<div class="rcard" onclick="showDetail(${r.id})">
-      <div class="rcard-img"><div class="food-img ${r.css}"><div class="food-emoji">${r.emoji}</div></div></div>
+      <div class="rcard-img">${imgTag(r)}</div>
       <div class="rcard-body">
         <h3>${r.title}</h3>
         <div class="rmeta">
@@ -708,6 +1033,114 @@ function renderList(){
 // ══════════════════════════════════════
 // DETAIL
 // ══════════════════════════════════════
+// ══════════════════════════════════════
+// RECIPE IMAGES (Unsplash)
+// ══════════════════════════════════════
+const RECIPE_IMGS = {
+  // DB recipes by id
+  1:'https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=300&q=70', // aloo tamatar
+  2:'https://images.unsplash.com/photo-1525351484163-7529414344d8?w=300&q=70', // omelette
+  3:'https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=300&q=70', // pakora
+  4:'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=300&q=70', // pasta
+  5:'https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=300&q=70', // curry
+  6:'https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=300&q=70', // jeera aloo
+  7:'https://images.unsplash.com/photo-1546549032-9571cd6b27df?w=300&q=70', // dal tadka
+  8:'https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=300&q=70', // fried rice
+  9:'https://images.unsplash.com/photo-1547592180-85f173990554?w=300&q=70', // tomato soup
+  10:'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=300&q=70', // roti
+  11:'https://images.unsplash.com/photo-1626200420028-cb0f30d26630?w=300&q=70', // khichdi
+  12:'https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=300&q=70', // paneer bhurji
+  13:'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=300&q=70', // aloo paratha
+  14:'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=300&q=70', // biryani
+  15:'https://images.unsplash.com/photo-1562575214-da9fcf59b907?w=300&q=70', // raita
+  16:'https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=300&q=70', // chana masala
+  17:'https://images.unsplash.com/photo-1601050690597-df0568f70950?w=300&q=70', // saag paneer
+  18:'https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=300&q=70', // baingan bharta
+  19:'https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=300&q=70', // poha
+  20:'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=300&q=70', // upma
+  21:'https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=300&q=70', // cheela
+  22:'https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=300&q=70', // bread pakora
+  23:'https://images.unsplash.com/photo-1631300715412-29db1c79f5e1?w=300&q=70', // kheer
+  24:'https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=300&q=70', // aloo gobi
+  25:'https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=300&q=70', // matar paneer
+  26:'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=300&q=70', // salad
+  27:'https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=300&q=70', // curd rice
+  28:'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=300&q=70', // maggi
+  29:'https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=300&q=70', // pav bhaji
+  30:'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=300&q=70', // pancakes
+  31:'https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=300&q=70', // rajma
+  32:'https://images.unsplash.com/photo-1495214783159-3503fd1b572d?w=300&q=70', // oats
+  33:'https://images.unsplash.com/photo-1546549032-9571cd6b27df?w=300&q=70', // spinach dal
+  34:'https://images.unsplash.com/photo-1547592180-85f173990554?w=300&q=70', // garlic bread
+  35:'https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=300&q=70', // anda curry
+  36:'https://images.unsplash.com/photo-1546549032-9571cd6b27df?w=300&q=70', // sambar
+  37:'https://images.unsplash.com/photo-1631300715412-29db1c79f5e1?w=300&q=70', // sooji halwa
+  38:'https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=300&q=70', // chicken curry
+  39:'https://images.unsplash.com/photo-1626200420028-cb0f30d26630?w=300&q=70', // ven pongal
+  40:'https://images.unsplash.com/photo-1546549032-9571cd6b27df?w=300&q=70', // masoor dal
+  41:'https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=300&q=70', // bread upma
+};
+// Category recipes image map by title
+const CAT_IMGS = {
+  'Butter Naan':'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=300&q=70',
+  'Garlic Naan':'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=300&q=70',
+  'Aloo Paratha':'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=300&q=70',
+  'Paneer Paratha':'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=300&q=70',
+  'Hakka Noodles':'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=300&q=70',
+  'Chilli Paneer':'https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=300&q=70',
+  'Chilli Chicken':'https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=300&q=70',
+  'Manchurian':'https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=300&q=70',
+  'Gulab Jamun':'https://images.unsplash.com/photo-1631300715412-29db1c79f5e1?w=300&q=70',
+  'Kheer':'https://images.unsplash.com/photo-1631300715412-29db1c79f5e1?w=300&q=70',
+  'Gajar Halwa':'https://images.unsplash.com/photo-1631300715412-29db1c79f5e1?w=300&q=70',
+  'Chocolate Cake':'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=300&q=70',
+  'Pav Bhaji':'https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=300&q=70',
+  'Vada Pav':'https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=300&q=70',
+  'Samosa':'https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=300&q=70',
+  'Pani Puri':'https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=300&q=70',
+  'Mango Shake':'https://images.unsplash.com/photo-1553530666-ba11a90bb0ae?w=300&q=70',
+  'Lassi':'https://images.unsplash.com/photo-1553530666-ba11a90bb0ae?w=300&q=70',
+  'Biryani':'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=300&q=70',
+  'Vegetable Biryani':'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=300&q=70',
+  'Chicken Curry':'https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=300&q=70',
+  'Dal Tadka':'https://images.unsplash.com/photo-1546549032-9571cd6b27df?w=300&q=70',
+  'Grilled Chicken':'https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?w=300&q=70',
+  'Pasta Arrabbiata':'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=300&q=70',
+  'Ramen':'https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?w=300&q=70',
+  'Tacos':'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=300&q=70',
+};
+function getRecipeImg(r){
+  if(r.id && RECIPE_IMGS[r.id]) return RECIPE_IMGS[r.id];
+  if(r.title && CAT_IMGS[r.title]) return CAT_IMGS[r.title];
+  // fallback by css class
+  const fallbacks={
+    'food-aloo':'https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=300&q=70',
+    'food-pasta':'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=300&q=70',
+    'food-pakora':'https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=300&q=70',
+    'food-omelette':'https://images.unsplash.com/photo-1525351484163-7529414344d8?w=300&q=70',
+    'food-curry':'https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=300&q=70',
+    'food-jeera':'https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=300&q=70',
+    'food-rice':'https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=300&q=70',
+    'food-dal':'https://images.unsplash.com/photo-1546549032-9571cd6b27df?w=300&q=70',
+    'food-sabzi':'https://images.unsplash.com/photo-1601050690597-df0568f70950?w=300&q=70',
+    'food-soup':'https://images.unsplash.com/photo-1547592180-85f173990554?w=300&q=70',
+    'food-roti':'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=300&q=70',
+    'food-biryani':'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=300&q=70',
+    'food-salad':'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=300&q=70',
+    'food-paneer':'https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=300&q=70',
+    'food-sandwich':'https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=300&q=70',
+    'food-khichdi':'https://images.unsplash.com/photo-1626200420028-cb0f30d26630?w=300&q=70',
+  };
+  return fallbacks[r.css]||'https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=300&q=70';
+}
+function imgTag(r,w,h,style=''){
+  const src=getRecipeImg(r);
+  const grad=GRAD[r.css]||'linear-gradient(145deg,#2d8a56,#0d4d2b)';
+  return `<div style="width:100%;height:100%;position:relative;overflow:hidden;background:${grad};">
+    <img src="${src}" alt="${r.title}" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.style.display='none'">
+  </div>`;
+}
+
 const GRAD={
   'food-aloo':'linear-gradient(145deg,#c0392b,#5d1010)',
   'food-pasta':'linear-gradient(145deg,#f0a500,#8b5e00)',
@@ -736,21 +1169,46 @@ function showDetail(id){
   document.getElementById('detail-time').textContent=`${r.time} min`;
   document.getElementById('detail-servings').textContent=r.servings;
   document.getElementById('detail-cal').textContent=r.cal;
-  // Hero
   const hero=document.getElementById('detail-hero');
-  hero.style.background=GRAD[r.css]||'linear-gradient(145deg,#2d8a56,#0d4d2b)';
-  document.getElementById('detail-emoji-big').textContent=r.emoji;
-  // Ingredients
+  const imgSrc=getRecipeImg(r);
+  const grad=GRAD[r.css]||'linear-gradient(145deg,#2d8a56,#0d4d2b)';
+  hero.style.background=grad;
+  hero.innerHTML=`
+    <img src="${imgSrc}" alt="${r.title}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;" onerror="this.style.display='none'">
+    <div class="detail-hero-overlay" style="z-index:1;"></div>
+    <div class="detail-hero-btns" style="z-index:5;">
+      <div class="glass-btn" onclick="goTo('s-list')"><svg viewBox="0 0 24 24"><polyline points="15,18 9,12 15,6"/></svg></div>
+      <div style="display:flex;gap:10px;">
+        <div class="glass-btn" onclick="toggleFavDetail()"><svg id="fav-glass-icon" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+        <div class="glass-btn"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></div>
+      </div>
+    </div>
+    <div class="detail-emoji-big" id="detail-emoji-big" style="z-index:2;">${r.emoji}</div>
+  `;
+  // Ingredients with Hindi
   document.getElementById('detail-ing-list').innerHTML=r.ingredients.map(ing=>{
     const have=uIngs.some(u=>ing.toLowerCase().includes(u)||u.includes(ing.toLowerCase().split(' ')[0]));
-    return `<div class="ing-row"><div class="ing-left"><div class="ck ${have?'y':'n'}">${have?'✓':'✕'}</div><span class="ing-name">${ing.charAt(0).toUpperCase()+ing.slice(1)}</span></div><span class="ing-st ${have?'y':'n'}">${have?'You have':'Get this'}</span></div>`;
+    const hiName=ING_HI[ing.toLowerCase()]||ING_HI[normalizeIngredient(ing.toLowerCase())]||'';
+    return `<div class="ing-row"><div class="ing-left"><div class="ck ${have?'y':'n'}">${have?'✓':'✕'}</div><div><span class="ing-name">${ing.charAt(0).toUpperCase()+ing.slice(1)}</span>${hiName?`<span style="font-size:11px;color:var(--text3);display:block;font-weight:600;">${hiName}</span>`:''}</div></div><span class="ing-st ${have?'y':'n'}">${have?'है ✓':'लें'}</span></div>`;
   }).join('');
-  // Steps
-  document.getElementById('detail-steps-list').innerHTML=r.steps.map((s,i)=>`<div class="step-row"><div class="step-num">${i+1}</div><div class="step-txt">${s}</div></div>`).join('');
+  // Steps with Hindi
+  const stepsHi=STEPS_HI[r.id]||[];
+  document.getElementById('detail-steps-list').innerHTML=r.steps.map((s,i)=>`
+    <div class="step-row">
+      <div class="step-num">${i+1}</div>
+      <div>
+        <div class="step-txt">${s}</div>
+        ${stepsHi[i]?`<div class="step-txt-hi">👉 ${stepsHi[i]}</div>`:''}
+      </div>
+    </div>`).join('');
   // Tips
-  if(r.tips){ document.getElementById('detail-tips').textContent=r.tips; document.getElementById('detail-tips-box').style.display='block'; }
-  else document.getElementById('detail-tips-box').style.display='none';
-  // Fav icon
+  const tipHi=TIPS_HI[r.id]||'';
+  if(r.tips){
+    document.getElementById('detail-tips').textContent=r.tips;
+    document.getElementById('detail-tips-box').style.display='block';
+    const tipHiEl=document.getElementById('detail-tips-hi');
+    if(tipHiEl) tipHiEl.textContent=tipHi?`💡 ${tipHi}`:'';
+  } else document.getElementById('detail-tips-box').style.display='none';
   const fi=document.getElementById('fav-glass-icon');
   if(favRecipes.includes(r.id)){ fi.setAttribute('fill','var(--red)'); fi.setAttribute('stroke','var(--red)'); }
   else { fi.setAttribute('fill','none'); fi.setAttribute('stroke','#fff'); }
@@ -761,30 +1219,239 @@ function showDetail(id){
 // AI (GROQ)
 // ══════════════════════════════════════
 async function aiGenerate(ings){
-  if(!GROQ_API_KEY){
-    const k=prompt('Enter your Groq API key to use AI recipes:');
-    if(!k){ document.getElementById('recipe-cards-container').innerHTML=`<div class="no-results"><p>API key needed 🔑</p><span>Enter a Groq API key to generate AI recipes.</span></div>`; return; }
-    GROQ_API_KEY=k.trim();
-    sessionStorage.setItem('groqKey',GROQ_API_KEY);
-  }
   document.getElementById('recipe-cards-container').innerHTML=`<div class="ai-loader"><div class="ai-spinner">🤖</div><div class="ai-label">✨ AI is cooking...</div><p>Generating custom recipes with AI...</p></div>`;
   try{
-    const res=await fetch('https://api.groq.com/openai/v1/chat/completions',{
+    const res=await fetch('/api/generate-recipes',{
       method:'POST',
-      headers:{'Content-Type':'application/json','Authorization':`Bearer ${GROQ_API_KEY}`},
-      body:JSON.stringify({model:'llama3-8b-8192',messages:[{role:'user',content:`Generate 3 home cooking recipes using: ${ings.join(', ')}. Respond ONLY with a valid JSON array (no markdown):\n[{"title":"...","time":20,"cal":250,"servings":2,"rating":4.5,"veg":true,"healthy":false,"emoji":"🍛","ingredients":["..."],"steps":["Step 1","Step 2","Step 3"],"tips":"..."}]`}],max_tokens:1500,temperature:0.7})
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({ingredients:ings})
     });
-    if(!res.ok) throw new Error(`API error ${res.status}`);
+    if(!res.ok) throw new Error(`Server error ${res.status}`);
     const data=await res.json();
-    const txt=data.choices[0].message.content.trim();
-    const match=txt.match(/\[[\s\S]*\]/);
-    if(!match) throw new Error('No JSON in response');
-    const recipes=JSON.parse(match[0]);
-    currentListRecipes=recipes.map((r,i)=>({...r,id:1000+i,css:'food-curry',matched:ings.length,total:ings.length,pct:90,aiGenerated:true}));
+    if(!Array.isArray(data.recipes)||!data.recipes.length) throw new Error('No recipes returned');
+    currentListRecipes=data.recipes.map((r,i)=>({...r,id:1000+i,css:'food-curry',matched:ings.length,total:ings.length,pct:90,aiGenerated:true}));
     renderList();
   }catch(e){
     document.getElementById('recipe-cards-container').innerHTML=`<div class="no-results"><p>AI generation failed 😕</p><span>${e.message}</span></div>`;
   }
+}
+
+// ══════════════════════════════════════
+// CATEGORY DATABASE (200+ recipes)
+// ══════════════════════════════════════
+const CAT_DB = [
+  // 🥘 Indian Main Course Veg
+  {cat:'Indian Veg',emoji:'🥘',title:'Paneer Butter Masala',time:30,cal:380,rating:4.9,veg:true,healthy:false,css:'food-paneer',ingredients:['paneer','tomato','cream','butter','garlic','ginger','onion','cashew','garam masala'],steps:['Blend tomatoes, onion, cashew into smooth puree.','Heat butter, add garlic ginger paste, cook 2 min.','Add puree, cook till oil separates.','Add cream, garam masala, salt.','Add paneer cubes, simmer 5 min. Serve with naan.'],tips:'Adding a pinch of sugar balances the tomato acidity.'},
+  {cat:'Indian Veg',emoji:'🧀',title:'Shahi Paneer',time:30,cal:410,rating:4.8,veg:true,healthy:false,css:'food-paneer',ingredients:['paneer','cream','cashew','onion','tomato','cardamom','saffron','ghee'],steps:['Soak cashews 15 min, blend with water to paste.','Cook onions in ghee till golden.','Add tomatoes, cashew paste, cook 10 min.','Add cream, saffron, cardamom.','Add paneer, simmer 5 min.'],tips:'Saffron soaked in warm milk gives royal flavor.'},
+  {cat:'Indian Veg',emoji:'🫑',title:'Kadai Paneer',time:30,cal:360,rating:4.8,veg:true,healthy:false,css:'food-paneer',ingredients:['paneer','capsicum','onion','tomato','garlic','ginger','kadai masala','cream'],steps:['Coarsely grind coriander seeds, dry red chili.','Cook onion, garlic, ginger paste in oil.','Add tomatoes, cook till oil separates.','Add capsicum, kadai masala.','Add paneer and cream. Cook 5 min.'],tips:'Use fresh ground spices for authentic kadai flavor.'},
+  {cat:'Indian Veg',emoji:'🥬',title:'Palak Paneer',time:25,cal:290,rating:4.8,veg:true,healthy:true,css:'food-sabzi',ingredients:['spinach','paneer','onion','garlic','ginger','tomato','cream','cumin'],steps:['Blanch spinach 2 min, blend to smooth puree.','Fry paneer cubes golden, set aside.','Cook onion, garlic, ginger, tomato in oil.','Add spinach puree, cook 5 min.','Add paneer and cream. Simmer 3 min.'],tips:'Do not overcook spinach to keep it bright green.'},
+  {cat:'Indian Veg',emoji:'🫘',title:'Chole Masala',time:40,cal:330,rating:4.9,veg:true,healthy:true,css:'food-dal',ingredients:['chickpea','onion','tomato','garlic','ginger','chole masala','tea bag','ghee'],steps:['Soak chickpeas overnight. Pressure cook with tea bag for color.','Cook onion till dark golden in ghee.','Add garlic, ginger, tomatoes. Cook 8 min.','Add chole masala, cooked chickpeas.','Simmer 15 min. Top with ginger julienne.'],tips:'A tea bag while cooking chickpeas gives them a beautiful dark color.'},
+  {cat:'Indian Veg',emoji:'🍛',title:'Rajma Curry',time:45,cal:390,rating:4.9,veg:true,healthy:true,css:'food-dal',ingredients:['kidney beans','onion','tomato','garlic','ginger','rajma masala','ghee'],steps:['Soak rajma overnight. Pressure cook 6 whistles.','Make deep brown onion masala.','Add garlic, ginger, tomatoes.','Add rajma masala and cooked beans.','Simmer 20 min. Serve with rice.'],tips:'Soaking overnight is must for properly cooked rajma.'},
+  {cat:'Indian Veg',emoji:'🥔',title:'Aloo Gobi',time:25,cal:200,rating:4.6,veg:true,healthy:true,css:'food-sabzi',ingredients:['potato','cauliflower','onion','tomato','turmeric','cumin','coriander powder','oil'],steps:['Cut potato and cauliflower into florets.','Heat oil, add cumin seeds.','Add onion, cook 3 min. Add tomatoes.','Add all veggies, turmeric, coriander powder.','Cover, cook 15 min on low. Stir occasionally.'],tips:'Add kasuri methi at the end for restaurant taste.'},
+  {cat:'Indian Veg',emoji:'🍆',title:'Baingan Bharta',time:30,cal:160,rating:4.7,veg:true,healthy:true,css:'food-sabzi',ingredients:['eggplant','onion','tomato','garlic','ginger','green chili','coriander','oil'],steps:['Roast eggplant on open flame till charred.','Peel, mash the pulp thoroughly.','Cook onion, garlic, ginger, chili in oil.','Add tomatoes, cook soft.','Add mashed eggplant, cook 5 min. Add coriander.'],tips:'Direct flame roasting gives authentic smoky flavor.'},
+  {cat:'Indian Veg',emoji:'🥗',title:'Mix Veg Curry',time:30,cal:210,rating:4.5,veg:true,healthy:true,css:'food-curry',ingredients:['potato','carrot','peas','cauliflower','beans','onion','tomato','garam masala'],steps:['Chop all vegetables into equal size pieces.','Cook onion, tomato gravy in oil.','Add all masalas, cook 2 min.','Add vegetables, mix well.','Cover cook 20 min. Garnish with coriander.'],tips:'Cut vegetables in same size for even cooking.'},
+  {cat:'Indian Veg',emoji:'🫘',title:'Dal Tadka',time:25,cal:190,rating:4.8,veg:true,healthy:true,css:'food-dal',ingredients:['toor dal','onion','tomato','garlic','cumin','turmeric','red chili','ghee'],steps:['Pressure cook dal with turmeric, 3 whistles.','Heat ghee, add cumin seeds.','Add garlic, let it turn golden.','Add onion, tomato, red chili.','Pour tadka over dal. Simmer 5 min.'],tips:'Use generous ghee tadka - that is what makes dal tadka special!'},
+  {cat:'Indian Veg',emoji:'🍛',title:'Dal Makhani',time:50,cal:350,rating:4.9,veg:true,healthy:false,css:'food-dal',ingredients:['black dal','kidney beans','butter','cream','tomato','garlic','ginger','garam masala'],steps:['Soak dal and beans overnight. Pressure cook 8 whistles.','Cook butter, garlic, ginger, tomatoes 15 min.','Add cooked dal and beans.','Simmer on low for 20 min stirring.','Add cream and butter. Cook 5 more min.'],tips:'Slow cooking on low heat is the secret to creamy dal makhani.'},
+  {cat:'Indian Veg',emoji:'🥘',title:'Kadhi Pakora',time:40,cal:270,rating:4.7,veg:true,healthy:false,css:'food-curry',ingredients:['yogurt','besan','onion','mustard seeds','curry leaves','red chili','turmeric','oil'],steps:['Mix besan and onion, make pakora batter. Fry pakoras.','Whisk yogurt with besan, turmeric, water.','Cook yogurt mix on medium heat 20 min stirring.','Add fried pakoras.','Tadka with mustard, curry leaves, red chili. Pour over.'],tips:'Keep stirring kadhi while cooking or it will curdle.'},
+  {cat:'Indian Veg',emoji:'🫛',title:'Matar Paneer',time:25,cal:310,rating:4.7,veg:true,healthy:false,css:'food-paneer',ingredients:['peas','paneer','onion','tomato','garlic','ginger','cream','garam masala'],steps:['Cook onion paste in oil till golden.','Add garlic, ginger paste. Cook 2 min.','Add tomatoes, cook till oil separates.','Add garam masala, peas. Cook 5 min.','Add paneer and cream. Simmer 5 min.'],tips:'Add a pinch of sugar to balance tomato sourness.'},
+  {cat:'Indian Veg',emoji:'🥔',title:'Dum Aloo',time:35,cal:280,rating:4.8,veg:true,healthy:false,css:'food-aloo',ingredients:['baby potato','yogurt','onion','tomato','fennel','ginger','kashmiri chili','ghee'],steps:['Boil baby potatoes, prick with fork.','Shallow fry potatoes till golden.','Cook onion paste with kashmiri chili in ghee.','Add yogurt, fennel powder, ginger.','Add potatoes, dum cook 15 min on very low heat.'],tips:'Slow dum cooking makes potatoes absorb all the masala.'},
+  {cat:'Indian Veg',emoji:'🧆',title:'Malai Kofta',time:45,cal:420,rating:4.8,veg:true,healthy:false,css:'food-paneer',ingredients:['paneer','potato','cream','cashew','tomato','onion','cardamom','ghee'],steps:['Mash paneer and boiled potato together.','Add cashew stuffing, shape into balls. Fry till golden.','Make smooth tomato-cashew gravy.','Add cream, cardamom, cook 5 min.','Add koftas just before serving.'],tips:'Add koftas only at serving time or they will disintegrate.'},
+  // 🍗 Non-Veg
+  {cat:'Non-Veg',emoji:'🍗',title:'Butter Chicken',time:45,cal:420,rating:4.9,veg:false,healthy:false,css:'food-curry',ingredients:['chicken','butter','cream','tomato','onion','cashew','garlic','ginger','garam masala'],steps:['Marinate chicken in yogurt and spices 2 hours.','Grill or pan fry chicken pieces.','Make buttery tomato-cashew sauce.','Add cream and garam masala.','Add chicken, simmer 10 min.'],tips:'Charred edges from grilling add smoky depth to butter chicken.'},
+  {cat:'Non-Veg',emoji:'🍗',title:'Chicken Curry',time:40,cal:380,rating:4.9,veg:false,healthy:true,css:'food-curry',ingredients:['chicken','onion','tomato','yogurt','garlic','ginger','garam masala','oil','turmeric'],steps:['Marinate chicken with yogurt, turmeric 20 min.','Cook onion paste golden brown.','Add tomatoes, garam masala.','Add chicken, sear well.','Add water, simmer 20 min.'],tips:'High heat searing first locks in all the juices.'},
+  {cat:'Non-Veg',emoji:'🍗',title:'Chicken Korma',time:40,cal:450,rating:4.8,veg:false,healthy:false,css:'food-curry',ingredients:['chicken','yogurt','cream','cashew','onion','cardamom','saffron','ghee'],steps:['Marinate chicken in yogurt and spices.','Fry onions till deep golden. Blend to paste.','Cook onion paste in ghee.','Add chicken, cashew paste, cardamom.','Add cream and saffron. Simmer 15 min.'],tips:'Fried onion paste is the heart of a great korma.'},
+  {cat:'Non-Veg',emoji:'🍚',title:'Chicken Biryani',time:60,cal:520,rating:5.0,veg:false,healthy:false,css:'food-biryani',ingredients:['chicken','basmati rice','yogurt','onion','saffron','ghee','biryani masala','mint'],steps:['Marinate chicken in yogurt and biryani masala 2 hours.','Par-cook rice with whole spices.','Fry onions till crispy golden.','Layer rice and chicken in heavy pot.','Top with saffron milk, fried onions. Dum cook 20 min.'],tips:'Real dum biryani needs a sealed pot - use dough to seal.'},
+  {cat:'Non-Veg',emoji:'🍖',title:'Mutton Curry',time:60,cal:480,rating:4.9,veg:false,healthy:true,css:'food-curry',ingredients:['mutton','onion','tomato','yogurt','garlic','ginger','garam masala','oil'],steps:['Brown mutton pieces in oil on high heat.','Make deep golden onion masala.','Add garlic, ginger, tomato paste.','Add mutton, yogurt, garam masala.','Pressure cook 4-5 whistles. Simmer 10 min.'],tips:'High heat browning at start gives mutton rich color and flavor.'},
+  {cat:'Non-Veg',emoji:'🍖',title:'Mutton Rogan Josh',time:60,cal:490,rating:4.9,veg:false,healthy:false,css:'food-curry',ingredients:['mutton','kashmiri chili','yogurt','onion','cardamom','fennel','ghee','ginger'],steps:['Marinate mutton in yogurt and fennel powder.','Cook onion in ghee till golden.','Add kashmiri chili for deep red color.','Add mutton, whole spices, cook on medium.','Pressure cook 5 whistles. Garnish with coriander.'],tips:'Kashmiri chili gives color without heat - use generously.'},
+  {cat:'Non-Veg',emoji:'🐟',title:'Fish Curry',time:30,cal:280,rating:4.7,veg:false,healthy:true,css:'food-curry',ingredients:['fish','coconut milk','tomato','onion','mustard','curry leaves','turmeric','tamarind'],steps:['Marinate fish with turmeric and salt.','Temper mustard seeds, curry leaves.','Cook onion and tomatoes till soft.','Add coconut milk and tamarind.','Add fish, cook 8 min gently.'],tips:'Do not stir fish curry or fish pieces will break.'},
+  {cat:'Non-Veg',emoji:'🍗',title:'Tandoori Chicken',time:50,cal:320,rating:4.9,veg:false,healthy:true,css:'food-curry',ingredients:['chicken','yogurt','garlic','ginger','tandoori masala','lemon','oil','red chili'],steps:['Make deep cuts in chicken pieces.','Marinate in yogurt, tandoori masala 4-6 hours.','Grill on high heat or bake at 220°C.','Cook 20-25 min, turning halfway.','Serve with onion rings and lemon.'],tips:'Overnight marination gives the most tender and flavorful results.'},
+  {cat:'Non-Veg',emoji:'🍗',title:'Chicken Tikka Masala',time:45,cal:410,rating:4.9,veg:false,healthy:false,css:'food-curry',ingredients:['chicken','yogurt','cream','tomato','garlic','ginger','tikka masala','butter'],steps:['Marinate chicken in yogurt and tikka masala 2 hours.','Grill chicken till charred on edges.','Make rich tomato-cream sauce.','Add grilled chicken to sauce.','Simmer 5 min. Add butter to finish.'],tips:'Char on the chicken pieces is essential - do not skip grilling.'},
+  {cat:'Non-Veg',emoji:'🥚',title:'Egg Curry',time:25,cal:280,rating:4.7,veg:false,healthy:true,css:'food-curry',ingredients:['egg','onion','tomato','garlic','ginger','garam masala','oil','turmeric'],steps:['Hard boil eggs, peel and make slits.','Fry eggs lightly till skin is golden.','Make spicy onion-tomato masala.','Add garam masala and turmeric.','Add eggs and water, simmer 10 min.'],tips:'Slitting eggs lets the masala soak deep inside.'},
+  // 🍚 Rice Recipes
+  {cat:'Rice',emoji:'🍚',title:'Veg Biryani',time:50,cal:450,rating:4.8,veg:true,healthy:false,css:'food-biryani',ingredients:['basmati rice','vegetables','yogurt','onion','saffron','biryani masala','ghee','mint'],steps:['Marinate vegetables in yogurt and biryani masala.','Par-cook basmati rice with whole spices.','Fry onions till crispy golden.','Layer rice and veggies in heavy pot.','Top saffron milk, fried onions. Dum 20 min.'],tips:'Use long grain aged basmati for best biryani.'},
+  {cat:'Rice',emoji:'🍚',title:'Pulao',time:25,cal:320,rating:4.6,veg:true,healthy:true,css:'food-rice',ingredients:['basmati rice','vegetables','onion','whole spices','ghee','water'],steps:['Wash and soak rice 20 min.','Fry onion in ghee with whole spices.','Add vegetables, cook 2 min.','Add rice and water (1:1.5 ratio).','Cover, cook 12 min on low heat.'],tips:'Do not open lid while cooking - steam is key.'},
+  {cat:'Rice',emoji:'🌿',title:'Jeera Rice',time:20,cal:260,rating:4.6,veg:true,healthy:true,css:'food-jeera',ingredients:['basmati rice','cumin','ghee','water','salt'],steps:['Wash rice, soak 15 min.','Heat ghee, add generous cumin seeds.','Let cumin splutter and darken.','Add rice, water, salt.','Cook covered 12 min on low.'],tips:'Slightly dark cumin gives deeper, nuttier flavor.'},
+  {cat:'Rice',emoji:'🍳',title:'Fried Rice',time:20,cal:340,rating:4.5,veg:false,healthy:false,css:'food-rice',ingredients:['rice','egg','vegetables','soy sauce','garlic','spring onion','oil'],steps:['Use day-old cold rice.','Scramble eggs in hot wok.','Add garlic, vegetables on high heat.','Add rice, soy sauce, toss constantly.','Top with spring onion. Serve hot.'],tips:'High heat and cold rice are the secrets to perfect fried rice.'},
+  {cat:'Rice',emoji:'🍋',title:'Lemon Rice',time:15,cal:260,rating:4.6,veg:true,healthy:true,css:'food-rice',ingredients:['rice','lemon','mustard seeds','peanuts','turmeric','curry leaves','oil'],steps:['Cook rice, spread to cool.','Fry peanuts in oil till crispy.','Add mustard, curry leaves, turmeric.','Add rice and generous lemon juice.','Toss well, adjust salt.'],tips:'Cool rice prevents it from becoming mushy when mixed.'},
+  {cat:'Rice',emoji:'🥥',title:'Coconut Rice',time:20,cal:280,rating:4.5,veg:true,healthy:false,css:'food-rice',ingredients:['rice','coconut','mustard','curry leaves','cashew','ghee'],steps:['Cook rice, let it cool slightly.','Fry cashews golden in ghee.','Add mustard, curry leaves.','Add grated coconut, stir 2 min.','Mix everything with rice.'],tips:'Fresh grated coconut gives far better flavor than desiccated.'},
+  {cat:'Rice',emoji:'🥛',title:'Curd Rice',time:15,cal:240,rating:4.5,veg:true,healthy:true,css:'food-rice',ingredients:['rice','yogurt','mustard','curry leaves','green chili','ginger','oil'],steps:['Cook rice till very soft. Cool completely.','Mix with yogurt till creamy.','Heat oil, add mustard seeds.','Add curry leaves, chili, ginger.','Pour tadka over rice. Mix and serve.'],tips:'Best served chilled on hot summer days.'},
+  {cat:'Rice',emoji:'🍅',title:'Tomato Rice',time:20,cal:270,rating:4.4,veg:true,healthy:true,css:'food-rice',ingredients:['rice','tomato','onion','mustard','curry leaves','turmeric','oil'],steps:['Cook rice, set aside.','Temper mustard seeds, curry leaves.','Add onion, cook 3 min.','Add tomatoes, turmeric, cook till mushy.','Mix with rice, adjust salt.'],tips:'Slightly raw tomato chunks add freshness at the end.'},
+  {cat:'Rice',emoji:'🌶️',title:'Schezwan Rice',time:25,cal:360,rating:4.7,veg:true,healthy:false,css:'food-rice',ingredients:['rice','schezwan sauce','vegetables','garlic','soy sauce','spring onion','oil'],steps:['Cook rice day ahead, refrigerate.','Stir fry garlic in very hot oil.','Add all vegetables on high flame.','Add rice, schezwan sauce, soy sauce.','Toss on high heat 3 min.'],tips:'Schezwan sauce is the hero - use good quality brand.'},
+  // 🍞 Bread & Roti
+  {cat:'Breads',emoji:'🫓',title:'Butter Naan',time:30,cal:280,rating:4.8,veg:true,healthy:false,css:'food-roti',ingredients:['flour','yogurt','baking powder','butter','garlic','milk'],steps:['Mix flour, yogurt, baking powder, salt. Knead soft dough.','Rest dough 1 hour covered.','Roll into oval shape.','Cook on tawa till bubbles appear, then hold over flame.','Brush generously with butter.'],tips:'Holding naan directly over gas flame gives tandoor-like char.'},
+  {cat:'Breads',emoji:'🧄',title:'Garlic Naan',time:30,cal:290,rating:4.9,veg:true,healthy:false,css:'food-roti',ingredients:['flour','yogurt','garlic','butter','coriander','baking powder'],steps:['Make soft naan dough, rest 1 hour.','Mix minced garlic with melted butter.','Roll dough, press garlic mix on top.','Cook on hot tawa till puffed.','Apply more garlic butter, add coriander.'],tips:'Press garlic firmly into dough before cooking so it does not fall off.'},
+  {cat:'Breads',emoji:'🫓',title:'Tandoori Roti',time:20,cal:180,rating:4.6,veg:true,healthy:true,css:'food-roti',ingredients:['wheat flour','water','salt'],steps:['Knead wheat flour with water into stiff dough.','Rest 15 min covered.','Roll into thick circles.','Wet one side with water.','Cook wet side on tawa first, then direct flame.'],tips:'Wetting the dough side helps it stick to the tawa perfectly.'},
+  {cat:'Breads',emoji:'🥞',title:'Aloo Paratha',time:25,cal:310,rating:4.9,veg:true,healthy:false,css:'food-roti',ingredients:['wheat flour','potato','onion','green chili','coriander','cumin','ghee'],steps:['Knead soft wheat dough, rest 10 min.','Boil and mash potatoes with spices and onion.','Roll small dough disc, add filling in center.','Seal and roll again carefully.','Cook on hot tawa with generous ghee both sides.'],tips:'Keep filling dry to prevent paratha from tearing.'},
+  {cat:'Breads',emoji:'🥞',title:'Paneer Paratha',time:25,cal:340,rating:4.8,veg:true,healthy:false,css:'food-roti',ingredients:['wheat flour','paneer','green chili','cumin','coriander','ghee'],steps:['Make soft wheat dough, rest 10 min.','Crumble paneer, mix with green chili and spices.','Stuff paneer mixture inside rolled dough.','Seal and gently roll thin.','Cook with ghee both sides till golden spots.'],tips:'Crumble paneer finely for easier stuffing and rolling.'},
+  {cat:'Breads',emoji:'🫓',title:'Lachha Paratha',time:25,cal:290,rating:4.7,veg:true,healthy:false,css:'food-roti',ingredients:['wheat flour','oil','salt','water','ghee'],steps:['Knead soft dough, rest 15 min.','Roll thin, brush oil all over.','Fold like a fan (accordion style).','Roll the fan into a coil.','Flatten and cook with ghee on tawa.'],tips:'More folds = more layers = more flakiness.'},
+  // 🥪 Fast Food & Snacks
+  {cat:'Snacks',emoji:'🥙',title:'Pav Bhaji',time:30,cal:380,rating:4.9,veg:true,healthy:false,css:'food-curry',ingredients:['potato','peas','carrot','tomato','onion','pav bhaji masala','butter','pav'],steps:['Boil and mash all vegetables.','Cook onion and tomatoes in butter.','Add pav bhaji masala and mashed vegetables.','Mash everything, add water. Cook 10 min.','Toast pav with butter. Serve with bhaji.'],tips:'Extra butter and lemon juice before serving is the street food secret.'},
+  {cat:'Snacks',emoji:'🫓',title:'Vada Pav',time:30,cal:360,rating:4.9,veg:true,healthy:false,css:'food-curry',ingredients:['potato','pav','besan','garlic','green chili','mustard','curry leaves','oil'],steps:['Boil and mash potatoes with garlic chili tempering.','Shape into balls.','Make thick besan batter.','Deep fry vadas till golden.','Serve in pav with dry garlic chutney.'],tips:'Dry garlic chutney is what makes vada pav Mumbai-special.'},
+  {cat:'Snacks',emoji:'🥟',title:'Samosa',time:45,cal:280,rating:4.8,veg:true,healthy:false,css:'food-pakora',ingredients:['flour','potato','peas','cumin','coriander','oil','green chili','amchur'],steps:['Make stiff dough for outer shell.','Boil peas, mix with spiced mashed potato.','Roll dough thin, cut circles.','Shape into cone, fill, seal.','Deep fry on medium heat till golden.'],tips:'Medium heat frying ensures crispy shells without burning.'},
+  {cat:'Snacks',emoji:'🟡',title:'Dhokla',time:30,cal:200,rating:4.7,veg:true,healthy:true,css:'food-khichdi',ingredients:['besan','yogurt','lemon','turmeric','eno','mustard','curry leaves','oil'],steps:['Mix besan, yogurt, lemon, turmeric. Rest 15 min.','Add eno fruit salt, mix gently.','Pour in greased steamer pan.','Steam 15 min. Check with toothpick.','Temper mustard, curry leaves. Pour over dhokla.'],tips:'Add eno just before steaming for maximum fluffiness.'},
+  {cat:'Snacks',emoji:'🥞',title:'Besan Cheela',time:15,cal:180,rating:4.4,veg:true,healthy:true,css:'food-roti',ingredients:['besan','onion','tomato','green chili','cumin','turmeric','oil'],steps:['Make smooth besan batter.','Add chopped onion, tomato, chili.','Heat non-stick pan with oil.','Pour batter, spread thin.','Cook both sides golden. Serve with yogurt.'],tips:'Lump-free batter makes evenly cooked cheela.'},
+  // 🍜 Chinese / Indo-Chinese
+  {cat:'Chinese',emoji:'🍜',title:'Hakka Noodles',time:20,cal:350,rating:4.6,veg:false,healthy:false,css:'food-pasta',ingredients:['noodles','vegetables','egg','soy sauce','garlic','spring onion','oil','chili sauce'],steps:['Boil noodles, run under cold water.','Scramble egg in hot wok.','Add garlic, all veggies on high flame.','Add noodles, soy sauce, chili sauce.','Toss on high heat. Add spring onion.'],tips:'Cold water after boiling prevents noodles from sticking.'},
+  {cat:'Chinese',emoji:'🟤',title:'Manchurian',time:30,cal:280,rating:4.6,veg:true,healthy:false,css:'food-pakora',ingredients:['cauliflower','besan','cornflour','soy sauce','garlic','ginger','spring onion','chili'],steps:['Make thick besan batter. Coat cauliflower.','Deep fry cauliflower balls till crispy.','Stir fry garlic, ginger, chili in oil.','Add soy sauce, chili sauce gravy.','Toss fried balls in sauce. Add spring onion.'],tips:'Fry balls twice for extra crispiness.'},
+  {cat:'Chinese',emoji:'🧀',title:'Chilli Paneer',time:25,cal:310,rating:4.7,veg:true,healthy:false,css:'food-paneer',ingredients:['paneer','capsicum','onion','soy sauce','garlic','chili sauce','cornflour','oil'],steps:['Coat paneer in cornflour, shallow fry till golden.','Stir fry garlic on high heat.','Add capsicum and onion.','Add all sauces, toss.','Add crispy paneer last.'],tips:'Add paneer last to keep it crispy.'},
+  {cat:'Chinese',emoji:'🍗',title:'Chilli Chicken',time:30,cal:340,rating:4.8,veg:false,healthy:false,css:'food-curry',ingredients:['chicken','capsicum','onion','soy sauce','garlic','ginger','chili sauce','cornflour'],steps:['Marinate chicken with cornflour, soy sauce.','Deep fry chicken till crispy golden.','Stir fry garlic, ginger on high flame.','Add capsicum, onion, sauces.','Toss chicken in sauce mixture.'],tips:'Always cook indo-chinese on highest heat for wok-tossed taste.'},
+  {cat:'Chinese',emoji:'🥟',title:'Fried Momos',time:45,cal:290,rating:4.7,veg:false,healthy:false,css:'food-pakora',ingredients:['flour','vegetables','chicken','garlic','ginger','soy sauce','oil'],steps:['Make stiff dough, rest 30 min.','Mix filling with vegetables and spices.','Roll small thin circles.','Fill and fold into pleated shape.','Steam 10 min, then shallow fry till golden.'],tips:'Steaming before frying gives crispy outside with cooked filling.'},
+  {cat:'Chinese',emoji:'🍯',title:'Honey Chilli Potato',time:25,cal:310,rating:4.8,veg:true,healthy:false,css:'food-aloo',ingredients:['potato','cornflour','honey','soy sauce','chili flakes','garlic','oil','sesame'],steps:['Cut potatoes into thin strips.','Coat with cornflour, deep fry till crispy.','Mix honey, soy sauce, chili flakes.','Toss crispy potatoes in sauce.','Garnish with sesame and spring onion.'],tips:'Double frying potatoes gives maximum crispiness.'},
+  // 🧁 Desserts
+  {cat:'Desserts',emoji:'🟤',title:'Gulab Jamun',time:30,cal:380,rating:4.9,veg:true,healthy:false,css:'food-dal',ingredients:['milk powder','flour','ghee','sugar','cardamom','rose water','oil'],steps:['Mix milk powder, flour, ghee. Add milk to make soft dough.','Shape into small smooth balls.','Deep fry on very low heat till deep brown.','Make sugar syrup with cardamom and rose water.','Soak hot gulab jamuns in warm syrup 30 min.'],tips:'Very low heat frying is crucial - they must cook through.'},
+  {cat:'Desserts',emoji:'⚪',title:'Rasgulla',time:30,cal:220,rating:4.7,veg:true,healthy:false,css:'food-dal',ingredients:['milk','vinegar','sugar','cardamom','rose water'],steps:['Boil milk, add vinegar to curdle.','Strain and squeeze chenna.','Knead chenna smooth, make small balls.','Boil sugar syrup, add chenna balls.','Cook 10 min in boiling syrup.'],tips:'Knead chenna till very smooth for soft spongy rasgulla.'},
+  {cat:'Desserts',emoji:'🍮',title:'Kheer',time:35,cal:290,rating:4.8,veg:true,healthy:false,css:'food-rice',ingredients:['rice','milk','sugar','cardamom','saffron','cashew','raisin'],steps:['Boil milk in heavy pan.','Add washed rice, cook on low heat.','Stir frequently for 25 min.','Add sugar, cardamom, saffron.','Stir 5 more min. Add nuts.'],tips:'Constant stirring prevents milk from sticking to bottom.'},
+  {cat:'Desserts',emoji:'🍮',title:'Gajar Halwa',time:40,cal:380,rating:4.9,veg:true,healthy:false,css:'food-dal',ingredients:['carrot','milk','sugar','ghee','cardamom','cashew'],steps:['Grate carrots finely.','Cook in ghee 5 min.','Add milk, cook till evaporated (20 min).','Add sugar and ghee, stir well.','Cook till dry and glossy. Add cardamom.'],tips:'Red Delhi carrots in winter make the best gajar halwa.'},
+  {cat:'Desserts',emoji:'🟡',title:'Sooji Halwa',time:15,cal:310,rating:4.6,veg:true,healthy:false,css:'food-dal',ingredients:['semolina','sugar','ghee','milk','cardamom','cashew','raisin'],steps:['Roast semolina in ghee on low till golden, 8 min.','Heat milk with sugar, dissolve.','Pour hot milk into semolina carefully.','Stir constantly till thick.','Add cardamom and nuts.'],tips:'Semolina must be well roasted or it will taste raw.'},
+  {cat:'Desserts',emoji:'🍰',title:'Chocolate Cake',time:45,cal:420,rating:4.8,veg:true,healthy:false,css:'food-dal',ingredients:['flour','cocoa','egg','sugar','butter','milk','baking powder','vanilla'],steps:['Mix dry ingredients: flour, cocoa, baking powder.','Beat butter and sugar till fluffy.','Add eggs and vanilla.','Fold in dry mix alternating with milk.','Bake at 180°C for 30 min.'],tips:'Do not open oven for first 20 min or cake will sink.'},
+  // 🍹 Drinks
+  {cat:'Drinks',emoji:'🥭',title:'Mango Shake',time:5,cal:280,rating:4.9,veg:true,healthy:true,css:'food-dal',ingredients:['mango','milk','sugar','ice'],steps:['Peel and chop ripe mangoes.','Add to blender with cold milk.','Add sugar and ice cubes.','Blend till smooth and frothy.','Pour and serve immediately.'],tips:'Alphonso mangoes make the richest shake.'},
+  {cat:'Drinks',emoji:'🍌',title:'Banana Shake',time:5,cal:240,rating:4.6,veg:true,healthy:true,css:'food-dal',ingredients:['banana','milk','sugar','ice','vanilla'],steps:['Peel ripe bananas, break into pieces.','Add milk, sugar, vanilla.','Blend with ice till smooth.','Pour in tall glass.','Top with banana slice.'],tips:'Frozen bananas make an even thicker shake without ice.'},
+  {cat:'Drinks',emoji:'☕',title:'Cold Coffee',time:5,cal:180,rating:4.7,veg:true,healthy:false,css:'food-dal',ingredients:['coffee','milk','sugar','ice cream','ice'],steps:['Dissolve coffee in 2 spoons hot water.','Add to blender with cold milk.','Add sugar, ice cream, ice.','Blend 30 seconds till frothy.','Pour and serve cold.'],tips:'Vanilla ice cream makes cold coffee restaurant-style thick.'},
+  {cat:'Drinks',emoji:'🥛',title:'Lassi',time:5,cal:160,rating:4.8,veg:true,healthy:true,css:'food-dal',ingredients:['yogurt','sugar','water','cardamom','rose water','ice'],steps:['Add thick yogurt to blender.','Add sugar, cardamom, rose water.','Add ice and water.','Blend 20 seconds till frothy.','Pour and serve immediately.'],tips:'Full fat yogurt gives the creamiest lassi.'},
+  {cat:'Drinks',emoji:'🍊',title:'Orange Juice',time:5,cal:90,rating:4.5,veg:true,healthy:true,css:'food-dal',ingredients:['orange','water','sugar','salt','ice'],steps:['Peel and remove seeds from oranges.','Blend with minimal water.','Strain through sieve.','Add pinch of salt, sugar to taste.','Serve over ice immediately.'],tips:'A pinch of salt enhances the sweetness naturally.'},
+  {cat:'Drinks',emoji:'🍉',title:'Watermelon Juice',time:5,cal:60,rating:4.6,veg:true,healthy:true,css:'food-dal',ingredients:['watermelon','lemon','mint','salt','ice'],steps:['Remove seeds from watermelon.','Blend watermelon till smooth.','Strain through sieve.','Add lemon juice, mint, salt.','Serve over ice.'],tips:'Do not add water - watermelon has enough liquid.'},
+  // 🥗 Healthy
+  {cat:'Healthy',emoji:'🥣',title:'Oats Upma',time:15,cal:180,rating:4.3,veg:true,healthy:true,css:'food-khichdi',ingredients:['oats','onion','tomato','mustard','curry leaves','green chili','turmeric','oil'],steps:['Dry roast oats 2 min. Set aside.','Temper mustard, curry leaves.','Add onion, chili. Cook 3 min.','Add tomato, turmeric. Cook 2 min.','Add oats and water. Cook till done.'],tips:'Instant oats are quickest but rolled oats have better texture.'},
+  {cat:'Healthy',emoji:'🥗',title:'Vegetable Salad',time:10,cal:90,rating:4.2,veg:true,healthy:true,css:'food-salad',ingredients:['cucumber','tomato','onion','carrot','lemon','salt','coriander'],steps:['Dice all vegetables finely.','Mix in large bowl.','Squeeze lemon juice.','Add salt and coriander.','Toss and serve.'],tips:'Add chaat masala for delicious Indian-style salad.'},
+  {cat:'Healthy',emoji:'🌱',title:'Sprouts Salad',time:10,cal:120,rating:4.4,veg:true,healthy:true,css:'food-salad',ingredients:['mixed sprouts','tomato','onion','cucumber','lemon','chaat masala','coriander'],steps:['Rinse sprouts thoroughly.','Add chopped tomato, onion, cucumber.','Squeeze lemon juice generously.','Add chaat masala and salt.','Mix and serve fresh.'],tips:'Overnight soaked sprouted moong is most nutritious.'},
+  {cat:'Healthy',emoji:'🍗',title:'Grilled Chicken',time:30,cal:240,rating:4.6,veg:false,healthy:true,css:'food-curry',ingredients:['chicken','garlic','lemon','olive oil','herbs','salt','pepper','paprika'],steps:['Marinate chicken with all spices and oil 1 hour.','Preheat grill or pan to high.','Grill chicken 6-7 min each side.','Rest for 5 min before cutting.','Serve with salad.'],tips:'Resting meat after cooking keeps it juicy.'},
+  {cat:'Healthy',emoji:'🍲',title:'Vegetable Soup',time:20,cal:100,rating:4.3,veg:true,healthy:true,css:'food-soup',ingredients:['carrot','potato','tomato','onion','garlic','herbs','salt','pepper'],steps:['Chop all vegetables.','Sauté onion and garlic in pot.','Add all vegetables.','Add water, bring to boil.','Simmer 15 min. Blend half if desired.'],tips:'Adding a bouillon cube deepens the flavor significantly.'},
+  // 🌍 International
+  {cat:'International',emoji:'🍝',title:'Pasta Arrabbiata',time:25,cal:360,rating:4.6,veg:true,healthy:false,css:'food-pasta',ingredients:['pasta','tomato','garlic','red chili','olive oil','basil','parmesan'],steps:['Boil pasta till al dente.','Fry garlic and chili in olive oil.','Add tomatoes, cook 10 min.','Toss pasta in sauce.','Top with fresh basil and parmesan.'],tips:'Reserve pasta water to adjust sauce consistency.'},
+  {cat:'International',emoji:'🌮',title:'Tacos',time:25,cal:380,rating:4.7,veg:false,healthy:false,css:'food-sandwich',ingredients:['tortilla','chicken','tomato','onion','lettuce','cheese','sour cream','lime'],steps:['Season and cook chicken strips on high heat.','Warm tortillas on dry pan.','Layer chicken on tortilla.','Add tomato, onion, lettuce.','Top with cheese, sour cream, lime.'],tips:'Char on chicken is essential for authentic taco flavor.'},
+  {cat:'International',emoji:'🍣',title:'Vegetable Sushi',time:45,cal:290,rating:4.5,veg:true,healthy:true,css:'food-rice',ingredients:['sushi rice','nori','cucumber','avocado','carrot','rice vinegar','soy sauce'],steps:['Cook sticky rice with rice vinegar.','Place nori on bamboo mat.','Spread rice leaving top edge empty.','Add vegetables in a line.','Roll tightly, cut into pieces.'],tips:'Wet knife before each cut for clean sushi rolls.'},
+  {cat:'International',emoji:'🍜',title:'Ramen',time:30,cal:410,rating:4.7,veg:false,healthy:false,css:'food-pasta',ingredients:['noodles','egg','soy sauce','miso','garlic','ginger','spring onion','mushroom'],steps:['Make broth with garlic, ginger, miso, soy sauce.','Simmer broth 20 min.','Cook ramen noodles separately.','Soft boil eggs 6.5 min.','Assemble: broth, noodles, egg, toppings.'],tips:'Rich broth is everything in ramen - do not rush it.'},
+  // Street Food
+  {cat:'Street Food',emoji:'💧',title:'Pani Puri',time:20,cal:180,rating:5.0,veg:true,healthy:false,css:'food-pakora',ingredients:['puri','potato','chickpea','tamarind water','mint','coriander','cumin','chaat masala'],steps:['Make spicy mint-coriander pani (water).','Make sweet tamarind water separately.','Boil and mash potatoes with chickpeas and spices.','Fill puris with potato mix.','Dip in pani and eat immediately!'],tips:'Eat pani puri in one bite before it gets soggy.'},
+  {cat:'Street Food',emoji:'🥣',title:'Bhel Puri',time:10,cal:220,rating:4.7,veg:true,healthy:false,css:'food-salad',ingredients:['puffed rice','sev','tomato','onion','potato','tamarind chutney','green chutney','coriander'],steps:['Boil and dice potato.','Mix puffed rice with tomato, onion, potato.','Add tamarind chutney and green chutney.','Toss with sev.','Serve immediately topped with coriander.'],tips:'Mix and serve instantly - bhel puri goes soggy fast!'},
+  {cat:'Street Food',emoji:'🥔',title:'Aloo Tikki',time:25,cal:260,rating:4.7,veg:true,healthy:false,css:'food-aloo',ingredients:['potato','onion','coriander','green chili','cumin','bread crumbs','oil'],steps:['Boil and mash potatoes.','Mix with onion, chili, spices.','Shape into flat round patties.','Coat in bread crumbs.','Shallow fry both sides golden.'],tips:'Refrigerate patties 15 min before frying to keep shape.'},
+  {cat:'Street Food',emoji:'🌯',title:'Kathi Roll',time:20,cal:320,rating:4.6,veg:false,healthy:false,css:'food-sandwich',ingredients:['paratha','egg','chicken','onion','capsicum','chutney','lemon'],steps:['Cook paratha on tawa.','Break egg on paratha, cook on top.','Add spiced chicken filling.','Add onion, capsicum, chutney.','Roll tightly, wrap in paper.'],tips:'Egg-coated paratha base is the Kolkata kathi roll secret.'},
+];
+
+const CATEGORIES = [
+  {key:'Indian Veg', label:'🥘 Indian Veg', color:'#2A7A50'},
+  {key:'Non-Veg', label:'🍗 Non-Veg', color:'#c0392b'},
+  {key:'Rice', label:'🍚 Rice', color:'#d4a017'},
+  {key:'Breads', label:'🍞 Breads', color:'#8B4513'},
+  {key:'Snacks', label:'🥪 Snacks', color:'#e67e22'},
+  {key:'Chinese', label:'🍜 Chinese', color:'#e74c3c'},
+  {key:'Desserts', label:'🧁 Desserts', color:'#8e44ad'},
+  {key:'Drinks', label:'🍹 Drinks', color:'#2980b9'},
+  {key:'Healthy', label:'🥗 Healthy', color:'#27ae60'},
+  {key:'Street Food', label:'🛺 Street Food', color:'#d35400'},
+  {key:'International', label:'🌍 World', color:'#16a085'},
+];
+let activeCat=CATEGORIES[0].key;
+let catShowAll={};
+
+function initCategories(){
+  const row=document.getElementById('cat-tabs-row');
+  row.innerHTML=CATEGORIES.map((c,i)=>`<div class="cat-tab${i===0?' active':''}" onclick="selectCat('${c.key}',this)">${c.label}</div>`).join('');
+  renderCatGrid();
+}
+function selectCat(key,el){
+  activeCat=key;
+  document.querySelectorAll('.cat-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  renderCatGrid();
+}
+function renderCatGrid(){
+  const grid=document.getElementById('cat-recipes-grid');
+  const all=CAT_DB.filter(r=>r.cat===activeCat);
+  const showAll=catShowAll[activeCat];
+  const shown=showAll?all:all.slice(0,6);
+  grid.innerHTML=shown.map((r,i)=>`
+    <div class="cat-card" onclick="openCatRecipe(${CAT_DB.indexOf(r)})">
+      <div class="cat-card-img" style="background:${GRAD[r.css]||'linear-gradient(145deg,#2d8a56,#0d4d2b)'}">
+        ${imgTag(r)}
+      </div>
+      <div class="cat-card-body">
+        <h4>${r.title}</h4>
+        <div class="cat-card-meta">
+          <span>⏱ ${r.time}m</span>
+          <span>★ ${r.rating}</span>
+          ${r.veg?'<span style="color:var(--green)">🌿</span>':'<span style="color:var(--red)">🍗</span>'}
+        </div>
+      </div>
+    </div>`).join('');
+  if(!showAll && all.length>6){
+    grid.innerHTML+=`<div class="cat-more-btn" onclick="showAllCat()">See all ${all.length} recipes ›</div>`;
+  }
+}
+function showAllCat(){ catShowAll[activeCat]=true; renderCatGrid(); }
+function openCatRecipe(idx){
+  const r=CAT_DB[idx];
+  if(!r) return;
+  // assign unique id if not present
+  if(!r.id) r.id=2000+idx;
+  currentListRecipes=[r];
+  showDetail(r.id);
+}
+
+// ══════════════════════════════════════
+// CAMERA / GEMINI IMAGE ANALYSIS
+// ══════════════════════════════════════
+let detectedIngredients=[];
+
+function openCameraModal(){
+  document.getElementById('cam-modal').style.display='flex';
+  document.getElementById('cam-preview-box').innerHTML=`<div class="cam-placeholder" onclick="document.getElementById('cam-input').click()"><svg viewBox="0 0 24 24" width="44" height="44" stroke="var(--green)" fill="none" stroke-width="1.5" style="opacity:0.7;"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg><div style="font-size:14px;font-weight:700;margin-top:8px;color:var(--text2)">Tap to open camera</div><div style="font-size:12px;color:var(--text3);margin-top:4px;">or select a photo from gallery</div></div>`;
+  document.getElementById('cam-status').textContent='';
+  document.getElementById('cam-detected-chips').innerHTML='';
+  document.getElementById('cam-add-btn').style.display='none';
+  detectedIngredients=[];
+}
+function closeCameraModal(){ document.getElementById('cam-modal').style.display='none'; }
+
+async function analyzeImage(input){
+  const file=input.files[0]; if(!file) return;
+  const reader=new FileReader();
+  reader.onload=async function(e){
+    const base64=e.target.result.split(',')[1];
+    const previewBox=document.getElementById('cam-preview-box');
+    previewBox.innerHTML=`<img src="${e.target.result}" style="width:100%;border-radius:14px;max-height:200px;object-fit:cover;">`;
+    document.getElementById('cam-status').textContent='🤖 AI analyzing your photo...';
+    try{
+      const res=await fetch('/api/analyze-image',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({image:base64,mimeType:file.type})
+      });
+      if(!res.ok) throw new Error(`Server error ${res.status}`);
+      const data=await res.json();
+      const raw=Array.isArray(data.ingredients)?data.ingredients:[];
+      detectedIngredients=raw.map(i=>normalizeIngredient(i.toLowerCase().trim())).filter(Boolean);
+      if(!detectedIngredients.length){
+        document.getElementById('cam-status').textContent='😕 No ingredients detected. Try a clearer photo.';
+        return;
+      }
+      document.getElementById('cam-status').textContent=`✅ Detected ${detectedIngredients.length} ingredients!`;
+      const chipsCont=document.getElementById('cam-detected-chips');
+      chipsCont.innerHTML=detectedIngredients.map(i=>`
+        <div style="display:flex;align-items:center;gap:6px;background:var(--green-light);border:1.5px solid var(--green);border-radius:50px;padding:5px 10px;font-size:12px;font-weight:700;color:var(--green);">
+          ${EMOJI_MAP[i]||'🥗'} ${i}
+        </div>`).join('');
+      document.getElementById('cam-add-btn').style.display='block';
+    }catch(err){
+      document.getElementById('cam-status').textContent='❌ Error: '+err.message;
+    }
+  };
+  reader.readAsDataURL(file);
+}
+
+function addDetectedIngredients(){
+  const chipsRow=document.getElementById('chips-row');
+  detectedIngredients.forEach(ing=>{
+    const em=EMOJI_MAP[ing]||'🥗';
+    const c=document.createElement('div'); c.className='chip';
+    c.innerHTML=`<span class="chip-emoji">${em}</span>${ing}<span style="font-size:9px;color:#2980b9;font-weight:800;background:#e8f4fd;padding:1px 5px;border-radius:6px;margin-left:2px;">AI</span><span class="chip-x" onclick="removeChip(this)">✕</span>`;
+    c.dataset.normalized=ing;
+    chipsRow.appendChild(c);
+  });
+  updateCount();
+  navTo('s-home', document.getElementById('nb-home'));
+  toast(`Added ${detectedIngredients.length} ingredients!`);
 }
 
 // ══════════════════════════════════════
@@ -829,7 +1496,7 @@ function updateSavedScreen(){
   if(!savedRecipes.length){ g.innerHTML=`<div style="grid-column:1/-1;padding:40px 0;text-align:center;color:var(--text3);font-size:14px;font-weight:700;">No saved recipes yet 🍽️<br><span style="font-size:12px;font-weight:500;">Find and save recipes from home</span></div>`; return; }
   g.innerHTML=savedRecipes.map(r=>`
     <div class="sgrid-card" onclick="showDetail(${r.id})">
-      <div class="sgrid-img"><div class="food-img ${r.css}" style="width:100%;height:100%;"><div class="food-emoji" style="font-size:32px;">${r.emoji}</div></div>
+      <div class="sgrid-img"><div style="width:100%;height:100%;position:relative;overflow:hidden;background:${GRAD[r.css]||'linear-gradient(145deg,#2d8a56,#0d4d2b)'};"><img src="${getRecipeImg(r)}" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"></div>
         <div class="sgrid-heart"><svg viewBox="0 0 24 24" fill="var(--red)" width="15" height="15"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
       </div>
       <div class="sgrid-body"><h4>${r.title}</h4><div class="sgrid-meta"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>${r.time} min</div></div>
@@ -842,7 +1509,7 @@ function updateFavScreen(){
   if(!favs.length){ fl.innerHTML=`<div style="padding:40px 0;text-align:center;color:var(--text3);font-size:14px;font-weight:700;">No favorites yet ❤️<br><span style="font-size:12px;font-weight:500;">Heart recipes to add them here</span></div>`; return; }
   fl.innerHTML=favs.map(r=>`
     <div class="fav-item" onclick="showDetail(${r.id})">
-      <div class="fav-img"><div class="food-img ${r.css}" style="width:100%;height:100%;"><div class="food-emoji" style="font-size:22px;">${r.emoji}</div></div></div>
+      <div class="fav-img"><div style="width:100%;height:100%;position:relative;overflow:hidden;background:${GRAD[r.css]||'linear-gradient(145deg,#2d8a56,#0d4d2b)'};"><img src="${getRecipeImg(r)}" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"></div></div>
       <div class="fav-body"><h4>${r.title}</h4><div class="fav-meta-row"><span><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>${r.time} min</span><span><span style="color:var(--yellow)">★</span>${r.rating}</span></div></div>
       <div class="heart-filled"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
     </div>`).join('');
@@ -865,6 +1532,7 @@ const h=new Date().getHours();
 document.getElementById('greeting-txt').textContent=h<12?'👋 Good morning!':h<17?'👋 Good afternoon!':'👋 Good evening!';
 updateSavedScreen();
 updateFavScreen();
+initCategories();
 </script>
 </body>
 </html>
