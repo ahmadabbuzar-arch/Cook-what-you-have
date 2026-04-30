@@ -1,24 +1,29 @@
-export const config = {
-  api: {
-    bodyParser: {
-      sizeLimit: '10mb',
-    },
-  },
-};
+module.exports = async function handler(req, res) {
+  // Allow large body
+  res.setHeader('Access-Control-Allow-Origin', '*');
 
-export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { image, mimeType } = req.body;
+  let body = req.body;
+
+  // If body is a string (raw), parse it
+  if (typeof body === 'string') {
+    try { body = JSON.parse(body); } catch(e) {
+      return res.status(400).json({ error: 'Invalid JSON body' });
+    }
+  }
+
+  const { image, mimeType } = body || {};
+
   if (!image || !mimeType) {
     return res.status(400).json({ error: 'Missing image or mimeType' });
   }
 
   const GEMINI_KEY = process.env.GEMINI_API_KEY;
   if (!GEMINI_KEY) {
-    return res.status(500).json({ error: 'Gemini API key not configured' });
+    return res.status(500).json({ error: 'GEMINI_API_KEY not set in Vercel environment variables' });
   }
 
   try {
@@ -43,16 +48,19 @@ export default async function handler(req, res) {
     );
 
     const data = await response.json();
+
     if (data.error) {
-      return res.status(500).json({ error: 'Gemini API error: ' + data.error.message });
+      return res.status(500).json({ error: 'Gemini error: ' + data.error.message });
     }
 
     const txt = data.candidates?.[0]?.content?.parts?.[0]?.text || '[]';
     const match = txt.match(/\[[\s\S]*?\]/);
-    const ingredients = match ? JSON.parse(match[0]) : [];
+    let ingredients = [];
+    try { ingredients = match ? JSON.parse(match[0]) : []; } catch(e) { ingredients = []; }
 
-    res.status(200).json({ ingredients });
+    return res.status(200).json({ ingredients });
+
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    return res.status(500).json({ error: err.message });
   }
-}
+};
