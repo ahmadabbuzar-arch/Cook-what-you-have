@@ -1549,21 +1549,18 @@ function showDetail(id){
     return `<div class="ing-row"><div class="ing-left"><div class="ck ${have?'y':'n'}">${have?'✓':'✕'}</div><div><span class="ing-name">${ing.charAt(0).toUpperCase()+ing.slice(1)}</span>${hiName?`<span style="font-size:11px;color:var(--text3);display:block;font-weight:600;">${hiName}</span>`:''}</div></div><span class="ing-st ${have?'y':'n'}">${have?'है ✓':'लें'}</span></div>`;
   }).join('');
   // Steps - show English first, then load Hindi
-  const stepsHiCache = STEPS_HI[r.id] || [];
   document.getElementById('detail-steps-list').innerHTML = r.steps.map((s,i) => `
     <div class="step-row">
       <div class="step-num">${i+1}</div>
       <div style="flex:1;">
         <div class="step-txt">${s}</div>
         <div class="step-txt-hi" id="step-hi-${r.id}-${i}" style="margin-top:5px;color:var(--green);font-size:12px;font-weight:700;line-height:1.5;">
-          ${stepsHiCache[i] ? '👉 ' + stepsHiCache[i] : '<span style="color:var(--text3);font-size:11px;">⏳ हिंदी लोड हो रही है...</span>'}
+          <span style="color:var(--text3);font-size:11px;">⏳ हिंदी लोड हो रही है...</span>
         </div>
       </div>
     </div>`).join('');
-  // If no cached Hindi, fetch from Gemini
-  if (!stepsHiCache.length) {
-    translateStepsToHindi(r);
-  }
+  // Always fetch Hindi translation
+  translateStepsToHindi(r);
   // Tips
   const tipHi=TIPS_HI[r.id]||'';
   if(r.tips){
