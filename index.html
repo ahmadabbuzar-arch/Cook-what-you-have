@@ -295,6 +295,19 @@ html,body { font-family:'Nunito',sans-serif; background:var(--bg); color:var(--t
 .cam-placeholder { text-align:center; padding:20px; }
 #cam-preview-box img { width:100%; border-radius:14px; }
 
+/* QUICK ADD */
+.quick-add-section { padding:20px 20px 0; }
+.quick-add-title { font-size:15px; font-weight:800; color:var(--text); margin-bottom:12px; }
+.quick-cat-tabs { display:flex; gap:8px; overflow-x:auto; scrollbar-width:none; margin-bottom:14px; }
+.quick-cat-tabs::-webkit-scrollbar { display:none; }
+.qcat-tab { flex-shrink:0; padding:8px 14px; border-radius:50px; font-size:12px; font-weight:800; cursor:pointer; border:2px solid var(--border); color:var(--text2); background:var(--card); white-space:nowrap; transition:all .2s; }
+.qcat-tab.active { background:var(--green); color:#fff; border-color:var(--green); }
+.quick-ing-grid { display:flex; flex-wrap:wrap; gap:9px; }
+.qing-btn { display:flex; align-items:center; gap:6px; padding:8px 13px; background:var(--card); border:1.5px solid var(--border); border-radius:50px; font-size:13px; font-weight:700; color:var(--text); cursor:pointer; transition:all .18s; box-shadow:var(--shadow2); }
+.qing-btn:active { transform:scale(0.95); }
+.qing-btn.selected { background:var(--green-light); border-color:var(--green); color:var(--green); }
+.qing-btn span { font-size:18px; }
+
 /* CATEGORY SECTION */
 .cat-section { padding:20px 0 10px; }
 .cat-scroll { display:flex; gap:10px; overflow-x:auto; padding:0 20px 14px; scrollbar-width:none; }
@@ -337,8 +350,21 @@ html,body { font-family:'Nunito',sans-serif; background:var(--bg); color:var(--t
       </div>
       <div class="chips-row" id="chips-row"></div>
     </div>
-    <!-- CAMERA CARD -->
-    <div class="cam-card" onclick="openCameraModal()">
+    <!-- QUICK ADD CATEGORIES -->
+    <div class="quick-add-section">
+      <div class="quick-add-title">⚡ Quick Add</div>
+      <div class="quick-cat-tabs" id="quick-cat-tabs">
+        <div class="qcat-tab active" onclick="selectQcat(this,'vegetables')">🥦 Veggies</div>
+        <div class="qcat-tab" onclick="selectQcat(this,'fruits')">🍎 Fruits</div>
+        <div class="qcat-tab" onclick="selectQcat(this,'dairy')">🥛 Dairy</div>
+        <div class="qcat-tab" onclick="selectQcat(this,'grains')">🌾 Grains</div>
+        <div class="qcat-tab" onclick="selectQcat(this,'spices')">🫙 Spices</div>
+        <div class="qcat-tab" onclick="selectQcat(this,'protein')">🥚 Protein</div>
+      </div>
+      <div class="quick-ing-grid" id="quick-ing-grid"></div>
+    </div>
+    <!-- CAMERA CARD (hidden, kept for legacy) -->
+    <div class="cam-card" style="display:none;" onclick="openCameraModal()">
       <div class="cam-card-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg>
       </div>
@@ -1042,13 +1068,44 @@ const RECIPE_IMGS = {
   3:'https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=300&q=70', // pakora
   4:'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=300&q=70', // pasta
   5:'https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=300&q=70', // spicy curry
-  6:'https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=300&q=70', // jeera aloo
+  6:'https://images.unsplash.com/photo-1573246123716-6b1782bfc499?w=300&q=70', // jeera aloo
   7:'https://images.unsplash.com/photo-1546549032-9571cd6b27df?w=300&q=70',   // dal tadka
   8:'https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=300&q=70', // fried rice
   9:'https://images.unsplash.com/photo-1547592180-85f173990554?w=300&q=70',   // tomato soup
   10:'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=300&q=70',// roti
   11:'https://images.unsplash.com/photo-1626200420028-cb0f30d26630?w=300&q=70',// khichdi
   12:'https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=300&q=70',// paneer bhurji
+  13:'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=300&q=70',// paratha
+  14:'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=300&q=70',// veg biryani
+  15:'https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=300&q=70',// raita
+  16:'https://images.unsplash.com/photo-1610057099443-fde8c4d50f91?w=300&q=70',// chana masala
+  17:'https://images.unsplash.com/photo-1601050690597-df0568f70950?w=300&q=70',// saag paneer
+  18:'https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=300&q=70',// baingan bharta
+  19:'https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=300&q=70',// poha
+  20:'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=300&q=70',// upma
+  21:'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=300&q=70',// moong cheela
+  22:'https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=300&q=70',// bread pakora
+  23:'https://images.unsplash.com/photo-1631300715412-29db1c79f5e1?w=300&q=70',// kheer
+  24:'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=300&q=70',// aloo gobi
+  25:'https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=300&q=70',// matar paneer
+  26:'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=300&q=70',// salad
+  27:'https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=300&q=70',// curd rice
+  28:'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=300&q=70',// maggi
+  29:'https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=300&q=70',// pav bhaji
+  30:'https://images.unsplash.com/photo-1528207776546-365bb710ee93?w=300&q=70',// banana pancakes
+  31:'https://images.unsplash.com/photo-1610057099443-fde8c4d50f91?w=300&q=70',// rajma
+  32:'https://images.unsplash.com/photo-1495214783159-3503fd1b572d?w=300&q=70',// oats
+  33:'https://images.unsplash.com/photo-1601050690597-df0568f70950?w=300&q=70',// spinach dal
+  34:'https://images.unsplash.com/photo-1619221882220-947b3d3c8861?w=300&q=70',// garlic bread
+  35:'https://images.unsplash.com/photo-1559054663-e8d23213f55c?w=300&q=70',// anda curry
+  36:'https://images.unsplash.com/photo-1546549032-9571cd6b27df?w=300&q=70',// sambar
+  37:'https://images.unsplash.com/photo-1631300715412-29db1c79f5e1?w=300&q=70',// halwa
+  38:'https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?w=300&q=70',// chicken curry
+  39:'https://images.unsplash.com/photo-1626200420028-cb0f30d26630?w=300&q=70',// ven pongal
+  40:'https://images.unsplash.com/photo-1546549032-9571cd6b27df?w=300&q=70',// masoor dal
+  41:'https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=300&q=70',// bread upma
+  42:'https://images.unsplash.com/photo-1547592180-85f173990554?w=300&q=70',// palak soup
+  43:'https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=300&q=70',// coconut rice
 };
 const CAT_IMGS = {
   // Paneer dishes
@@ -1438,6 +1495,82 @@ function openCatRecipe(idx){
 // ══════════════════════════════════════
 // CAMERA / GEMINI IMAGE ANALYSIS
 // ══════════════════════════════════════
+// QUICK ADD CATEGORIES
+// ══════════════════════════════════════
+const QUICK_CATS = {
+  vegetables: [
+    {e:'🥔',n:'potato'},{e:'🍅',n:'tomato'},{e:'🧅',n:'onion'},{e:'🧄',n:'garlic'},
+    {e:'🥦',n:'cauliflower'},{e:'🥕',n:'carrot'},{e:'🥬',n:'spinach'},{e:'🍆',n:'eggplant'},
+    {e:'🫛',n:'peas'},{e:'🫑',n:'capsicum'},{e:'🌽',n:'corn'},{e:'🥗',n:'okra'},
+    {e:'🥒',n:'cucumber'},{e:'🎃',n:'pumpkin'},{e:'🌿',n:'ginger'}
+  ],
+  fruits: [
+    {e:'🍋',n:'lemon'},{e:'🥭',n:'mango'},{e:'🍌',n:'banana'},{e:'🍎',n:'apple'},
+    {e:'🍇',n:'grapes'},{e:'🍓',n:'strawberry'},{e:'🥥',n:'coconut'},{e:'🍊',n:'orange'},
+    {e:'🍑',n:'peach'},{e:'🥑',n:'avocado'}
+  ],
+  dairy: [
+    {e:'🥛',n:'milk'},{e:'🧀',n:'paneer'},{e:'🍶',n:'yogurt'},{e:'🧈',n:'butter'},
+    {e:'🧀',n:'cheese'},{e:'🫙',n:'cream'},{e:'🥛',n:'ghee'}
+  ],
+  grains: [
+    {e:'🍚',n:'rice'},{e:'🫙',n:'flour'},{e:'🌾',n:'oats'},{e:'🍝',n:'pasta'},
+    {e:'🫙',n:'semolina'},{e:'🍞',n:'bread'},{e:'🫙',n:'besan'},{e:'🌾',n:'poha'},
+    {e:'🫘',n:'dal'},{e:'🫘',n:'chickpea'}
+  ],
+  spices: [
+    {e:'🌶️',n:'chili'},{e:'🫙',n:'turmeric'},{e:'🫙',n:'cumin'},{e:'🌿',n:'coriander'},
+    {e:'🫙',n:'garam masala'},{e:'🌿',n:'mustard'},{e:'🍃',n:'curry leaves'},
+    {e:'🫙',n:'biryani masala'},{e:'🫙',n:'chana masala'},{e:'🫙',n:'soy sauce'}
+  ],
+  protein: [
+    {e:'🥚',n:'egg'},{e:'🍗',n:'chicken'},{e:'🫘',n:'dal'},{e:'🧀',n:'paneer'},
+    {e:'🥜',n:'peanuts'},{e:'🫘',n:'kidney beans'},{e:'🥛',n:'milk'}
+  ]
+};
+
+let activeQcat = 'vegetables';
+
+function selectQcat(el, cat) {
+  document.querySelectorAll('.qcat-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  activeQcat = cat;
+  renderQuickGrid(cat);
+}
+
+function renderQuickGrid(cat) {
+  const grid = document.getElementById('quick-ing-grid');
+  const items = QUICK_CATS[cat] || [];
+  const chipsRow = document.getElementById('chips-row');
+  const selected = Array.from(chipsRow.querySelectorAll('.chip')).map(c => c.dataset.normalized);
+  grid.innerHTML = items.map(item => {
+    const isSel = selected.includes(item.n);
+    return `<div class="qing-btn ${isSel?'selected':''}" onclick="toggleQing(this,'${item.n}','${item.e}')">
+      <span>${item.e}</span>${item.n}
+    </div>`;
+  }).join('');
+}
+
+function toggleQing(el, name, emoji) {
+  const chipsRow = document.getElementById('chips-row');
+  const existing = Array.from(chipsRow.querySelectorAll('.chip')).find(c => c.dataset.normalized === name);
+  if (existing) {
+    existing.remove();
+    el.classList.remove('selected');
+  } else {
+    const c = document.createElement('div'); c.className = 'chip';
+    c.innerHTML = `<span class="chip-emoji">${emoji}</span>${name}<span class="chip-x" onclick="removeChip(this)">✕</span>`;
+    c.dataset.normalized = name;
+    chipsRow.appendChild(c);
+    el.classList.add('selected');
+  }
+  updateCount();
+}
+
+// Init quick add on load
+setTimeout(() => renderQuickGrid('vegetables'), 0);
+
+// ══════════════════════════════════════
 let detectedIngredients=[];
 
 function openCameraModal(){
@@ -1470,7 +1603,10 @@ async function analyzeImage(input){
       previewBox.innerHTML=`<img src="${compressed}" style="width:100%;border-radius:14px;max-height:200px;object-fit:cover;">`;
       document.getElementById('cam-status').textContent='🤖 AI analyzing your photo...';
       try{
-        const res=await fetch('/api/analyze-image',{
+        const API_URL = window.location.origin.startsWith('file')
+          ? 'https://YOUR-VERCEL-APP.vercel.app/api/analyze-image'
+          : '/api/analyze-image';
+        const res=await fetch(API_URL,{
           method:'POST',
           headers:{'Content-Type':'application/json'},
           body:JSON.stringify({image:base64,mimeType:'image/jpeg'})
