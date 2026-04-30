@@ -1799,6 +1799,20 @@ document.addEventListener('click', e => {
 });
 
 // ══════════════════════════════════════
+// CONFIG - fetch Gemini key from backend
+// ══════════════════════════════════════
+window.GEMINI_KEY = '';
+(async () => {
+  try {
+    const r = await fetch('/api/get-config');
+    if (r.ok) {
+      const d = await r.json();
+      window.GEMINI_KEY = d.geminiKey || '';
+    }
+  } catch(e) {}
+})();
+
+// ══════════════════════════════════════
 // HINDI STEPS TRANSLATION (Gemini)
 // ══════════════════════════════════════
 const hindiCache = {};
@@ -1809,16 +1823,50 @@ async function translateStepsToHindi(r) {
     return;
   }
   try {
+    const prompt = `Translate these cooking steps for "${r.title}" into simple Hindi (Devanagari). Keep it short and easy for home cooks.\n\nSteps:\n${r.steps.map((s,i)=>`${i+1}. ${s}`).join('\n')}\n\nReturn ONLY a JSON array of Hindi strings, same order. No explanation, no markdown. Example: ["हिंदी स्टेप 1","हिंदी स्टेप 2"]`;
+
     const res = await fetch('/api/translate-steps', {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify({ recipeId: r.id, steps: r.steps, title: r.title })
     });
+
     if (!res.ok) throw new Error('API error');
     const data = await res.json();
+
     if (data.stepsHi && Array.isArray(data.stepsHi) && data.stepsHi.length) {
       hindiCache[r.id] = data.stepsHi;
       applyHindiSteps(r.id, data.stepsHi);
+    } else {
+      // Fallback: call Gemini directly
+      await translateViaGeminiDirect(r);
+    }
+  } catch(e) {
+    // Fallback: call Gemini directly
+    await translateViaGeminiDirect(r);
+  }
+}
+
+async function translateViaGeminiDirect(r) {
+  try {
+    const prompt = `Translate these cooking steps for "${r.title}" into simple Hindi (Devanagari). Keep it short and easy.\n\nSteps:\n${r.steps.map((s,i)=>`${i+1}. ${s}`).join('\n')}\n\nReturn ONLY a JSON array of Hindi strings. No explanation, no markdown. Example: ["हिंदी स्टेप 1","हिंदी स्टेप 2"]`;
+
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${window.GEMINI_KEY||''}`, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        contents: [{parts:[{text: prompt}]}],
+        generationConfig: {temperature: 0.2, maxOutputTokens: 1024}
+      })
+    });
+    if (!res.ok) throw new Error('Gemini error');
+    const data = await res.json();
+    const txt = data.candidates?.[0]?.content?.parts?.[0]?.text || '[]';
+    const match = txt.match(/\[[\s\S]*?\]/);
+    const stepsHi = match ? JSON.parse(match[0]) : [];
+    if (stepsHi.length) {
+      hindiCache[r.id] = stepsHi;
+      applyHindiSteps(r.id, stepsHi);
     } else {
       clearHindiLoaders(r.id, r.steps.length);
     }
