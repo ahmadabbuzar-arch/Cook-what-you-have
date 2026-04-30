@@ -1682,45 +1682,110 @@ const GRAD={
   'food-burger':'linear-gradient(145deg,#c8860a,#3a2000)'
 };
 // ══════════════════════════════════════
-// STEP IMAGES — keyword → Unsplash photo
+// STEP IMAGES — Curated exact cooking photos per action
 // ══════════════════════════════════════
-const STEP_IMGS = [
-  // Chopping / cutting
-  { keys:['chop','cut','slice','dice','mince','kaatein','kaat','tukde','slice'], url:'https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=70', label:'🔪 Chop / काटें' },
-  // Boiling / pressure cook
-  { keys:['boil','pressure cook','whistle','seeti','ubaal','ubaalen','ubaalo','paka'], url:'https://images.unsplash.com/photo-1585515320310-259814833e62?w=400&q=70', label:'🫧 Boil / उबालें' },
-  // Frying / sauté / tadka
-  { keys:['fry','sauté','saute','talaen','talo','tel','tadka','crackle','sizzle','golden','bhunein','bhuno'], url:'https://images.unsplash.com/photo-1574484284002-952d92456975?w=400&q=70', label:'🍳 Fry / तलें' },
-  // Blending / grinding / puree
-  { keys:['blend','grind','puree','paste','mixer','blender','smooth','pees','blend'], url:'https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?w=400&q=70', label:'🌀 Blend / पीसें' },
-  // Mixing / combining / stir
-  { keys:['mix','stir','combine','toss','milaao','milayein','hilao','fold','gently'], url:'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=70', label:'🥄 Mix / मिलाएं' },
-  // Simmering / slow cook / dum
-  { keys:['simmer','slow','dum','dhimi','low heat','dhakkan','cover','low flame'], url:'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=400&q=70', label:'🔥 Simmer / पकाएं' },
-  // Marinating / soaking
-  { keys:['marinate','soak','bhigo','marination','rest','rakhein','dip'], url:'https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?w=400&q=70', label:'⏱ Marinate / भिगोएं' },
-  // Rolling / flatten / belan
-  { keys:['roll','flatten','belan','knead','dough','goondhein','atta','aata'], url:'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=400&q=70', label:'🫓 Roll / बेलें' },
-  // Garnish / serve / plate
-  { keys:['garnish','serve','plate','top with','sprinkle','dhaniya','coriander','parosein'], url:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&q=70', label:'🌿 Garnish / सजाएं' },
-  // Roast / grill / toast
-  { keys:['roast','grill','toast','tawa','griddle','char','jalaen','seedhe aag'], url:'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&q=70', label:'🔥 Roast / भूनें' },
-  // Add ingredients / pour
-  { keys:['add','pour','daalein','daalo','daal','mix in','put'], url:'https://images.unsplash.com/photo-1466637574441-749b8f19452f?w=400&q=70', label:'➕ Add / डालें' },
-  // Default cooking
-  { keys:[], url:'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=70', label:'👨‍🍳 Cook / पकाएं' },
+const STEP_IMG_MAP = [
+  {
+    keys:['chop','cut','slice','dice','mince','kaatein','kaat','tukde','kaaten','thin slice','paper thin'],
+    url:'https://images.unsplash.com/photo-1528712306091-ed0763094c98?w=600&q=80',
+    label:'🔪 Chop / काटें'
+  },
+  {
+    keys:['boil','pressure cook','whistle','seeti','ubaal','ubaalen','ubaalo','ubaalin','parboil','par-boil'],
+    url:'https://images.unsplash.com/photo-1617461306896-30b8b5a8c9f4?w=600&q=80',
+    label:'🫧 Boil / उबालें'
+  },
+  {
+    keys:['fry','sauté','saute','sautey','talaen','talo','tadka','crackle','sizzle','golden brown','bhunein','bhuno','deep fry','shallow fry','pan fry'],
+    url:'https://images.unsplash.com/photo-1556909211-36987daf7b4d?w=600&q=80',
+    label:'🍳 Fry / तलें'
+  },
+  {
+    keys:['blend','grind','puree','paste','mixer','blender','smooth paste','pees','pis','grind to'],
+    url:'https://images.unsplash.com/photo-1593491034808-7e4bb15fd00f?w=600&q=80',
+    label:'🌀 Blend / पीसें'
+  },
+  {
+    keys:['knead','goondhein','goondh','atta','aata','dough','chapati dough','wheat flour'],
+    url:'https://images.unsplash.com/photo-1574085733277-851d9d856a3a?w=600&q=80',
+    label:'🤌 Knead / गूंधें'
+  },
+  {
+    keys:['roll','belan','flatten','paratha roll','roll out','rolling pin'],
+    url:'https://images.unsplash.com/photo-1585703900468-13b02c36d4bb?w=600&q=80',
+    label:'🫓 Roll / बेलें'
+  },
+  {
+    keys:['marinate','marination','bhigo','soak','bheego','bheegoein'],
+    url:'https://images.unsplash.com/photo-1598515213113-1f52a62a6cf7?w=600&q=80',
+    label:'⏱ Marinate / भिगोएं'
+  },
+  {
+    keys:['roast on','grill','tawa','toast','char','jalaen','seedhe aag','open flame','direct flame','lau par'],
+    url:'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600&q=80',
+    label:'🔥 Roast / भूनें'
+  },
+  {
+    keys:['garnish','serve','parosein','plate','sprinkle coriander','dhaniya se','top with coriander'],
+    url:'https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=600&q=80',
+    label:'🌿 Garnish / सजाएं'
+  },
+  {
+    keys:['simmer','slow cook','dum','dhimi aag','low heat','low flame','cover and cook','dhakkan lagao','cover,'],
+    url:'https://images.unsplash.com/photo-1547592166-23ac45744acd?w=600&q=80',
+    label:'🍲 Simmer / धीमे पकाएं'
+  },
+  {
+    keys:['whisk','beat','fent','phent','scramble','egg','ande'],
+    url:'https://images.unsplash.com/photo-1582169296194-e4d644c48063?w=600&q=80',
+    label:'🥚 Whisk / फेंटें'
+  },
+  {
+    keys:['drain','strain','chhan','chhaan','colander','sieve'],
+    url:'https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=600&q=80',
+    label:'🫙 Drain / छानें'
+  },
+  {
+    keys:['mix','stir','combine','toss','milaao','milayein','hilao','fold','gently mix','achhe se mix'],
+    url:'https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=600&q=80',
+    label:'🥄 Mix / मिलाएं'
+  },
+  {
+    keys:['heat oil','tel garam','garam karein','oil hot','warm oil'],
+    url:'https://images.unsplash.com/photo-1574484284002-952d92456975?w=600&q=80',
+    label:'🫙 Heat Oil / तेल गरम करें'
+  },
+  {
+    keys:['add','pour','daalein','daalo','daal ','put in','mix in'],
+    url:'https://images.unsplash.com/photo-1466637574441-749b8f19452f?w=600&q=80',
+    label:'➕ Add / डालें'
+  },
 ];
 
-function getStepImage(stepText) {
+// Fallback images by recipe type
+const RECIPE_STEP_FALLBACK = {
+  'food-dal':    'https://images.unsplash.com/photo-1546549032-9571cd6b27df?w=600&q=80',
+  'food-curry':  'https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=600&q=80',
+  'food-paneer': 'https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=600&q=80',
+  'food-roti':   'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=600&q=80',
+  'food-rice':   'https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=600&q=80',
+  'food-biryani':'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=600&q=80',
+  'food-omelette':'https://images.unsplash.com/photo-1525351484163-7529414344d8?w=600&q=80',
+  'food-soup':   'https://images.unsplash.com/photo-1547592180-85f173990554?w=600&q=80',
+  'food-pakora': 'https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=600&q=80',
+  'default':     'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80',
+};
+
+function getStepImage(stepText, recipeCss) {
   const t = (stepText || '').toLowerCase();
-  for (const entry of STEP_IMGS) {
-    if (entry.keys.length === 0) continue;
+  for (const entry of STEP_IMG_MAP) {
     if (entry.keys.some(k => t.includes(k))) {
       return { url: entry.url, label: entry.label };
     }
   }
-  // default
-  return { url: STEP_IMGS[STEP_IMGS.length - 1].url, label: STEP_IMGS[STEP_IMGS.length - 1].label };
+  // Fallback to recipe-type image
+  const fb = RECIPE_STEP_FALLBACK[recipeCss] || RECIPE_STEP_FALLBACK['default'];
+  return { url: fb, label: '👨‍🍳 Cook / पकाएं' };
 }
 
 function showDetail(id){
@@ -1768,7 +1833,7 @@ function showDetail(id){
   // Steps - English + Hindi + Image
   const stepsHi = STEPS_HI[r.id] || hindiCache[r.id] || [];
   document.getElementById('detail-steps-list').innerHTML = r.steps.map((s,i) => {
-    const img = getStepImage(s + ' ' + (stepsHi[i]||''));
+    const img = getStepImage(s + ' ' + (stepsHi[i]||''), r.css);
     return `
     <div class="step-row">
       <div class="step-row-top">
