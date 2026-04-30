@@ -1,3 +1,11 @@
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: '10mb',
+    },
+  },
+};
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
@@ -35,7 +43,9 @@ export default async function handler(req, res) {
     );
 
     const data = await response.json();
-    if (data.error) throw new Error(data.error.message);
+    if (data.error) {
+      return res.status(500).json({ error: 'Gemini API error: ' + data.error.message });
+    }
 
     const txt = data.candidates?.[0]?.content?.parts?.[0]?.text || '[]';
     const match = txt.match(/\[[\s\S]*?\]/);
