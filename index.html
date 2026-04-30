@@ -1548,16 +1548,22 @@ function showDetail(id){
     const hiName=ING_HI[ing.toLowerCase()]||ING_HI[normalizeIngredient(ing.toLowerCase())]||'';
     return `<div class="ing-row"><div class="ing-left"><div class="ck ${have?'y':'n'}">${have?'✓':'✕'}</div><div><span class="ing-name">${ing.charAt(0).toUpperCase()+ing.slice(1)}</span>${hiName?`<span style="font-size:11px;color:var(--text3);display:block;font-weight:600;">${hiName}</span>`:''}</div></div><span class="ing-st ${have?'y':'n'}">${have?'है ✓':'लें'}</span></div>`;
   }).join('');
-  // Steps with Hindi
-  const stepsHi=STEPS_HI[r.id]||[];
-  document.getElementById('detail-steps-list').innerHTML=r.steps.map((s,i)=>`
+  // Steps - show English first, then load Hindi
+  const stepsHiCache = STEPS_HI[r.id] || [];
+  document.getElementById('detail-steps-list').innerHTML = r.steps.map((s,i) => `
     <div class="step-row">
       <div class="step-num">${i+1}</div>
-      <div>
+      <div style="flex:1;">
         <div class="step-txt">${s}</div>
-        ${stepsHi[i]?`<div class="step-txt-hi">👉 ${stepsHi[i]}</div>`:''}
+        <div class="step-txt-hi" id="step-hi-${r.id}-${i}" style="margin-top:5px;color:var(--green);font-size:12px;font-weight:700;line-height:1.5;">
+          ${stepsHiCache[i] ? '👉 ' + stepsHiCache[i] : '<span style="color:var(--text3);font-size:11px;">⏳ हिंदी लोड हो रही है...</span>'}
+        </div>
       </div>
     </div>`).join('');
+  // If no cached Hindi, fetch from Gemini
+  if (!stepsHiCache.length) {
+    translateStepsToHindi(r);
+  }
   // Tips
   const tipHi=TIPS_HI[r.id]||'';
   if(r.tips){
@@ -1796,7 +1802,56 @@ document.addEventListener('click', e => {
 });
 
 // ══════════════════════════════════════
-// QUICK ADD CATEGORIES
+// HINDI STEPS TRANSLATION (Gemini)
+// ══════════════════════════════════════
+const hindiCache = {};
+
+async function translateStepsToHindi(r) {
+  if (hindiCache[r.id]) {
+    applyHindiSteps(r.id, hindiCache[r.id]);
+    return;
+  }
+  try {
+    const res = await fetch('/api/translate-steps', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ recipeId: r.id, steps: r.steps, title: r.title })
+    });
+    if (!res.ok) throw new Error('API error');
+    const data = await res.json();
+    if (data.stepsHi && Array.isArray(data.stepsHi) && data.stepsHi.length) {
+      hindiCache[r.id] = data.stepsHi;
+      applyHindiSteps(r.id, data.stepsHi);
+    } else {
+      clearHindiLoaders(r.id, r.steps.length);
+    }
+  } catch(e) {
+    clearHindiLoaders(r.id, r.steps.length);
+  }
+}
+
+function applyHindiSteps(recipeId, stepsHi) {
+  stepsHi.forEach((hi, i) => {
+    const el = document.getElementById(`step-hi-${recipeId}-${i}`);
+    if (el && hi) {
+      el.style.color = 'var(--green)';
+      el.style.fontSize = '12px';
+      el.style.fontWeight = '700';
+      el.style.lineHeight = '1.5';
+      el.style.marginTop = '4px';
+      el.innerHTML = '👉 ' + hi;
+    }
+  });
+}
+
+function clearHindiLoaders(recipeId, count) {
+  for (let i = 0; i < count; i++) {
+    const el = document.getElementById(`step-hi-${recipeId}-${i}`);
+    if (el) el.innerHTML = '';
+  }
+}
+
+
 // ══════════════════════════════════════
 const QUICK_CATS = {
   vegetables: [
