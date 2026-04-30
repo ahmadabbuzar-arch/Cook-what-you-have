@@ -126,7 +126,7 @@ html,body { font-family:'Nunito',sans-serif; background:var(--bg); color:var(--t
 .detail-hero-img { width:100%; height:280px; position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center; }
 .detail-hero-overlay { position:absolute; inset:0; background:linear-gradient(to top,rgba(0,0,0,0.65) 0%,rgba(0,0,0,0.1) 50%,transparent 100%); z-index:1; }
 .detail-hero-btns { position:absolute; top:52px; left:0; right:0; display:flex; justify-content:space-between; padding:0 20px; z-index:5; }
-.glass-btn { width:38px; height:38px; background:rgba(255,255,255,0.2); backdrop-filter:blur(10px); border-radius:50%; display:flex; align-items:center; justify-content:center; border:1px solid rgba(255,255,255,0.35); cursor:pointer; }
+.glass-btn { width:38px; height:38px; background:rgba(255,255,255,0.2); backdrop-filter:blur(10px); border-radius:50%; display:flex; align-items:center; justify-content:center; border:1px solid rgba(255,255,255,0.35); cursor:pointer; transition:transform .25s ease; }
 .glass-btn svg { width:18px; height:18px; stroke:#fff; fill:none; }
 .detail-emoji-big { position:absolute; bottom:20px; right:24px; font-size:80px; filter:drop-shadow(0 4px 12px rgba(0,0,0,0.4)); z-index:2; }
 .detail-body { padding:20px 20px 10px; background:var(--bg); transition:background .3s; }
@@ -150,11 +150,15 @@ html,body { font-family:'Nunito',sans-serif; background:var(--bg); color:var(--t
 .ing-st { font-size:12px; font-weight:800; }
 .ing-st.y { color:var(--green); }
 .ing-st.n { color:var(--red); }
-.steps-list { display:flex; flex-direction:column; gap:14px; margin-bottom:24px; }
-.step-row { display:flex; gap:14px; align-items:flex-start; }
+.steps-list { display:flex; flex-direction:column; gap:16px; margin-bottom:24px; }
+.step-row { display:flex; flex-direction:column; gap:0; background:var(--card); border-radius:16px; border:1px solid var(--border); overflow:hidden; box-shadow:var(--shadow2); }
+.step-row-top { display:flex; gap:12px; align-items:flex-start; padding:14px 14px 10px; }
 .step-num { width:30px; height:30px; border-radius:50%; background:var(--green); color:#fff; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:900; flex-shrink:0; }
 .step-txt { font-size:14px; color:var(--text2); line-height:1.55; padding-top:5px; font-weight:600; }
 .step-txt-hi { font-size:13px; color:var(--text3); line-height:1.5; font-weight:600; margin-top:3px; font-style:italic; }
+.step-img-wrap { width:100%; height:160px; overflow:hidden; position:relative; }
+.step-img-wrap img { width:100%; height:100%; object-fit:cover; display:block; transition:opacity .4s; }
+.step-img-wrap .step-img-label { position:absolute; bottom:0; left:0; right:0; background:linear-gradient(to top,rgba(0,0,0,0.6),transparent); padding:8px 12px 6px; font-size:11px; font-weight:800; color:#fff; }
 .tips-box { background:var(--green-light); border-radius:14px; padding:14px 16px; margin-bottom:22px; border:1px solid #c8e6d6; }
 .tips-title { font-size:12px; font-weight:800; color:var(--green); margin-bottom:6px; }
 .tips-box p { font-size:13px; color:var(--green); font-weight:700; line-height:1.5; }
@@ -193,7 +197,7 @@ html,body { font-family:'Nunito',sans-serif; background:var(--bg); color:var(--t
 .profile-app h2 { font-family:'Playfair Display',serif; font-size:20px; font-weight:800; color:#fff; }
 .profile-app p { font-size:12px; color:rgba(255,255,255,0.7); margin-top:2px; }
 .user-card { margin:16px 20px 0; background:var(--card); border-radius:var(--r); padding:16px; display:flex; align-items:center; gap:14px; box-shadow:var(--shadow); border:1px solid var(--border); cursor:pointer; }
-.user-avatar-big { width:52px; height:52px; border-radius:50%; background:linear-gradient(135deg,var(--green),var(--green2)); display:flex; align-items:center; justify-content:center; font-size:22px; font-weight:900; color:#fff; flex-shrink:0; }
+.user-avatar-big { width:58px; height:58px; border-radius:50%; background:linear-gradient(135deg,var(--green),var(--green2)); display:flex; align-items:center; justify-content:center; font-size:28px; font-weight:900; color:#fff; flex-shrink:0; transition:background .3s; }
 .user-info h4 { font-size:15px; font-weight:800; color:var(--text); }
 .user-info p { font-size:12px; color:var(--text3); margin-top:2px; }
 .settings-list { padding:16px 20px 0; }
@@ -222,6 +226,28 @@ html,body { font-family:'Nunito',sans-serif; background:var(--bg); color:var(--t
 .modal-btns { display:flex; gap:12px; }
 .modal-cancel { flex:1; padding:14px; background:var(--bg); color:var(--text2); border:1.5px solid var(--border); border-radius:var(--r2); font-family:'Nunito',sans-serif; font-size:14px; font-weight:800; cursor:pointer; }
 .modal-save { flex:1; padding:14px; background:var(--green); color:#fff; border:none; border-radius:var(--r2); font-family:'Nunito',sans-serif; font-size:14px; font-weight:800; cursor:pointer; }
+
+/* AVATAR PICKER */
+.avatar-section-label { font-size:12px; font-weight:800; color:var(--text3); text-transform:uppercase; letter-spacing:.5px; margin-bottom:10px; }
+.avatar-grid { display:grid; grid-template-columns:repeat(6,1fr); gap:10px; margin-bottom:20px; }
+.avatar-opt { width:44px; height:44px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:22px; cursor:pointer; border:2.5px solid transparent; transition:all .2s; }
+.avatar-opt.selected { border-color:var(--green); box-shadow:0 0 0 3px rgba(42,122,80,0.25); transform:scale(1.12); }
+.avatar-opt:active { transform:scale(0.95); }
+
+/* RATING MODAL */
+.rating-modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.55); z-index:300; display:flex; align-items:flex-end; justify-content:center; animation:fadeIn .2s ease; }
+.rating-modal-box { background:var(--card); border-radius:24px 24px 0 0; padding:24px 24px 40px; width:100%; max-width:430px; }
+.rating-stars-row { display:flex; gap:10px; justify-content:center; margin:18px 0 6px; }
+.rate-star { font-size:42px; cursor:pointer; transition:transform .15s; filter:grayscale(1) opacity(.3); }
+.rate-star.lit { filter:none; }
+.rate-star:hover { transform:scale(1.2); }
+.rate-star:active { transform:scale(0.9); }
+.user-rating-strip { background:var(--orange-light); border-radius:10px; padding:8px 14px; display:flex; align-items:center; gap:8px; margin-bottom:14px; font-size:13px; font-weight:800; color:var(--orange); border:1px solid rgba(240,107,43,0.2); }
+.rate-now-btn { padding:8px 16px; background:var(--orange); color:#fff; border:none; border-radius:10px; font-size:12px; font-weight:800; cursor:pointer; font-family:'Nunito',sans-serif; white-space:nowrap; }
+
+/* HEART ANIMATION */
+@keyframes heartPop { 0%{transform:scale(1)} 30%{transform:scale(1.45)} 60%{transform:scale(0.88)} 100%{transform:scale(1)} }
+.heart-ico.popping svg { animation:heartPop .38s ease; }
 
 /* PRIVACY POLICY */
 .privacy-topbar { background:var(--card); padding:54px 20px 16px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:14px; transition:background .3s; }
@@ -489,9 +515,14 @@ html,body { font-family:'Nunito',sans-serif; background:var(--bg); color:var(--t
       <div class="section-title">Steps <span style="font-size:13px;font-weight:600;color:var(--text3)">/ बनाने का तरीका</span></div>
       <div class="steps-list" id="detail-steps-list"></div>
       <div class="tips-box" id="detail-tips-box" style="display:none;"><div class="tips-title">💡 Pro Tips / टिप्स</div><p id="detail-tips"></p><p id="detail-tips-hi" style="margin-top:6px;color:var(--green);font-size:13px;font-weight:700;"></p></div>
+      <div id="user-rating-strip" style="display:none;" class="user-rating-strip">
+        <span>Your Rating:</span><span id="user-rating-display">⭐⭐⭐⭐⭐</span>
+        <button class="rate-now-btn" onclick="openRatingModal()">Edit</button>
+      </div>
       <div class="action-row">
-        <button class="btn-sec" onclick="goTo('s-list')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1,4 1,10 7,10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>Try Another</button>
-        <button class="btn-pri" onclick="saveRecipe()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>Save Recipe</button>
+        <button class="btn-sec" onclick="openRatingModal()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>Rate</button>
+        <button class="btn-sec" onclick="goTo('s-list')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1,4 1,10 7,10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>Other</button>
+        <button class="btn-pri" onclick="saveRecipe()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>Save</button>
       </div>
     </div>
   </div>
@@ -565,26 +596,26 @@ html,body { font-family:'Nunito',sans-serif; background:var(--bg); color:var(--t
       <h2>Privacy Policy</h2>
     </div>
     <div class="privacy-body">
-      <p class="privacy-updated">Last Updated: March 2026</p>
+      <p class="privacy-updated">Last Updated: April 2026</p>
       <div class="privacy-section"><p>Welcome to <strong>Cook What You Have</strong>. We respect your privacy and are committed to protecting your information.</p></div>
       <div class="privacy-divider"></div>
-      <div class="privacy-section"><h3>1. Information We Collect</h3><p><strong>a) User Information</strong></p><ul><li>We do not collect email addresses.</li><li>Users may create a profile using a username only.</li><li>This username is used only inside the app for personalization.</li></ul><br><p><strong>b) Non-Personal Information</strong></p><ul><li>Device information (device type, OS version)</li><li>App usage data (features used, interactions)</li><li>Crash logs and performance data</li></ul><br><p><strong>c) User Input Data</strong></p><ul><li>Ingredients entered by users</li><li>Search queries</li></ul></div>
+      <div class="privacy-section"><h3>1. Information We Collect</h3><p><strong>a) User Profile Information</strong></p><ul><li>We do not collect email addresses or passwords.</li><li>Users may set a username and choose an avatar — stored only on your device.</li><li>Profile data never leaves your device.</li></ul><br><p><strong>b) User Input Data</strong></p><ul><li>Ingredients you enter in the app</li><li>Recipes you save or mark as favorites</li><li>Ratings you give to recipes</li><li>All of this data is stored locally on your device using browser storage (localStorage) only.</li></ul><br><p><strong>c) Technical Information</strong></p><ul><li>No personal data, usage logs, or analytics are collected by us.</li><li>We do not track how you use the app.</li></ul></div>
       <div class="privacy-divider"></div>
-      <div class="privacy-section"><h3>2. Camera Usage</h3><p>Our app may request access to your device camera to:</p><ul><li>Capture images of ingredients</li><li>Help identify food items (if feature enabled)</li></ul><br><ul><li>Camera access is used only when you choose to use this feature</li><li>We do not store or share your photos on any server</li><li>Images are processed temporarily (if AI feature is used)</li></ul></div>
+      <div class="privacy-section"><h3>2. Camera & Device Permissions</h3><p>This app does <strong>not</strong> use your camera or request any camera permission.</p><ul><li>No camera access is requested or used at any point.</li><li>No photos are captured, stored, or transmitted.</li><li>The image scan feature has been removed from this version.</li></ul></div>
       <div class="privacy-divider"></div>
-      <div class="privacy-section"><h3>3. How We Use Information</h3><ul><li>Suggest recipes based on ingredients</li><li>Improve app performance</li><li>Enhance user experience</li></ul></div>
+      <div class="privacy-section"><h3>3. Local Data Storage</h3><p>All your data — saved recipes, favorites, your name, avatar, and ratings — is stored <strong>only on your device</strong> using localStorage.</p><ul><li>This data is never sent to any server.</li><li>You can clear it anytime via Settings → Clear History.</li><li>Uninstalling or clearing browser data removes everything.</li></ul></div>
       <div class="privacy-divider"></div>
-      <div class="privacy-section"><h3>4. Third-Party Services</h3><p>We may use third-party services such as:</p><ul><li>Advertising services (e.g., Google AdMob)</li><li>Analytics tools</li><li>AI services (for generating recipes or suggestions)</li></ul><br><p>These services may process limited data according to their own privacy policies.</p></div>
+      <div class="privacy-section"><h3>4. AI Recipe Generation</h3><p>When you tap "Find Recipes with AI", your ingredient list is sent to an AI service to generate recipe suggestions.</p><ul><li>Only ingredient names are shared — no personal information.</li><li>No data is stored by us after the response is received.</li><li>This feature requires an internet connection.</li></ul></div>
       <div class="privacy-divider"></div>
-      <div class="privacy-section"><h3>5. Data Sharing</h3><p>We do not sell or share your personal data with third parties except when required by law or to provide app functionality through trusted services.</p></div>
+      <div class="privacy-section"><h3>5. Third-Party Services</h3><p>We may use:</p><ul><li>AI services (for recipe generation and Hindi translation of steps)</li><li>Unsplash (for food images — no personal data shared)</li><li>Google Fonts (for typography — standard CDN request)</li></ul><br><p>We do not use advertising networks or sell any data.</p></div>
       <div class="privacy-divider"></div>
-      <div class="privacy-section"><h3>6. Data Security</h3><p>We take reasonable measures to protect your data. However, no system is completely secure.</p></div>
+      <div class="privacy-section"><h3>6. Data Sharing</h3><p>We do not sell, rent, or share your personal data with any third party. Ingredient data sent for AI generation is transient and not stored by us.</p></div>
       <div class="privacy-divider"></div>
       <div class="privacy-section"><h3>7. Children's Privacy</h3><p>This app is not intended for children under 13. We do not knowingly collect personal data from children.</p></div>
       <div class="privacy-divider"></div>
-      <div class="privacy-section"><h3>8. Your Rights</h3><ul><li>Stop using the app anytime</li><li>Clear app data from device settings</li></ul></div>
+      <div class="privacy-section"><h3>8. Your Rights & Control</h3><ul><li>You can delete all your data anytime using Settings → Clear History.</li><li>Stop using the app anytime — no account deletion needed.</li><li>Your data belongs to you and stays on your device.</li></ul></div>
       <div class="privacy-divider"></div>
-      <div class="privacy-section"><h3>9. Changes to This Policy</h3><p>We may update this policy. Changes will be reflected with an updated date.</p></div>
+      <div class="privacy-section"><h3>9. Changes to This Policy</h3><p>We may update this policy as the app evolves. Changes will be reflected with an updated date at the top of this page.</p></div>
       <div class="privacy-divider"></div>
       <div class="privacy-section"><h3>10. Contact Us</h3><div class="privacy-contact"><p>📧 Email: sarimforbusiness@gmail.com</p></div></div>
       <div class="privacy-section"><h3>11. Consent</h3><p>By using this app, you agree to this Privacy Policy.</p></div>
@@ -595,11 +626,38 @@ html,body { font-family:'Nunito',sans-serif; background:var(--bg); color:var(--t
 <!-- ══ PROFILE EDIT MODAL ══ -->
 <div class="modal-overlay" id="profile-modal" style="display:none;" onclick="if(event.target===this)closeProfileEdit()">
   <div class="modal-box">
-    <h3>✏️ Edit Your Name</h3>
+    <h3>✏️ Edit Profile</h3>
+    <div class="avatar-section-label">Choose Your Avatar</div>
+    <div class="avatar-grid" id="avatar-grid">
+      <!-- filled by JS -->
+    </div>
     <input type="text" class="modal-input" id="profile-name-input" placeholder="Enter your name..." maxlength="30">
     <div class="modal-btns">
       <button class="modal-cancel" onclick="closeProfileEdit()">Cancel</button>
       <button class="modal-save" onclick="saveProfileName()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ RATING MODAL ══ -->
+<div class="rating-modal-overlay" id="rating-modal" style="display:none;" onclick="if(event.target===this)closeRatingModal()">
+  <div class="rating-modal-box">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+      <h3 style="font-family:'Playfair Display',serif;font-size:18px;font-weight:800;color:var(--text);">Rate This Recipe ⭐</h3>
+      <div onclick="closeRatingModal()" style="width:30px;height:30px;background:var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer;font-weight:800;">✕</div>
+    </div>
+    <p style="font-size:13px;color:var(--text3);font-weight:600;margin-bottom:4px;" id="rating-recipe-name"></p>
+    <div class="rating-stars-row" id="rating-stars-row">
+      <span class="rate-star" data-v="1" onclick="setRatingStar(1)">⭐</span>
+      <span class="rate-star" data-v="2" onclick="setRatingStar(2)">⭐</span>
+      <span class="rate-star" data-v="3" onclick="setRatingStar(3)">⭐</span>
+      <span class="rate-star" data-v="4" onclick="setRatingStar(4)">⭐</span>
+      <span class="rate-star" data-v="5" onclick="setRatingStar(5)">⭐</span>
+    </div>
+    <p id="rating-label-txt" style="text-align:center;font-size:14px;font-weight:800;color:var(--text3);margin-bottom:18px;">Tap a star to rate</p>
+    <div style="display:flex;gap:12px;">
+      <button onclick="closeRatingModal()" style="flex:1;padding:14px;background:var(--bg);color:var(--text2);border:1.5px solid var(--border);border-radius:var(--r2);font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;cursor:pointer;">Cancel</button>
+      <button onclick="submitRating()" style="flex:1;padding:14px;background:var(--green);color:#fff;border:none;border-radius:var(--r2);font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;cursor:pointer;">Submit ✓</button>
     </div>
   </div>
 </div>
@@ -630,11 +688,14 @@ html,body { font-family:'Nunito',sans-serif; background:var(--bg); color:var(--t
 // ══════════════════════════════════════
 let savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')||'[]');
 let favRecipes   = JSON.parse(localStorage.getItem('favRecipes')||'[]');
+let userRatings  = JSON.parse(localStorage.getItem('userRatings')||'{}');
 let currentRecipe = null;
 let currentListRecipes = [];
 let activeTabFilter = 'all';
 let userName = localStorage.getItem('userName')||'Your Name';
+let userAvatar = localStorage.getItem('userAvatar')||'👨‍🍳';
 let darkMode = localStorage.getItem('darkMode')==='true';
+let pendingRatingValue = 0;
 
 // Init dark mode
 if(darkMode){ document.body.classList.add('dark'); }
@@ -642,15 +703,54 @@ setTimeout(function(){
   if(darkMode && document.getElementById('dark-toggle')) document.getElementById('dark-toggle').classList.add('on');
 },0);
 
-// Init profile
+// ══ AVATAR SYSTEM ══
+const AVATARS = [
+  {emoji:'👨‍🍳', bg:'linear-gradient(135deg,#2d8a56,#1a5c38)'},
+  {emoji:'👩‍🍳', bg:'linear-gradient(135deg,#e91e8c,#9c1060)'},
+  {emoji:'🧑‍🍳', bg:'linear-gradient(135deg,#f06b2b,#a03a10)'},
+  {emoji:'🦸', bg:'linear-gradient(135deg,#3f51b5,#1a237e)'},
+  {emoji:'🦸‍♀️', bg:'linear-gradient(135deg,#9c27b0,#4a0080)'},
+  {emoji:'🧙', bg:'linear-gradient(135deg,#607d8b,#263238)'},
+  {emoji:'🐼', bg:'linear-gradient(135deg,#455a64,#1c313a)'},
+  {emoji:'🦊', bg:'linear-gradient(135deg,#ff6f00,#bf360c)'},
+  {emoji:'🐸', bg:'linear-gradient(135deg,#388e3c,#1b5e20)'},
+  {emoji:'🐱', bg:'linear-gradient(135deg,#f9a825,#e65100)'},
+  {emoji:'🐶', bg:'linear-gradient(135deg,#795548,#3e2723)'},
+  {emoji:'🦋', bg:'linear-gradient(135deg,#00bcd4,#006064)'},
+];
+
+function getAvatarObj(){ return AVATARS.find(a=>a.emoji===userAvatar)||AVATARS[0]; }
+
 function updateProfileUI(){
-  const initial = (userName && userName !== 'Your Name') ? userName.charAt(0).toUpperCase() : '👤';
+  const av = getAvatarObj();
   document.getElementById('prof-name').textContent = userName;
-  document.getElementById('prof-avatar').textContent = initial;
+  // Big avatar in profile card
+  const profAv = document.getElementById('prof-avatar');
+  profAv.textContent = av.emoji;
+  profAv.style.background = av.bg;
+  profAv.style.fontSize = '26px';
+  // Hero avatar (small top-right)
   const heroAv = document.getElementById('hero-avatar');
-  if(heroAv) heroAv.textContent = initial;
+  if(heroAv){ heroAv.textContent = av.emoji; heroAv.style.background = av.bg; heroAv.style.fontSize='18px'; }
 }
 updateProfileUI();
+
+function buildAvatarGrid(){
+  const grid = document.getElementById('avatar-grid');
+  if(!grid) return;
+  grid.innerHTML = AVATARS.map(av=>`
+    <div class="avatar-opt ${av.emoji===userAvatar?'selected':''}"
+         style="background:${av.bg};"
+         onclick="selectAvatar(this,'${av.emoji}')">
+      ${av.emoji}
+    </div>`).join('');
+}
+
+function selectAvatar(el, emoji){
+  document.querySelectorAll('.avatar-opt').forEach(a=>a.classList.remove('selected'));
+  el.classList.add('selected');
+  userAvatar = emoji;
+}
 
 // ══════════════════════════════════════
 // 75 RECIPE DATABASE
@@ -779,18 +879,20 @@ function toggleDarkMode(){
 // PROFILE
 // ══════════════════════════════════════
 function openProfileEdit(){
-  document.getElementById('profile-name-input').value=userName;
+  document.getElementById('profile-name-input').value = userName === 'Your Name' ? '' : userName;
+  buildAvatarGrid();
   document.getElementById('profile-modal').style.display='flex';
 }
 function closeProfileEdit(){ document.getElementById('profile-modal').style.display='none'; }
 function saveProfileName(){
-  const v=document.getElementById('profile-name-input').value.trim();
-  if(!v) return;
-  userName=v;
-  localStorage.setItem('userName',userName);
+  const v = document.getElementById('profile-name-input').value.trim();
+  if(!v){ toast('⚠️ Please enter your name'); return; }
+  userName = v;
+  localStorage.setItem('userName', userName);
+  localStorage.setItem('userAvatar', userAvatar);
   updateProfileUI();
   closeProfileEdit();
-  toast('✅ Name updated!');
+  toast('✅ Profile updated!');
 }
 
 // ══════════════════════════════════════
@@ -1136,10 +1238,12 @@ function renderList(){
     const liked=favRecipes.includes(r.id);
     const tagCls=r.aiGenerated?'ai':(r.pct>=80?'g':'o');
     const tagTxt=r.aiGenerated?'✨ AI Generated':(r.pct===100?'✓ You have all ingredients':`You have ${r.matched}/${r.total} ingredients`);
+    const hi=getHindiTitle(r);
     return `<div class="rcard" onclick="showDetail(${r.id})">
       <div class="rcard-img">${imgTag(r)}</div>
       <div class="rcard-body">
         <h3>${r.title}</h3>
+        ${hi?`<div style="font-size:12px;color:var(--green);font-weight:700;margin-top:-4px;margin-bottom:5px;">${hi}</div>`:''}
         <div class="rmeta">
           <span><svg viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>${r.time} min</span>
           <span><span class="star">★</span>${r.rating}</span>
@@ -1577,12 +1681,64 @@ const GRAD={
   'food-pizza':'linear-gradient(145deg,#e65100,#4a2000)',
   'food-burger':'linear-gradient(145deg,#c8860a,#3a2000)'
 };
+// ══════════════════════════════════════
+// STEP IMAGES — keyword → Unsplash photo
+// ══════════════════════════════════════
+const STEP_IMGS = [
+  // Chopping / cutting
+  { keys:['chop','cut','slice','dice','mince','kaatein','kaat','tukde','slice'], url:'https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=70', label:'🔪 Chop / काटें' },
+  // Boiling / pressure cook
+  { keys:['boil','pressure cook','whistle','seeti','ubaal','ubaalen','ubaalo','paka'], url:'https://images.unsplash.com/photo-1585515320310-259814833e62?w=400&q=70', label:'🫧 Boil / उबालें' },
+  // Frying / sauté / tadka
+  { keys:['fry','sauté','saute','talaen','talo','tel','tadka','crackle','sizzle','golden','bhunein','bhuno'], url:'https://images.unsplash.com/photo-1574484284002-952d92456975?w=400&q=70', label:'🍳 Fry / तलें' },
+  // Blending / grinding / puree
+  { keys:['blend','grind','puree','paste','mixer','blender','smooth','pees','blend'], url:'https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?w=400&q=70', label:'🌀 Blend / पीसें' },
+  // Mixing / combining / stir
+  { keys:['mix','stir','combine','toss','milaao','milayein','hilao','fold','gently'], url:'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=70', label:'🥄 Mix / मिलाएं' },
+  // Simmering / slow cook / dum
+  { keys:['simmer','slow','dum','dhimi','low heat','dhakkan','cover','low flame'], url:'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=400&q=70', label:'🔥 Simmer / पकाएं' },
+  // Marinating / soaking
+  { keys:['marinate','soak','bhigo','marination','rest','rakhein','dip'], url:'https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?w=400&q=70', label:'⏱ Marinate / भिगोएं' },
+  // Rolling / flatten / belan
+  { keys:['roll','flatten','belan','knead','dough','goondhein','atta','aata'], url:'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=400&q=70', label:'🫓 Roll / बेलें' },
+  // Garnish / serve / plate
+  { keys:['garnish','serve','plate','top with','sprinkle','dhaniya','coriander','parosein'], url:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&q=70', label:'🌿 Garnish / सजाएं' },
+  // Roast / grill / toast
+  { keys:['roast','grill','toast','tawa','griddle','char','jalaen','seedhe aag'], url:'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&q=70', label:'🔥 Roast / भूनें' },
+  // Add ingredients / pour
+  { keys:['add','pour','daalein','daalo','daal','mix in','put'], url:'https://images.unsplash.com/photo-1466637574441-749b8f19452f?w=400&q=70', label:'➕ Add / डालें' },
+  // Default cooking
+  { keys:[], url:'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=70', label:'👨‍🍳 Cook / पकाएं' },
+];
+
+function getStepImage(stepText) {
+  const t = (stepText || '').toLowerCase();
+  for (const entry of STEP_IMGS) {
+    if (entry.keys.length === 0) continue;
+    if (entry.keys.some(k => t.includes(k))) {
+      return { url: entry.url, label: entry.label };
+    }
+  }
+  // default
+  return { url: STEP_IMGS[STEP_IMGS.length - 1].url, label: STEP_IMGS[STEP_IMGS.length - 1].label };
+}
+
 function showDetail(id){
   const r=currentListRecipes.find(x=>x.id===id)||savedRecipes.find(x=>x.id===id)||DB.find(x=>x.id===id);
   if(!r) return;
   currentRecipe=r;
   const uIngs=getUserIngs();
   document.getElementById('detail-title').textContent=r.title;
+  const hi=getHindiTitle(r);
+  // Hindi subtitle under title
+  let hiEl=document.getElementById('detail-title-hi');
+  if(!hiEl){
+    hiEl=document.createElement('div');
+    hiEl.id='detail-title-hi';
+    hiEl.style.cssText='font-size:13px;color:var(--green);font-weight:700;margin-top:2px;font-family:"Nunito",sans-serif;';
+    document.getElementById('detail-title').insertAdjacentElement('afterend', hiEl);
+  }
+  hiEl.textContent=hi||'';
   document.getElementById('detail-rating').textContent=`⭐ ${r.rating}`;
   document.getElementById('detail-time').textContent=`${r.time} min`;
   document.getElementById('detail-servings').textContent=r.servings;
@@ -1609,16 +1765,31 @@ function showDetail(id){
     const hiName=ING_HI[ing.toLowerCase()]||ING_HI[normalizeIngredient(ing.toLowerCase())]||'';
     return `<div class="ing-row"><div class="ing-left"><div class="ck ${have?'y':'n'}">${have?'✓':'✕'}</div><div><span class="ing-name">${ing.charAt(0).toUpperCase()+ing.slice(1)}</span>${hiName?`<span style="font-size:11px;color:var(--text3);display:block;font-weight:600;">${hiName}</span>`:''}</div></div><span class="ing-st ${have?'y':'n'}">${have?'है ✓':'लें'}</span></div>`;
   }).join('');
-  // Steps - English + Hindi dono dikhao
-  const stepsHi = STEPS_HI[r.id] || [];
-  document.getElementById('detail-steps-list').innerHTML = r.steps.map((s,i) => `
+  // Steps - English + Hindi + Image
+  const stepsHi = STEPS_HI[r.id] || hindiCache[r.id] || [];
+  document.getElementById('detail-steps-list').innerHTML = r.steps.map((s,i) => {
+    const img = getStepImage(s + ' ' + (stepsHi[i]||''));
+    return `
     <div class="step-row">
-      <div class="step-num">${i+1}</div>
-      <div style="flex:1;">
-        <div class="step-txt">${s}</div>
-        ${stepsHi[i] ? `<div class="step-txt-hi" style="margin-top:5px;color:var(--green);font-size:12px;font-weight:700;line-height:1.5;">👉 ${stepsHi[i]}</div>` : ''}
+      <div class="step-row-top">
+        <div class="step-num">${i+1}</div>
+        <div style="flex:1;">
+          <div class="step-txt">${s}</div>
+          <div class="step-txt-hi" id="step-hi-${r.id}-${i}" style="margin-top:5px;color:var(--green);font-size:12px;font-weight:700;line-height:1.5;">
+            ${stepsHi[i] ? '👉 '+stepsHi[i] : '<span style="color:var(--text3);font-weight:600;font-style:italic;">⏳ हिंदी लोड हो रही है...</span>'}
+          </div>
+        </div>
       </div>
-    </div>`).join('');
+      <div class="step-img-wrap">
+        <img src="${img.url}" alt="Step ${i+1}" loading="lazy" onerror="this.parentElement.style.display='none'">
+        <div class="step-img-label">${img.label}</div>
+      </div>
+    </div>`;
+  }).join('');
+  // Auto-trigger Hindi translation if not already available
+  if(!stepsHi.length) {
+    translateStepsToHindi(r);
+  }
 
   // Tips
   const tipHi=TIPS_HI[r.id]||'';
@@ -1632,6 +1803,7 @@ function showDetail(id){
   if(favRecipes.includes(r.id)){ fi.setAttribute('fill','var(--red)'); fi.setAttribute('stroke','var(--red)'); }
   else { fi.setAttribute('fill','none'); fi.setAttribute('stroke','#fff'); }
   goTo('s-detail');
+  setTimeout(updateDetailRatingStrip, 50);
 }
 
 // ══════════════════════════════════════
@@ -1764,6 +1936,66 @@ const CATEGORIES = [
 let activeCat=CATEGORIES[0].key;
 let catShowAll={};
 
+// ══ HINDI RECIPE TITLES MAP ══
+const TITLE_HI = {
+  // DB recipes (id-based)
+  1:'आलू टमाटर सब्ज़ी', 2:'मसाला ऑमलेट', 3:'आलू प्याज़ पकोड़े', 4:'मसाला पोटैटो पास्ता',
+  5:'स्पाइसी आलू करी', 6:'जीरा आलू', 7:'दाल तड़का', 8:'एग फ्राइड राइस',
+  9:'टमाटर सूप', 10:'चपाती / रोटी', 11:'सब्ज़ी खिचड़ी', 12:'पनीर भुर्जी',
+  13:'आलू पराठा', 14:'सब्ज़ी बिरयानी', 15:'खीरा रायता', 16:'छोले मसाला',
+  17:'साग पनीर', 18:'बैंगन भर्ता', 19:'पोहा', 20:'उपमा',
+  21:'मूंग चीला', 22:'ब्रेड पकोड़ा', 23:'खीर', 24:'आलू गोभी',
+  25:'मटर पनीर', 26:'देसी सलाद', 27:'दही चावल', 28:'मसाला मैगी',
+  29:'पाव भाजी', 30:'केले के पैनकेक', 31:'राजमा करी', 32:'मसाला ओट्स',
+  33:'पालक दाल', 34:'लहसुन ब्रेड', 35:'अंडा करी', 36:'सांभर',
+  37:'सूजी हलवा', 38:'चिकन करी', 39:'वेन पोंगल', 40:'मसूर दाल',
+  41:'ब्रेड उपमा', 42:'पालक सूप', 43:'नारियल चावल',
+  // Category recipes (title-based)
+  'Paneer Butter Masala':'पनीर बटर मसाला', 'Shahi Paneer':'शाही पनीर',
+  'Kadai Paneer':'कड़ाई पनीर', 'Palak Paneer':'पालक पनीर',
+  'Chole Masala':'छोले मसाला', 'Rajma Curry':'राजमा करी',
+  'Aloo Gobi':'आलू गोभी', 'Baingan Bharta':'बैंगन भर्ता',
+  'Mix Veg Curry':'मिक्स वेज करी', 'Dal Tadka':'दाल तड़का',
+  'Dal Makhani':'दाल मखनी', 'Kadhi Pakora':'कढ़ी पकोड़ा',
+  'Matar Paneer':'मटर पनीर', 'Dum Aloo':'दम आलू',
+  'Malai Kofta':'मलाई कोफ्ता', 'Butter Chicken':'बटर चिकन',
+  'Chicken Curry':'चिकन करी', 'Chicken Korma':'चिकन कोर्मा',
+  'Chicken Biryani':'चिकन बिरयानी', 'Mutton Curry':'मटन करी',
+  'Egg Curry':'अंडा करी', 'Egg Bhurji':'अंडा भुर्जी',
+  'Masala Omelette':'मसाला ऑमलेट', 'Poha':'पोहा', 'Upma':'उपमा',
+  'Pav Bhaji':'पाव भाजी', 'Vegetable Biryani':'सब्ज़ी बिरयानी',
+  'Khichdi':'खिचड़ी', 'Vegetable Khichdi':'सब्ज़ी खिचड़ी',
+  'Curd Rice':'दही चावल', 'Chapati / Roti':'चपाती / रोटी',
+  'Aloo Paratha':'आलू पराठा', 'Paneer Paratha':'पनीर पराठा',
+  'Aloo Onion Pakora':'आलू प्याज़ पकोड़े', 'Bread Pakora':'ब्रेड पकोड़ा',
+  'Samosa':'समोसा', 'Vada Pav':'वड़ा पाव',
+  'Tomato Soup':'टमाटर सूप', 'Masala Potato Pasta':'मसाला आलू पास्ता',
+  'Kheer':'खीर', 'Gajar Halwa':'गाजर हलवा', 'Sooji Halwa':'सूजी हलवा',
+  'Gulab Jamun':'गुलाब जामुन', 'Rasgulla':'रसगुल्ला',
+  'Masala Chai':'मसाला चाय', 'Lassi':'लस्सी', 'Mango Shake':'आम शेक',
+  'Hakka Noodles':'हक्का नूडल्स', 'Maggi':'मसाला मैगी',
+  'Chilli Paneer':'चिली पनीर', 'Manchurian':'मंचूरियन',
+  'Saag Paneer':'साग पनीर', 'Spinach Dal':'पालक दाल',
+  'Masoor Dal':'मसूर दाल', 'Sambar':'सांभर',
+  'Jeera Aloo':'जीरा आलू', 'Aloo Tamatar':'आलू टमाटर',
+  'Spicy Potato Curry':'स्पाइसी आलू करी',
+  'Coconut Rice':'नारियल चावल', 'Egg Fried Rice':'एग फ्राइड राइस',
+  'Ven Pongal':'वेन पोंगल', 'Bread Upma':'ब्रेड उपमा',
+  'Garlic Bread':'लहसुन ब्रेड', 'Butter Naan':'बटर नान',
+  'Garlic Naan':'लहसुन नान', 'Dosa':'डोसा', 'Uttapam':'उत्तपम',
+  'Pani Puri':'पानी पुरी', 'Bhel Puri':'भेल पुरी',
+  'Chilli Chicken':'चिली चिकन', 'Grilled Chicken':'ग्रिल्ड चिकन',
+  'Ramen':'रामेन', 'Tacos':'टाकोज़', 'Pizza':'पिज़्ज़ा',
+  'Chocolate Cake':'चॉकलेट केक', 'Banana Pancakes':'केले के पैनकेक',
+  'Cucumber Raita':'खीरा रायता', 'Paneer Bhurji':'पनीर भुर्जी',
+  'Aloo Tamatar Sabzi':'आलू टमाटर सब्ज़ी',
+};
+
+function getHindiTitle(r){
+  // Try by id first, then by title
+  return TITLE_HI[r.id] || TITLE_HI[r.title] || '';
+}
+
 function initCategories(){
   const row=document.getElementById('cat-tabs-row');
   row.innerHTML=CATEGORIES.map((c,i)=>`<div class="cat-tab${i===0?' active':''}" onclick="selectCat('${c.key}',this)">${c.label}</div>`).join('');
@@ -1780,20 +2012,23 @@ function renderCatGrid(){
   const all=CAT_DB.filter(r=>r.cat===activeCat);
   const showAll=catShowAll[activeCat];
   const shown=showAll?all:all.slice(0,6);
-  grid.innerHTML=shown.map((r,i)=>`
+  grid.innerHTML=shown.map((r,i)=>{
+    const hi=getHindiTitle(r);
+    return `
     <div class="cat-card" onclick="openCatRecipe(${CAT_DB.indexOf(r)})">
       <div class="cat-card-img" style="background:${GRAD[r.css]||'linear-gradient(145deg,#2d8a56,#0d4d2b)'}">
         ${imgTag(r)}
       </div>
       <div class="cat-card-body">
         <h4>${r.title}</h4>
+        ${hi?`<div style="font-size:11px;color:var(--green);font-weight:700;margin-bottom:3px;">${hi}</div>`:''}
         <div class="cat-card-meta">
           <span>⏱ ${r.time}m</span>
           <span>★ ${r.rating}</span>
           ${r.veg?'<span style="color:var(--green)">🌿</span>':'<span style="color:var(--red)">🍗</span>'}
         </div>
       </div>
-    </div>`).join('');
+    </div>`}).join('');
   if(!showAll && all.length>6){
     grid.innerHTML+=`<div class="cat-more-btn" onclick="showAllCat()">See all ${all.length} recipes ›</div>`;
   }
@@ -1832,7 +2067,7 @@ function onRecipeSearch(val) {
     <div class="search-result-item" onclick="searchGoDetail(${r.id})">
       <div class="sri-img">${imgTag(r)}</div>
       <div class="sri-info">
-        <h4>${r.title}</h4>
+        <h4>${r.title}${getHindiTitle(r)?` <span style="font-size:11px;color:var(--green);font-weight:700;">· ${getHindiTitle(r)}</span>`:''}</h4>
         <span>⏱ ${r.time} min &nbsp;★ ${r.rating} &nbsp;${r.veg?'🌿 Veg':'🍗 Non-veg'}</span>
       </div>
     </div>`).join('');
@@ -1876,32 +2111,164 @@ window.GEMINI_KEY = '';
 // ══════════════════════════════════════
 const hindiCache = {};
 
+// Hardcoded Hindi steps for CAT_DB popular recipes (title-keyed)
+const CAT_STEPS_HI = {
+  'Paneer Butter Masala':[
+    'Tamatar, pyaaz aur kaju ko smooth puree mein blend karein.',
+    'Makhan mein lehsun-adrak paste 2 minute pakayein.',
+    'Puree daalein, tel alag hone tak pakayein.',
+    'Cream aur garam masala daalein, namak milayein.',
+    'Paneer cubes daalein, 5 minute simmer karein. Naan ke saath serve karein.'
+  ],
+  'Shahi Paneer':[
+    'Kaju 15 min bheegne do, paani ke saath smooth paste bana lein.',
+    'Ghee mein pyaaz golden hone tak pakayein.',
+    'Tamatar, kaju paste daalein, 10 min pakayein.',
+    'Cream, kesar aur elaichi daalein.',
+    'Paneer daalein, 5 min simmer karein.'
+  ],
+  'Kadai Paneer':[
+    'Dhaniya aur sukhi laal mirch ko mota pees lein.',
+    'Tel mein pyaaz, lehsun-adrak paste pakayein.',
+    'Tamatar daalein, tel alag hone tak pakayein.',
+    'Shimla mirch aur kadai masala daalein.',
+    'Paneer aur cream daalein, 5 min pakayein.'
+  ],
+  'Palak Paneer':[
+    'Palak 2 min blanch karein, smooth puree bana lein.',
+    'Paneer cubes golden hone tak talein, alag rakh lein.',
+    'Tel mein pyaaz, lehsun, adrak, tamatar pakayein.',
+    'Palak puree daalein, 5 min pakayein.',
+    'Paneer aur cream daalein, 3 min simmer karein.'
+  ],
+  'Chole Masala':[
+    'Chhole raat bhar bheegne do. Chai bag ke saath pressure cook karein rang ke liye.',
+    'Ghee mein pyaaz ko gehre golden hone tak pakayein.',
+    'Lehsun, adrak, tamatar paste daalein, 8 min pakayein.',
+    'Chole masala daalein, pake chhole milayein.',
+    '15 min simmer karein. Adrak julienne aur dhaniya se garnish karein.'
+  ],
+  'Rajma Curry':[
+    'Rajma raat bhar bheegne do. Pressure cooker mein 6 seeti lagayein.',
+    'Ghee mein pyaaz ko gehre golden hone tak pakayein.',
+    'Lehsun, adrak, tamatar daalein, achhe se pakayein.',
+    'Rajma masala aur paka rajma daalein.',
+    '20 min simmer karein. Chawal ke saath serve karein.'
+  ],
+  'Dal Makhani':[
+    'Dal aur rajma raat bhar bheegne do. Pressure cook karein 8 seeti.',
+    'Makhan mein lehsun, adrak, tamatar 15 min pakayein.',
+    'Paka dal aur rajma daalein.',
+    'Dhimi aag par 20 min pakayein, hilaaate rehein.',
+    'Cream aur makhan daalein, 5 min aur pakayein.'
+  ],
+  'Butter Chicken':[
+    'Chicken ko dahi aur masalon mein 2 ghante marinate karein.',
+    'Chicken pieces ko grill ya pan mein pakayein.',
+    'Makkhani tamatar-kaju sauce banaayein.',
+    'Cream aur garam masala daalein.',
+    'Chicken daalein, 10 min simmer karein.'
+  ],
+  'Chicken Curry':[
+    'Chicken ko dahi, haldi mein 20 min marinate karein.',
+    'Tel mein pyaaz paste golden brown karein.',
+    'Tamatar, garam masala daalein.',
+    'Chicken daalein, tez aag par sear karein.',
+    'Paani daalein, 20 min simmer karein.'
+  ],
+  'Chicken Biryani':[
+    'Chicken ko dahi aur biryani masale mein 2 ghante marinate karein.',
+    'Basmati chawal saabut masalon ke saath adha pakayein.',
+    'Pyaaz ko crispy golden hone tak talein.',
+    'Ek bhaari bartan mein chawal aur chicken ki layers lagayein.',
+    'Kesar waala doodh aur tali pyaaz daalein. Dhakkan seal karein, 20 min dum karein.'
+  ],
+  'Aloo Gobi':[
+    'Aloo aur gobi ko barabar size ke tukdon mein kaatein.',
+    'Tel mein jeera daalo, chatak dene do. Pyaaz daalein.',
+    'Tamatar, haldi, dhaniya powder daalein, achhe se pakayein.',
+    'Sabziyan daalein, masale se coat karein.',
+    'Dhakkan lagao, beech beech mein hilaaein, 15 min pakao. Kasuri methi daalein.'
+  ],
+  'Baingan Bharta':[
+    'Baingan ko seedhe lau par char taraf se jalayein jab tak andhar se gal jaaye.',
+    'Chilka utaarein, andar ka pulp achhi tarah mash karein.',
+    'Tel mein pyaaz, lehsun, adrak, hari mirch pakayein.',
+    'Tamatar daalein, achhe se pakayein.',
+    'Mashed baingan daalein, 5 min pakayein. Dhaniya daalein.'
+  ],
+  'Matar Paneer':[
+    'Tel mein pyaaz paste golden hone tak pakayein.',
+    'Lehsun, adrak paste daalein, 2 min pakayein.',
+    'Tamatar daalein, tel alag hone tak pakayein.',
+    'Garam masala aur matar daalein, 5 min pakayein.',
+    'Paneer aur cream daalein, 5 min simmer karein.'
+  ],
+  'Dal Tadka':[
+    'Dal ko haldi ke saath 3 seeti mein pressure cook karein.',
+    'Ek alag kadhai mein ghee garam karein.',
+    'Jeera, lehsun daalein, golden hone do.',
+    'Pyaaz, tamatar, laal mirch daalein, soft hone tak pakayein.',
+    'Tadka dal ke upar daalein, 5 min simmer karein. Chawal ya roti ke saath serve karein.'
+  ],
+  'Mix Veg Curry':[
+    'Saari sabziyan barabar size mein kaatein.',
+    'Tel mein pyaaz-tamatar gravy pakayein.',
+    'Sare masale daalein, 2 min bhunein.',
+    'Sabziyan daalein, achhe se milayein.',
+    'Dhakkan lagao, 20 min pakao. Dhaniya se garnish karein.'
+  ],
+  'Kadhi Pakora':[
+    'Besan aur pyaaz milaao, pakora batter banao. Pakore talein.',
+    'Besan, dahi, haldi, paani milaake kadhi batter banao.',
+    'Medium aag par 20 min hilaaate hue pakayein.',
+    'Tale pakore daalein.',
+    'Rai, kadi patta, laal mirch ka tadka daalein.'
+  ],
+  'Malai Kofta':[
+    'Paneer aur ubale aloo ko saath mash karein.',
+    'Kaju stuffing bhar ke balls banao. Golden hone tak talein.',
+    'Smooth tamatar-kaju gravy banaayein.',
+    'Cream, elaichi daalein, 5 min pakayein.',
+    'Serve karne se pehle koftas daalein.'
+  ],
+  'Dum Aloo':[
+    'Baby aloo ubaalein, kaante se pierce karein.',
+    'Aloo shallow fry karein golden hone tak.',
+    'Ghee mein kashmiri mirch ke saath pyaaz paste pakayein.',
+    'Dahi, saunf powder, adrak daalein.',
+    'Aloo daalein, bilkul dhimi aag par 15 min dum karein.'
+  ],
+};
+
 async function translateStepsToHindi(r) {
   if (hindiCache[r.id]) {
     applyHindiSteps(r.id, hindiCache[r.id]);
     return;
   }
+  // Check hardcoded CAT steps first
+  const catHi = CAT_STEPS_HI[r.title];
+  if (catHi && catHi.length) {
+    hindiCache[r.id] = catHi;
+    applyHindiSteps(r.id, catHi);
+    return;
+  }
+  // Try backend API
   try {
-    const prompt = `Translate these cooking steps for "${r.title}" into simple Hindi (Devanagari). Keep it short and easy for home cooks.\n\nSteps:\n${r.steps.map((s,i)=>`${i+1}. ${s}`).join('\n')}\n\nReturn ONLY a JSON array of Hindi strings, same order. No explanation, no markdown. Example: ["हिंदी स्टेप 1","हिंदी स्टेप 2"]`;
-
     const res = await fetch('/api/translate-steps', {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify({ recipeId: r.id, steps: r.steps, title: r.title })
     });
-
     if (!res.ok) throw new Error('API error');
     const data = await res.json();
-
     if (data.stepsHi && Array.isArray(data.stepsHi) && data.stepsHi.length) {
       hindiCache[r.id] = data.stepsHi;
       applyHindiSteps(r.id, data.stepsHi);
     } else {
-      // Fallback: call Gemini directly
       await translateViaGeminiDirect(r);
     }
   } catch(e) {
-    // Fallback: call Gemini directly
     await translateViaGeminiDirect(r);
   }
 }
@@ -2133,6 +2500,12 @@ function toggleFavById(id,btn){
   btn.classList.toggle('liked',liked);
   btn.querySelector('svg').setAttribute('fill',liked?'var(--red)':'none');
   btn.querySelector('svg').setAttribute('stroke',liked?'var(--red)':'currentColor');
+  // Pop animation
+  btn.classList.remove('popping');
+  void btn.offsetWidth;
+  btn.classList.add('popping');
+  setTimeout(()=>btn.classList.remove('popping'),400);
+  if(liked) toast('❤️ Added to Favorites!');
   updateFavScreen();
 }
 function toggleFavDetail(){
@@ -2141,9 +2514,18 @@ function toggleFavDetail(){
   const idx=favRecipes.indexOf(id);
   if(idx===-1) favRecipes.push(id); else favRecipes.splice(idx,1);
   localStorage.setItem('favRecipes',JSON.stringify(favRecipes));
+  const liked=favRecipes.includes(id);
   const fi=document.getElementById('fav-glass-icon');
-  if(favRecipes.includes(id)){ fi.setAttribute('fill','var(--red)'); fi.setAttribute('stroke','var(--red)'); }
+  if(liked){ fi.setAttribute('fill','var(--red)'); fi.setAttribute('stroke','var(--red)'); }
   else { fi.setAttribute('fill','none'); fi.setAttribute('stroke','#fff'); }
+  // Pop the glass btn
+  const glassBtn = fi.closest('.glass-btn');
+  if(glassBtn){
+    glassBtn.style.transform='scale(1.35)';
+    setTimeout(()=>glassBtn.style.transform='scale(1)',300);
+  }
+  if(liked) toast('❤️ Added to Favorites!');
+  else toast('💔 Removed from Favorites');
   updateFavScreen();
 }
 function updateSavedScreen(){
@@ -2155,7 +2537,7 @@ function updateSavedScreen(){
               <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,0.82),transparent);padding:4px;text-align:center;"><span style="color:#fff;font-size:9px;font-weight:900;display:block;">${r.title}</span></div></div>
         <div class="sgrid-heart"><svg viewBox="0 0 24 24" fill="var(--red)" width="15" height="15"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
       </div>
-      <div class="sgrid-body"><h4>${r.title}</h4><div class="sgrid-meta"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>${r.time} min</div></div>
+      <div class="sgrid-body"><h4>${r.title}</h4>${getHindiTitle(r)?`<div style="font-size:10px;color:var(--green);font-weight:700;margin-bottom:3px;">${getHindiTitle(r)}</div>`:''}<div class="sgrid-meta"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>${r.time} min</div></div>
     </div>`).join('');
 }
 function updateFavScreen(){
@@ -2167,19 +2549,68 @@ function updateFavScreen(){
     <div class="fav-item" onclick="showDetail(${r.id})">
       <div class="fav-img"><div style="width:100%;height:100%;position:relative;overflow:hidden;background:${GRAD[r.css]||'linear-gradient(145deg,#2d8a56,#0d4d2b)'};"><div style="width:100%;height:100%;">${getFoodSVG(r)}</div>
               <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,0.82),transparent);padding:4px;text-align:center;"><span style="color:#fff;font-size:9px;font-weight:900;display:block;">${r.title}</span></div></div></div>
-      <div class="fav-body"><h4>${r.title}</h4><div class="fav-meta-row"><span><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>${r.time} min</span><span><span style="color:var(--yellow)">★</span>${r.rating}</span></div></div>
+      <div class="fav-body"><h4>${r.title}</h4>${getHindiTitle(r)?`<div style="font-size:11px;color:var(--green);font-weight:700;margin-top:-3px;margin-bottom:5px;">${getHindiTitle(r)}</div>`:''}<div class="fav-meta-row"><span><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>${r.time} min</span><span><span style="color:var(--yellow)">★</span>${r.rating}</span></div></div>
       <div class="heart-filled"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
     </div>`).join('');
 }
 function clearHistory(){
   if(!confirm('Clear all saved & favorites?')) return;
-  savedRecipes=[]; favRecipes=[];
-  localStorage.removeItem('savedRecipes'); localStorage.removeItem('favRecipes');
+  savedRecipes=[]; favRecipes=[]; userRatings={};
+  localStorage.removeItem('savedRecipes'); localStorage.removeItem('favRecipes'); localStorage.removeItem('userRatings');
   updateSavedScreen(); updateFavScreen(); toast('🗑️ History cleared');
 }
 function shareApp(){
   if(navigator.share) navigator.share({title:'Cook What You Have',text:'Find recipes from ingredients you already have! 🍳',url:window.location.href});
   else navigator.clipboard.writeText(window.location.href).then(()=>toast('🔗 Link copied!'));
+}
+
+// ══════════════════════════════════════
+// RATING SYSTEM
+// ══════════════════════════════════════
+const RATING_LABELS = ['','😞 Not good','😐 It was okay','😊 Liked it!','😍 Really good!','🤩 Outstanding!'];
+
+function openRatingModal(){
+  if(!currentRecipe) return;
+  document.getElementById('rating-recipe-name').textContent = currentRecipe.title;
+  pendingRatingValue = userRatings[currentRecipe.id] || 0;
+  renderRatingStars(pendingRatingValue);
+  document.getElementById('rating-modal').style.display='flex';
+}
+function closeRatingModal(){ document.getElementById('rating-modal').style.display='none'; }
+
+function setRatingStar(val){
+  pendingRatingValue = val;
+  renderRatingStars(val);
+}
+function renderRatingStars(val){
+  document.querySelectorAll('.rate-star').forEach((s,i)=>{
+    s.classList.toggle('lit', i < val);
+  });
+  document.getElementById('rating-label-txt').textContent = val ? RATING_LABELS[val] : 'Tap a star to rate';
+  document.getElementById('rating-label-txt').style.color = val ? 'var(--orange)' : 'var(--text3)';
+}
+function submitRating(){
+  if(!pendingRatingValue){ toast('⭐ Please select a star rating'); return; }
+  if(!currentRecipe) return;
+  userRatings[currentRecipe.id] = pendingRatingValue;
+  localStorage.setItem('userRatings', JSON.stringify(userRatings));
+  closeRatingModal();
+  // Show user rating strip in detail view
+  updateDetailRatingStrip();
+  toast(`⭐ You rated this ${pendingRatingValue}/5!`);
+}
+function updateDetailRatingStrip(){
+  if(!currentRecipe) return;
+  const r = userRatings[currentRecipe.id];
+  const strip = document.getElementById('user-rating-strip');
+  const disp  = document.getElementById('user-rating-display');
+  if(!strip || !disp) return;
+  if(r){
+    disp.textContent = '⭐'.repeat(r) + `  ${r}/5`;
+    strip.style.display = 'flex';
+  } else {
+    strip.style.display = 'none';
+  }
 }
 
 // ══════════════════════════════════════
