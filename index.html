@@ -295,6 +295,23 @@ html,body { font-family:'Nunito',sans-serif; background:var(--bg); color:var(--t
 .cam-placeholder { text-align:center; padding:20px; }
 #cam-preview-box img { width:100%; border-radius:14px; }
 
+/* RECIPE SEARCH */
+.recipe-search-wrap { padding:16px 20px 0; }
+.recipe-search-bar { background:var(--card); border-radius:14px; box-shadow:var(--shadow); padding:6px 6px 6px 14px; display:flex; align-items:center; gap:8px; border:1.5px solid var(--border); transition:border-color .2s; }
+.recipe-search-bar:focus-within { border-color:var(--green); }
+.recipe-search-bar svg { width:18px; height:18px; stroke:var(--text3); flex-shrink:0; }
+.recipe-search-bar input { flex:1; border:none; outline:none; font-family:'Nunito',sans-serif; font-size:14px; color:var(--text); background:transparent; }
+.recipe-search-bar input::placeholder { color:var(--text3); }
+.search-clear-btn { width:26px; height:26px; background:var(--border); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px; color:#888; font-weight:900; cursor:pointer; flex-shrink:0; display:none; }
+.search-results-drop { background:var(--card); border-radius:14px; box-shadow:var(--shadow); margin-top:8px; overflow:hidden; border:1.5px solid var(--border); display:none; max-height:300px; overflow-y:auto; }
+.search-result-item { display:flex; align-items:center; gap:12px; padding:10px 14px; border-bottom:1px solid var(--border); cursor:pointer; transition:background .15s; }
+.search-result-item:last-child { border-bottom:none; }
+.search-result-item:active { background:var(--bg); }
+.sri-img { width:46px; height:46px; border-radius:10px; overflow:hidden; flex-shrink:0; }
+.sri-info h4 { font-size:14px; font-weight:800; color:var(--text); margin-bottom:2px; }
+.sri-info span { font-size:11px; color:var(--text3); font-weight:600; }
+.search-no-result { padding:20px; text-align:center; color:var(--text3); font-size:13px; font-weight:700; }
+
 /* QUICK ADD */
 .quick-add-section { padding:20px 20px 0; }
 .quick-add-title { font-size:15px; font-weight:800; color:var(--text); margin-bottom:12px; }
@@ -349,6 +366,15 @@ html,body { font-family:'Nunito',sans-serif; background:var(--bg); color:var(--t
         <span class="clear-btn" onclick="clearAll()">Clear all</span>
       </div>
       <div class="chips-row" id="chips-row"></div>
+    </div>
+    <!-- RECIPE SEARCH -->
+    <div class="recipe-search-wrap">
+      <div class="recipe-search-bar">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="recipeSearchInput" placeholder="Search recipes... (e.g. pizza, dal, biryani)" oninput="onRecipeSearch(this.value)">
+        <div class="search-clear-btn" id="searchClearBtn" onclick="clearRecipeSearch()">✕</div>
+      </div>
+      <div class="search-results-drop" id="searchResultsDrop"></div>
     </div>
     <!-- QUICK ADD CATEGORIES -->
     <div class="quick-add-section">
@@ -704,7 +730,17 @@ const DB = [
   {id:72,title:"Aloo Sabzi (Simple)",time:12,cal:150,servings:2,rating:4.4,veg:true,healthy:true,emoji:"🥔",css:"food-aloo",ingredients:["potato","mustard seeds","turmeric","oil","salt","curry leaves"],steps:["Boil and peel potatoes, cut into cubes.","Heat oil, add mustard seeds till they pop.","Add curry leaves, then turmeric.","Add potatoes and salt.","Toss on medium heat 4-5 min. Serve with dal and rice."],tips:"Using slightly undercooked boiled potatoes gives better texture when fried."},
   {id:73,title:"Avocado Toast",time:8,cal:280,servings:1,rating:4.5,veg:true,healthy:true,emoji:"🥑",css:"food-sandwich",ingredients:["bread","avocado","lemon","salt","pepper","red chili flakes","olive oil"],steps:["Toast bread till golden and crispy.","Mash ripe avocado with fork.","Season with lemon juice, salt and pepper.","Spread on toast.","Top with chili flakes and a drizzle of olive oil."],tips:"Ripe avocado should yield to gentle pressure. Never refrigerate unripe avocados."},
   {id:74,title:"Sooji Upma",time:15,cal:240,servings:2,rating:4.3,veg:true,healthy:true,emoji:"🍽️",css:"food-khichdi",ingredients:["semolina","onion","mustard seeds","curry leaves","green chili","ghee","salt","cashew"],steps:["Dry roast semolina till lightly golden.","Heat ghee, add mustard, cashews, curry leaves.","Add onion and chili, cook 2 min.","Add 2 cups boiling water, salt.","Add semolina slowly, stir till thick. Serve hot."],tips:"Kashmiri version adds cardamom and saffron for a festive twist."},
-  {id:75,title:"Gajar Matar Sabzi",time:18,cal:140,servings:2,rating:4.4,veg:true,healthy:true,emoji:"🥕",css:"food-sabzi",ingredients:["carrot","peas","onion","tomato","cumin","turmeric","oil","garam masala"],steps:["Heat oil, add cumin seeds.","Add onion, sauté 3 min.","Add tomatoes, turmeric and garam masala.","Add diced carrots and peas. Mix well.","Add splash of water, cover and cook 12 min."],tips:"A squeeze of lemon at the end brightens all the flavors."}
+  {id:75,title:"Gajar Matar Sabzi",time:18,cal:140,servings:2,rating:4.4,veg:true,healthy:true,emoji:"🥕",css:"food-sabzi",ingredients:["carrot","peas","onion","tomato","cumin","turmeric","oil","garam masala"],steps:["Heat oil, add cumin seeds.","Add onion, sauté 3 min.","Add tomatoes, turmeric and garam masala.","Add diced carrots and peas. Mix well.","Add splash of water, cover and cook 12 min."],tips:"A squeeze of lemon at the end brightens all the flavors."},
+  {id:76,title:"Homemade Pizza",time:35,cal:520,servings:2,rating:4.8,veg:true,healthy:false,emoji:"🍕",css:"food-pizza",ingredients:["flour","yeast","tomato","mozzarella","capsicum","onion","olive oil","oregano","chili flakes"],steps:["Mix flour, yeast, salt, olive oil and warm water. Knead 8 min till smooth. Rest 30 min.","Spread pizza sauce (crushed tomatoes + oregano + garlic) on rolled dough.","Top with mozzarella, diced capsicum and onion.","Bake at 220°C for 12-15 min till crust is golden.","Sprinkle chili flakes and oregano. Slice and serve hot."],tips:"Higher oven temp = crispier crust. Preheat the baking tray too!"},
+  {id:77,title:"Veg Burger",time:25,cal:480,servings:2,rating:4.6,veg:true,healthy:false,emoji:"🍔",css:"food-burger",ingredients:["burger bun","potato","bread crumbs","onion","capsicum","cheese","lettuce","tomato","mayonnaise"],steps:["Mash boiled potatoes with spices, onion and capsicum. Shape into patties.","Coat patties in breadcrumbs, shallow fry till golden on both sides.","Toast burger buns with butter on tawa.","Spread mayo on both halves, add lettuce and tomato.","Place patty, add cheese slice, close and serve with fries."],tips:"Refrigerate patties 15 min before frying to hold their shape better."},
+  {id:78,title:"French Fries",time:20,cal:360,servings:2,rating:4.7,veg:true,healthy:false,emoji:"🍟",css:"food-aloo",ingredients:["potato","oil","salt","chili powder","chaat masala"],steps:["Peel potatoes and cut into even sticks.","Soak in cold water 20 min to remove starch. Dry completely.","Heat oil to 160°C, fry fries 5 min (first fry). Drain and cool.","Heat oil to 190°C, fry again 3 min till golden and crispy.","Immediately toss with salt, chili powder and chaat masala."],tips:"Double frying is the secret to crispy outside, fluffy inside fries!"},
+  {id:79,title:"Cheese Maggi",time:10,cal:430,servings:1,rating:4.5,veg:true,healthy:false,emoji:"🍜",css:"food-pasta",ingredients:["instant noodles","cheese","butter","onion","capsicum","milk","masala"],steps:["Boil noodles in water with masala packet for 2 min.","In another pan, melt butter and sauté onion and capsicum.","Add cooked noodles to vegetables.","Add a splash of milk and grated cheese. Stir quickly.","Cook 1 min till cheese melts and coats noodles. Serve immediately."],tips:"Adding milk makes it creamy and prevents sticking. Use processed cheese for best melt."},
+  {id:80,title:"Chocolate Mug Cake",time:5,cal:380,servings:1,rating:4.6,veg:true,healthy:false,emoji:"🍫",css:"food-khichdi",ingredients:["flour","cocoa powder","sugar","egg","butter","milk","baking powder","vanilla"],steps:["In a microwave-safe mug, melt 2 tbsp butter.","Add egg, 3 tbsp milk, vanilla. Mix well.","Add 4 tbsp flour, 3 tbsp sugar, 2 tbsp cocoa, pinch baking powder. Stir till smooth.","Microwave on HIGH for 90 seconds.","Let cool 1 min. Enjoy straight from the mug!"],tips:"Don't overcook — it's ready when the top just sets but center looks slightly wet."},
+  {id:81,title:"Crispy Fried Chicken",time:35,cal:520,servings:2,rating:4.8,veg:false,healthy:false,emoji:"🍗",css:"food-pakora",ingredients:["chicken","buttermilk","flour","cornstarch","garlic powder","paprika","chili powder","oil","salt"],steps:["Marinate chicken in buttermilk + spices for 30 min (or overnight).","Mix flour, cornstarch, paprika, chili, garlic powder, salt in a bowl.","Remove chicken from buttermilk, coat well in flour mixture.","Heat oil to 175°C. Fry chicken 12-15 min till golden and cooked through.","Drain on rack. Let rest 5 min before serving."],tips:"Cornstarch in coating makes it extra crispy. Never cover freshly fried chicken — it steams and goes soft."},
+  {id:82,title:"Loaded Nachos",time:15,cal:460,servings:2,rating:4.7,veg:true,healthy:false,emoji:"🌮",css:"food-pakora",ingredients:["nachos chips","cheese","tomato","onion","capsicum","jalapeño","sour cream","salsa"],steps:["Spread nachos chips on a baking tray in single layer.","Top with shredded cheese generously.","Add diced tomato, onion, capsicum and jalapeños.","Bake at 200°C for 8-10 min till cheese melts and bubbles.","Top with sour cream and salsa. Serve immediately."],tips:"Serve the moment it comes out — nachos get soggy fast once toppings are added."},
+  {id:83,title:"Paneer Tikka",time:25,cal:340,servings:2,rating:4.9,veg:true,healthy:false,emoji:"🫕",css:"food-paneer",ingredients:["paneer","yogurt","capsicum","onion","tomato","tikka masala","lemon","oil"],steps:["Cut paneer, capsicum, onion and tomato into cubes.","Mix yogurt, tikka masala, lemon juice, oil for marinade.","Coat paneer and vegetables well in marinade. Rest 15 min.","Thread onto skewers alternating paneer and veggies.","Grill or cook in tawa/oven till charred on edges. Serve with mint chutney."],tips:"Charring is essential for authentic smoky flavor. Don't skip it!"},
+  {id:84,title:"Momos (Veg)",time:40,cal:280,servings:2,rating:4.8,veg:true,healthy:false,emoji:"🥟",css:"food-roti",ingredients:["flour","cabbage","carrot","onion","garlic","ginger","soy sauce","sesame oil","salt"],steps:["Mix flour and water to make stiff dough. Rest 15 min.","Finely chop all veggies. Sauté with garlic, ginger, soy sauce, sesame oil. Cool.","Roll small dough circles (5 inch). Place filling in center.","Fold and pleat edges to seal tightly into half-moon shape.","Steam for 10-12 min. Serve hot with red chili chutney."],tips:"Pleating takes practice — even if they look rough, they'll taste amazing."},
+  {id:85,title:"Cold Coffee",time:5,cal:220,servings:1,rating:4.7,veg:true,healthy:false,emoji:"☕",css:"food-soup",ingredients:["instant coffee","milk","sugar","ice cream","ice","chocolate syrup"],steps:["Add 2 tsp instant coffee and 2 tsp sugar to 2 tbsp warm water. Mix to dissolve.","Add 1 cup cold milk and a scoop of vanilla ice cream.","Add a handful of ice cubes.","Blend everything till frothy and smooth.","Pour into tall glass, drizzle chocolate syrup. Serve immediately."],tips:"Freeze coffee into ice cubes instead of water cubes to avoid dilution."}
 ];
 
 // ══════════════════════════════════════
@@ -1236,11 +1272,227 @@ function getRecipeImg(r){
   };
   return fallbacks[r.css]||'https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=300&q=70';
 }
-function imgTag(r,w,h,style=''){
-  const src=getRecipeImg(r);
-  const grad=GRAD[r.css]||'linear-gradient(145deg,#2d8a56,#0d4d2b)';
+// ══════════════════════════════════════
+// SVG FOOD ILLUSTRATIONS
+// ══════════════════════════════════════
+const FOOD_SVG = {
+  // Curry / gravy (orange-red)
+  curry: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <rect width="100" height="100" fill="#b5451b"/>
+    <ellipse cx="50" cy="62" rx="38" ry="22" fill="#e8650a"/>
+    <ellipse cx="50" cy="58" rx="34" ry="18" fill="#f07c20"/>
+    <circle cx="35" cy="54" r="6" fill="#c0392b" opacity="0.8"/>
+    <circle cx="55" cy="56" r="5" fill="#27ae60" opacity="0.8"/>
+    <circle cx="65" cy="52" r="4" fill="#f1c40f" opacity="0.9"/>
+    <ellipse cx="50" cy="58" rx="20" ry="8" fill="#e8860a" opacity="0.5"/>
+    <path d="M20 58 Q50 40 80 58" stroke="#f5a623" stroke-width="2" fill="none" opacity="0.6"/>
+  </svg>`,
+  // Dal (yellow-orange)
+  dal: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <rect width="100" height="100" fill="#7a4500"/>
+    <ellipse cx="50" cy="62" rx="38" ry="20" fill="#e8a020"/>
+    <ellipse cx="50" cy="58" rx="32" ry="15" fill="#f5c842"/>
+    <circle cx="38" cy="55" r="4" fill="#e67e22" opacity="0.9"/>
+    <circle cx="52" cy="53" r="3.5" fill="#d35400" opacity="0.8"/>
+    <circle cx="63" cy="57" r="4" fill="#e67e22" opacity="0.9"/>
+    <circle cx="44" cy="60" r="3" fill="#ca6f1e" opacity="0.7"/>
+    <ellipse cx="50" cy="57" rx="18" ry="6" fill="#f0d060" opacity="0.4"/>
+  </svg>`,
+  // Rice (white-cream)
+  rice: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <rect width="100" height="100" fill="#6b4c10"/>
+    <ellipse cx="50" cy="62" rx="38" ry="20" fill="#d4c070"/>
+    <ellipse cx="50" cy="58" rx="33" ry="16" fill="#f0e8b0"/>
+    <ellipse cx="38" cy="54" rx="5" ry="2.5" fill="#fff" opacity="0.8" transform="rotate(-20 38 54)"/>
+    <ellipse cx="52" cy="52" rx="5" ry="2.5" fill="#fff" opacity="0.8" transform="rotate(15 52 52)"/>
+    <ellipse cx="62" cy="56" rx="4" ry="2" fill="#fff" opacity="0.8" transform="rotate(-10 62 56)"/>
+    <ellipse cx="44" cy="60" rx="4.5" ry="2" fill="#fff" opacity="0.7" transform="rotate(25 44 60)"/>
+    <ellipse cx="57" cy="61" rx="4" ry="2" fill="#fff" opacity="0.7" transform="rotate(-15 57 61)"/>
+  </svg>`,
+  // Roti/bread (golden)
+  roti: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <rect width="100" height="100" fill="#8b5e10"/>
+    <ellipse cx="50" cy="55" rx="35" ry="28" fill="#c4872a"/>
+    <ellipse cx="50" cy="53" rx="30" ry="24" fill="#d4a040"/>
+    <ellipse cx="50" cy="52" rx="25" ry="20" fill="#e8c060"/>
+    <circle cx="42" cy="48" r="3" fill="#c09030" opacity="0.5"/>
+    <circle cx="56" cy="52" r="2.5" fill="#b08020" opacity="0.5"/>
+    <circle cx="48" cy="58" r="2" fill="#c09030" opacity="0.4"/>
+    <ellipse cx="50" cy="52" rx="14" ry="10" fill="#f0d080" opacity="0.3"/>
+  </svg>`,
+  // Paneer (orange-red)
+  paneer: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <rect width="100" height="100" fill="#7f1d0e"/>
+    <ellipse cx="50" cy="62" rx="38" ry="20" fill="#c0392b"/>
+    <ellipse cx="50" cy="58" rx="32" ry="16" fill="#e74c3c"/>
+    <rect x="32" y="46" width="14" height="14" rx="2" fill="#f5f0e0" opacity="0.95"/>
+    <rect x="52" y="50" width="12" height="12" rx="2" fill="#f5f0e0" opacity="0.95"/>
+    <rect x="40" y="56" width="10" height="10" rx="2" fill="#f5f0e0" opacity="0.9"/>
+    <circle cx="62" cy="53" r="3" fill="#27ae60" opacity="0.8"/>
+    <circle cx="35" cy="60" r="2.5" fill="#27ae60" opacity="0.7"/>
+  </svg>`,
+  // Sabzi/green veg
+  sabzi: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <rect width="100" height="100" fill="#1a4a20"/>
+    <ellipse cx="50" cy="62" rx="38" ry="20" fill="#2e7d32"/>
+    <ellipse cx="50" cy="58" rx="32" ry="16" fill="#43a047"/>
+    <circle cx="36" cy="54" r="7" fill="#66bb6a"/>
+    <circle cx="50" cy="52" r="6" fill="#81c784"/>
+    <circle cx="64" cy="56" r="7" fill="#66bb6a"/>
+    <circle cx="43" cy="61" r="5" fill="#a5d6a7"/>
+    <circle cx="58" cy="62" r="5" fill="#81c784"/>
+  </svg>`,
+  // Omelette/egg (yellow)
+  omelette: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <rect width="100" height="100" fill="#7a5a00"/>
+    <ellipse cx="50" cy="60" rx="40" ry="24" fill="#c8860a"/>
+    <ellipse cx="50" cy="56" rx="36" ry="20" fill="#f5c842"/>
+    <ellipse cx="50" cy="54" rx="26" ry="14" fill="#fef9e7"/>
+    <circle cx="50" cy="53" r="10" fill="#f39c12"/>
+    <circle cx="50" cy="53" r="7" fill="#e67e22"/>
+  </svg>`,
+  // Biryani (saffron)
+  biryani: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <rect width="100" height="100" fill="#6b2d00"/>
+    <ellipse cx="50" cy="62" rx="38" ry="20" fill="#c0540a"/>
+    <ellipse cx="50" cy="58" rx="32" ry="16" fill="#e8780f"/>
+    <ellipse cx="50" cy="54" rx="26" ry="11" fill="#f5b942"/>
+    <ellipse cx="38" cy="50" rx="5" ry="2.5" fill="#f0e8b0" opacity="0.9" transform="rotate(-20 38 50)"/>
+    <ellipse cx="54" cy="48" rx="5" ry="2.5" fill="#f0e8b0" opacity="0.9" transform="rotate(15 54 48)"/>
+    <ellipse cx="63" cy="52" rx="4" ry="2" fill="#f0e8b0" opacity="0.8" transform="rotate(-10 63 52)"/>
+    <circle cx="40" cy="56" r="3" fill="#c0392b" opacity="0.8"/>
+    <circle cx="62" cy="57" r="3" fill="#27ae60" opacity="0.8"/>
+    <circle cx="50" cy="60" r="2.5" fill="#f1c40f" opacity="0.9"/>
+  </svg>`,
+  // Soup (red)
+  soup: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <rect width="100" height="100" fill="#6b1a00"/>
+    <ellipse cx="50" cy="64" rx="38" ry="18" fill="#c0392b"/>
+    <ellipse cx="50" cy="60" rx="34" ry="16" fill="#e74c3c"/>
+    <ellipse cx="50" cy="57" rx="28" ry="11" fill="#f15a4a"/>
+    <path d="M38 52 Q42 46 46 52" stroke="#fff" stroke-width="1.5" fill="none" opacity="0.5"/>
+    <path d="M48 50 Q52 44 56 50" stroke="#fff" stroke-width="1.5" fill="none" opacity="0.5"/>
+    <circle cx="42" cy="60" r="3" fill="#f39c12" opacity="0.8"/>
+    <circle cx="60" cy="58" r="3" fill="#27ae60" opacity="0.8"/>
+  </svg>`,
+  // Sandwich/bread items
+  sandwich: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <rect width="100" height="100" fill="#5c3a00"/>
+    <rect x="18" y="62" width="64" height="12" rx="6" fill="#c8860a"/>
+    <rect x="20" y="54" width="60" height="10" fill="#27ae60"/>
+    <rect x="20" y="48" width="60" height="8" fill="#e74c3c"/>
+    <rect x="20" y="42" width="60" height="8" fill="#f5f5dc"/>
+    <rect x="18" y="32" width="64" height="12" rx="6" fill="#c8860a"/>
+  </svg>`,
+  // Pakora (fried)
+  pakora: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <rect width="100" height="100" fill="#3d1a06"/>
+    <circle cx="38" cy="58" r="14" fill="#8b4513"/>
+    <circle cx="38" cy="56" r="12" fill="#a0522d"/>
+    <circle cx="62" cy="60" r="13" fill="#7b3810"/>
+    <circle cx="62" cy="58" r="11" fill="#9b4418"/>
+    <circle cx="50" cy="48" r="12" fill="#8b4010"/>
+    <circle cx="50" cy="46" r="10" fill="#a05228"/>
+    <circle cx="35" cy="55" r="2" fill="#c4722a" opacity="0.6"/>
+    <circle cx="63" cy="57" r="2" fill="#c4722a" opacity="0.6"/>
+    <circle cx="50" cy="45" r="2" fill="#c4722a" opacity="0.6"/>
+  </svg>`,
+  // Pasta
+  pasta: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <rect width="100" height="100" fill="#6b3a00"/>
+    <ellipse cx="50" cy="62" rx="38" ry="20" fill="#c05a00"/>
+    <ellipse cx="50" cy="58" rx="32" ry="16" fill="#e07010"/>
+    <path d="M28 55 Q40 48 52 55 Q64 62 76 55" stroke="#f5f0e0" stroke-width="3" fill="none" opacity="0.9"/>
+    <path d="M30 60 Q42 53 54 60 Q66 67 78 60" stroke="#f5f0e0" stroke-width="3" fill="none" opacity="0.8"/>
+    <path d="M26 50 Q38 43 50 50 Q62 57 74 50" stroke="#f5f0e0" stroke-width="2.5" fill="none" opacity="0.7"/>
+    <circle cx="38" cy="52" r="4" fill="#c0392b" opacity="0.9"/>
+    <circle cx="62" cy="56" r="4" fill="#c0392b" opacity="0.9"/>
+  </svg>`,
+  // Khichdi
+  khichdi: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <rect width="100" height="100" fill="#5a3d00"/>
+    <ellipse cx="50" cy="62" rx="38" ry="20" fill="#b8860b"/>
+    <ellipse cx="50" cy="58" rx="32" ry="16" fill="#d4a020"/>
+    <ellipse cx="50" cy="54" rx="26" ry="12" fill="#e8c050"/>
+    <circle cx="40" cy="52" r="3" fill="#f5f0c0" opacity="0.8"/>
+    <circle cx="52" cy="50" r="2.5" fill="#f5f0c0" opacity="0.8"/>
+    <circle cx="62" cy="54" r="3" fill="#f5f0c0" opacity="0.8"/>
+    <circle cx="46" cy="58" r="2.5" fill="#27ae60" opacity="0.7"/>
+    <circle cx="56" cy="58" r="2" fill="#e67e22" opacity="0.8"/>
+  </svg>`,
+  // Pizza 
+  pizza: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <rect width="100" height="100" fill="#4a2000"/>
+    <polygon points="50,15 88,78 12,78" fill="#c8860a"/>
+    <polygon points="50,20 83,73 17,73" fill="#e05020"/>
+    <polygon points="50,25 78,68 22,68" fill="#e8c050"/>
+    <circle cx="50" cy="45" r="5" fill="#c0392b"/>
+    <circle cx="38" cy="58" r="4" fill="#c0392b"/>
+    <circle cx="63" cy="56" r="4" fill="#c0392b"/>
+    <ellipse cx="45" cy="52" rx="4" ry="2" fill="#27ae60" opacity="0.9"/>
+    <ellipse cx="58" cy="62" rx="3" ry="1.5" fill="#27ae60" opacity="0.9"/>
+    <circle cx="52" cy="62" r="2" fill="#f5f5f5" opacity="0.9"/>
+    <circle cx="40" cy="66" r="2" fill="#f5f5f5" opacity="0.9"/>
+  </svg>`,
+  // Burger
+  burger: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <rect width="100" height="100" fill="#3a2000"/>
+    <ellipse cx="50" cy="35" rx="32" ry="18" fill="#c8860a"/>
+    <ellipse cx="50" cy="30" rx="30" ry="15" fill="#d4a040"/>
+    <rect x="18" y="50" width="64" height="8" rx="2" fill="#27ae60"/>
+    <rect x="18" y="58" width="64" height="8" rx="2" fill="#c0392b"/>
+    <rect x="18" y="66" width="64" height="7" rx="2" fill="#f5f0dc"/>
+    <ellipse cx="50" cy="73" rx="33" ry="10" fill="#b87020"/>
+  </svg>`,
+  // Noodles/Maggi
+  noodles: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <rect width="100" height="100" fill="#5a3500"/>
+    <ellipse cx="50" cy="62" rx="38" ry="20" fill="#c07010"/>
+    <ellipse cx="50" cy="58" rx="32" ry="16" fill="#e09030"/>
+    <path d="M25 52 Q35 44 45 52 Q55 60 65 52 Q75 44 85 52" stroke="#f5f0c0" stroke-width="2.5" fill="none" opacity="0.9"/>
+    <path d="M22 58 Q32 50 42 58 Q52 66 62 58 Q72 50 82 58" stroke="#f5f0c0" stroke-width="2.5" fill="none" opacity="0.8"/>
+    <path d="M25 64 Q35 56 45 64 Q55 72 65 64" stroke="#f5f0c0" stroke-width="2" fill="none" opacity="0.7"/>
+    <circle cx="42" cy="54" r="3" fill="#e74c3c" opacity="0.9"/>
+    <circle cx="62" cy="56" r="3" fill="#27ae60" opacity="0.9"/>
+  </svg>`,
+  // Default
+  default: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <rect width="100" height="100" fill="#2d5a3d"/>
+    <ellipse cx="50" cy="62" rx="38" ry="20" fill="#3d8a56"/>
+    <ellipse cx="50" cy="58" rx="30" ry="15" fill="#4daa66"/>
+    <text x="50" y="56" font-size="28" text-anchor="middle" dominant-baseline="middle">🍽️</text>
+  </svg>`
+};
+
+function getFoodSVG(r) {
+  const t = (r.title || '').toLowerCase();
+  const c = r.css || '';
+  if (t.includes('pizza')) return FOOD_SVG.pizza;
+  if (t.includes('burger')) return FOOD_SVG.burger;
+  if (t.includes('noodle') || t.includes('maggi') || t.includes('pasta')) return FOOD_SVG.pasta.replace('pasta','noodles') || FOOD_SVG.noodles;
+  if (c === 'food-biryani' || t.includes('biryani') || t.includes('pulao')) return FOOD_SVG.biryani;
+  if (c === 'food-dal' || t.includes('dal') || t.includes('sambar') || t.includes('rajma') || t.includes('chana') || t.includes('chole') || t.includes('halwa')) return FOOD_SVG.dal;
+  if (c === 'food-paneer' || t.includes('paneer') || t.includes('kofta')) return FOOD_SVG.paneer;
+  if (c === 'food-omelette' || t.includes('omelette') || t.includes('egg') || t.includes('anda') || t.includes('bhurji')) return FOOD_SVG.omelette;
+  if (c === 'food-pakora' || t.includes('pakora') || t.includes('pakoda') || t.includes('samosa') || t.includes('vada') || t.includes('fried')) return FOOD_SVG.pakora;
+  if (c === 'food-roti' || t.includes('roti') || t.includes('naan') || t.includes('paratha') || t.includes('dosa') || t.includes('cheela') || t.includes('pancake')) return FOOD_SVG.roti;
+  if (c === 'food-rice' || c === 'food-khichdi' || t.includes('rice') || t.includes('khichdi') || t.includes('pongal') || t.includes('upma') || t.includes('poha')) return FOOD_SVG.khichdi;
+  if (c === 'food-soup' || t.includes('soup') || t.includes('lassi') || t.includes('shake') || t.includes('chai')) return FOOD_SVG.soup;
+  if (c === 'food-sandwich' || t.includes('sandwich') || t.includes('bread') || t.includes('toast') || t.includes('garlic bread') || t.includes('pav')) return FOOD_SVG.sandwich;
+  if (c === 'food-sabzi' || c === 'food-salad' || t.includes('sabzi') || t.includes('salad') || t.includes('gobi') || t.includes('saag') || t.includes('palak')) return FOOD_SVG.sabzi;
+  if (c === 'food-aloo' || t.includes('aloo') || t.includes('potato') || t.includes('jeera')) return FOOD_SVG.curry;
+  if (c === 'food-curry' || t.includes('curry') || t.includes('masala') || t.includes('gravy')) return FOOD_SVG.curry;
+  return FOOD_SVG.default;
+}
+
+function imgTag(r) {
+  const svgContent = getFoodSVG(r);
+  const grad = GRAD[r.css] || 'linear-gradient(145deg,#2d8a56,#0d4d2b)';
   return `<div style="width:100%;height:100%;position:relative;overflow:hidden;background:${grad};">
-    <img src="${src}" alt="${r.title}" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.style.display='none'">
+    <div style="width:100%;height:100%;">${svgContent}</div>
+    <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,0.85),transparent);padding:5px 5px 4px;text-align:center;">
+      <span style="color:#fff;font-size:9.5px;font-weight:900;font-family:'Nunito',sans-serif;line-height:1.2;display:block;text-shadow:0 1px 3px rgba(0,0,0,0.8);">${r.title}</span>
+    </div>
   </div>`;
 }
 
@@ -1260,7 +1512,9 @@ const GRAD={
   'food-salad':'linear-gradient(145deg,#8BC34A,#33691E)',
   'food-paneer':'linear-gradient(145deg,#ff6f00,#bf360c)',
   'food-sandwich':'linear-gradient(145deg,#f9a825,#e65100)',
-  'food-khichdi':'linear-gradient(145deg,#fdd835,#e65100)'
+  'food-khichdi':'linear-gradient(145deg,#fdd835,#e65100)',
+  'food-pizza':'linear-gradient(145deg,#e65100,#4a2000)',
+  'food-burger':'linear-gradient(145deg,#c8860a,#3a2000)'
 };
 function showDetail(id){
   const r=currentListRecipes.find(x=>x.id===id)||savedRecipes.find(x=>x.id===id)||DB.find(x=>x.id===id);
@@ -1277,7 +1531,7 @@ function showDetail(id){
   const grad=GRAD[r.css]||'linear-gradient(145deg,#2d8a56,#0d4d2b)';
   hero.style.background=grad;
   hero.innerHTML=`
-    <img src="${imgSrc}" alt="${r.title}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;" onerror="this.style.display='none'">
+    <div style="position:absolute;inset:0;width:100%;height:100%;z-index:0;">${getFoodSVG(r)}</div>
     <div class="detail-hero-overlay" style="z-index:1;"></div>
     <div class="detail-hero-btns" style="z-index:5;">
       <div class="glass-btn" onclick="goTo('s-list')"><svg viewBox="0 0 24 24"><polyline points="15,18 9,12 15,6"/></svg></div>
@@ -1495,6 +1749,53 @@ function openCatRecipe(idx){
 // ══════════════════════════════════════
 // CAMERA / GEMINI IMAGE ANALYSIS
 // ══════════════════════════════════════
+// RECIPE SEARCH
+// ══════════════════════════════════════
+function onRecipeSearch(val) {
+  const drop = document.getElementById('searchResultsDrop');
+  const clearBtn = document.getElementById('searchClearBtn');
+  clearBtn.style.display = val.length ? 'flex' : 'none';
+  if (!val.trim()) { drop.style.display = 'none'; return; }
+  const q = val.toLowerCase().trim();
+  const results = DB.filter(r =>
+    r.title.toLowerCase().includes(q) ||
+    r.ingredients.some(i => i.toLowerCase().includes(q))
+  ).slice(0, 8);
+  drop.style.display = 'block';
+  if (!results.length) {
+    drop.innerHTML = `<div class="search-no-result">😕 No recipes found for "${val}"</div>`;
+    return;
+  }
+  drop.innerHTML = results.map(r => `
+    <div class="search-result-item" onclick="searchGoDetail(${r.id})">
+      <div class="sri-img">${imgTag(r)}</div>
+      <div class="sri-info">
+        <h4>${r.title}</h4>
+        <span>⏱ ${r.time} min &nbsp;★ ${r.rating} &nbsp;${r.veg?'🌿 Veg':'🍗 Non-veg'}</span>
+      </div>
+    </div>`).join('');
+}
+
+function searchGoDetail(id) {
+  clearRecipeSearch();
+  const r = DB.find(x => x.id === id);
+  if (!r) return;
+  currentListRecipes = DB;
+  showDetail(id);
+}
+
+function clearRecipeSearch() {
+  document.getElementById('recipeSearchInput').value = '';
+  document.getElementById('searchResultsDrop').style.display = 'none';
+  document.getElementById('searchClearBtn').style.display = 'none';
+}
+
+// Close search on outside tap
+document.addEventListener('click', e => {
+  if (!e.target.closest('.recipe-search-wrap')) clearRecipeSearch();
+});
+
+// ══════════════════════════════════════
 // QUICK ADD CATEGORIES
 // ══════════════════════════════════════
 const QUICK_CATS = {
@@ -1691,7 +1992,8 @@ function updateSavedScreen(){
   if(!savedRecipes.length){ g.innerHTML=`<div style="grid-column:1/-1;padding:40px 0;text-align:center;color:var(--text3);font-size:14px;font-weight:700;">No saved recipes yet 🍽️<br><span style="font-size:12px;font-weight:500;">Find and save recipes from home</span></div>`; return; }
   g.innerHTML=savedRecipes.map(r=>`
     <div class="sgrid-card" onclick="showDetail(${r.id})">
-      <div class="sgrid-img"><div style="width:100%;height:100%;position:relative;overflow:hidden;background:${GRAD[r.css]||'linear-gradient(145deg,#2d8a56,#0d4d2b)'};"><img src="${getRecipeImg(r)}" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"></div>
+      <div class="sgrid-img"><div style="width:100%;height:100%;position:relative;overflow:hidden;background:${GRAD[r.css]||'linear-gradient(145deg,#2d8a56,#0d4d2b)'};"><div style="width:100%;height:100%;">${getFoodSVG(r)}</div>
+              <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,0.82),transparent);padding:4px;text-align:center;"><span style="color:#fff;font-size:9px;font-weight:900;display:block;">${r.title}</span></div></div>
         <div class="sgrid-heart"><svg viewBox="0 0 24 24" fill="var(--red)" width="15" height="15"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
       </div>
       <div class="sgrid-body"><h4>${r.title}</h4><div class="sgrid-meta"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>${r.time} min</div></div>
@@ -1704,7 +2006,8 @@ function updateFavScreen(){
   if(!favs.length){ fl.innerHTML=`<div style="padding:40px 0;text-align:center;color:var(--text3);font-size:14px;font-weight:700;">No favorites yet ❤️<br><span style="font-size:12px;font-weight:500;">Heart recipes to add them here</span></div>`; return; }
   fl.innerHTML=favs.map(r=>`
     <div class="fav-item" onclick="showDetail(${r.id})">
-      <div class="fav-img"><div style="width:100%;height:100%;position:relative;overflow:hidden;background:${GRAD[r.css]||'linear-gradient(145deg,#2d8a56,#0d4d2b)'};"><img src="${getRecipeImg(r)}" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"></div></div>
+      <div class="fav-img"><div style="width:100%;height:100%;position:relative;overflow:hidden;background:${GRAD[r.css]||'linear-gradient(145deg,#2d8a56,#0d4d2b)'};"><div style="width:100%;height:100%;">${getFoodSVG(r)}</div>
+              <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,0.82),transparent);padding:4px;text-align:center;"><span style="color:#fff;font-size:9px;font-weight:900;display:block;">${r.title}</span></div></div></div>
       <div class="fav-body"><h4>${r.title}</h4><div class="fav-meta-row"><span><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>${r.time} min</span><span><span style="color:var(--yellow)">★</span>${r.rating}</span></div></div>
       <div class="heart-filled"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
     </div>`).join('');
