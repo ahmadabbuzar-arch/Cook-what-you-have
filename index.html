@@ -1037,82 +1037,130 @@ function renderList(){
 // RECIPE IMAGES (Unsplash)
 // ══════════════════════════════════════
 const RECIPE_IMGS = {
-  // DB recipes by id
   1:'https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=300&q=70', // aloo tamatar
   2:'https://images.unsplash.com/photo-1525351484163-7529414344d8?w=300&q=70', // omelette
   3:'https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=300&q=70', // pakora
   4:'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=300&q=70', // pasta
-  5:'https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=300&q=70', // curry
+  5:'https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=300&q=70', // spicy curry
   6:'https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=300&q=70', // jeera aloo
-  7:'https://images.unsplash.com/photo-1546549032-9571cd6b27df?w=300&q=70', // dal tadka
+  7:'https://images.unsplash.com/photo-1546549032-9571cd6b27df?w=300&q=70',   // dal tadka
   8:'https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=300&q=70', // fried rice
-  9:'https://images.unsplash.com/photo-1547592180-85f173990554?w=300&q=70', // tomato soup
-  10:'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=300&q=70', // roti
-  11:'https://images.unsplash.com/photo-1626200420028-cb0f30d26630?w=300&q=70', // khichdi
-  12:'https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=300&q=70', // paneer bhurji
-  13:'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=300&q=70', // aloo paratha
-  14:'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=300&q=70', // biryani
-  15:'https://images.unsplash.com/photo-1562575214-da9fcf59b907?w=300&q=70', // raita
-  16:'https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=300&q=70', // chana masala
-  17:'https://images.unsplash.com/photo-1601050690597-df0568f70950?w=300&q=70', // saag paneer
-  18:'https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=300&q=70', // baingan bharta
-  19:'https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=300&q=70', // poha
-  20:'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=300&q=70', // upma
-  21:'https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=300&q=70', // cheela
-  22:'https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=300&q=70', // bread pakora
-  23:'https://images.unsplash.com/photo-1631300715412-29db1c79f5e1?w=300&q=70', // kheer
-  24:'https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=300&q=70', // aloo gobi
-  25:'https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=300&q=70', // matar paneer
-  26:'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=300&q=70', // salad
-  27:'https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=300&q=70', // curd rice
-  28:'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=300&q=70', // maggi
-  29:'https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=300&q=70', // pav bhaji
-  30:'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=300&q=70', // pancakes
-  31:'https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=300&q=70', // rajma
-  32:'https://images.unsplash.com/photo-1495214783159-3503fd1b572d?w=300&q=70', // oats
-  33:'https://images.unsplash.com/photo-1546549032-9571cd6b27df?w=300&q=70', // spinach dal
-  34:'https://images.unsplash.com/photo-1547592180-85f173990554?w=300&q=70', // garlic bread
-  35:'https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=300&q=70', // anda curry
-  36:'https://images.unsplash.com/photo-1546549032-9571cd6b27df?w=300&q=70', // sambar
-  37:'https://images.unsplash.com/photo-1631300715412-29db1c79f5e1?w=300&q=70', // sooji halwa
-  38:'https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=300&q=70', // chicken curry
-  39:'https://images.unsplash.com/photo-1626200420028-cb0f30d26630?w=300&q=70', // ven pongal
-  40:'https://images.unsplash.com/photo-1546549032-9571cd6b27df?w=300&q=70', // masoor dal
-  41:'https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=300&q=70', // bread upma
+  9:'https://images.unsplash.com/photo-1547592180-85f173990554?w=300&q=70',   // tomato soup
+  10:'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=300&q=70',// roti
+  11:'https://images.unsplash.com/photo-1626200420028-cb0f30d26630?w=300&q=70',// khichdi
+  12:'https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=300&q=70',// paneer bhurji
 };
-// Category recipes image map by title
 const CAT_IMGS = {
+  // Paneer dishes
+  'Paneer Butter Masala':'https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=300&q=70',
+  'Shahi Paneer':'https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=300&q=70',
+  'Kadai Paneer':'https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=300&q=70',
+  'Matar Paneer':'https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=300&q=70',
+  'Paneer Bhurji':'https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=300&q=70',
+  'Malai Kofta':'https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=300&q=70',
+  'Chilli Paneer':'https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=300&q=70',
+  'Paneer Paratha':'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=300&q=70',
+  // Green / spinach
+  'Palak Paneer':'https://images.unsplash.com/photo-1601050690597-df0568f70950?w=300&q=70',
+  'Saag Paneer':'https://images.unsplash.com/photo-1601050690597-df0568f70950?w=300&q=70',
+  'Spinach Dal':'https://images.unsplash.com/photo-1601050690597-df0568f70950?w=300&q=70',
+  // Dal
+  'Dal Tadka':'https://images.unsplash.com/photo-1546549032-9571cd6b27df?w=300&q=70',
+  'Dal Makhani':'https://images.unsplash.com/photo-1546549032-9571cd6b27df?w=300&q=70',
+  'Masoor Dal':'https://images.unsplash.com/photo-1546549032-9571cd6b27df?w=300&q=70',
+  'Chole Masala':'https://images.unsplash.com/photo-1546549032-9571cd6b27df?w=300&q=70',
+  'Rajma Curry':'https://images.unsplash.com/photo-1546549032-9571cd6b27df?w=300&q=70',
+  'Sambar':'https://images.unsplash.com/photo-1546549032-9571cd6b27df?w=300&q=70',
+  // Aloo dishes
+  'Aloo Gobi':'https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=300&q=70',
+  'Aloo Tamatar':'https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=300&q=70',
+  'Jeera Aloo':'https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=300&q=70',
+  'Dum Aloo':'https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=300&q=70',
+  'Aloo Paratha':'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=300&q=70',
+  // Eggplant
+  'Baingan Bharta':'https://images.unsplash.com/photo-1601050690597-df0568f70950?w=300&q=70',
+  // Curry / gravy
+  'Mix Veg Curry':'https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=300&q=70',
+  'Spicy Potato Curry':'https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=300&q=70',
+  'Kadhi Pakora':'https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=300&q=70',
+  'Chicken Curry':'https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=300&q=70',
+  'Butter Chicken':'https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=300&q=70',
+  'Mutton Curry':'https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=300&q=70',
+  'Anda Curry':'https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=300&q=70',
+  // Biryani & Rice
+  'Biryani':'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=300&q=70',
+  'Vegetable Biryani':'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=300&q=70',
+  'Chicken Biryani':'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=300&q=70',
+  'Egg Fried Rice':'https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=300&q=70',
+  'Fried Rice':'https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=300&q=70',
+  'Curd Rice':'https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=300&q=70',
+  'Khichdi':'https://images.unsplash.com/photo-1626200420028-cb0f30d26630?w=300&q=70',
+  'Vegetable Khichdi':'https://images.unsplash.com/photo-1626200420028-cb0f30d26630?w=300&q=70',
+  'Ven Pongal':'https://images.unsplash.com/photo-1626200420028-cb0f30d26630?w=300&q=70',
+  // Roti / Bread
+  'Chapati / Roti':'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=300&q=70',
   'Butter Naan':'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=300&q=70',
   'Garlic Naan':'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=300&q=70',
-  'Aloo Paratha':'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=300&q=70',
-  'Paneer Paratha':'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=300&q=70',
-  'Hakka Noodles':'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=300&q=70',
-  'Chilli Paneer':'https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=300&q=70',
-  'Chilli Chicken':'https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=300&q=70',
+  'Dosa':'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=300&q=70',
+  'Uttapam':'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=300&q=70',
+  // Breakfast
+  'Masala Omelette':'https://images.unsplash.com/photo-1525351484163-7529414344d8?w=300&q=70',
+  'Poha':'https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=300&q=70',
+  'Upma':'https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=300&q=70',
+  'Pav Bhaji':'https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=300&q=70',
+  'Bread Upma':'https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=300&q=70',
+  // Snacks / Fried
+  'Aloo Onion Pakora':'https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=300&q=70',
+  'Bread Pakora':'https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=300&q=70',
+  'Vada Pav':'https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=300&q=70',
+  'Samosa':'https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=300&q=70',
   'Manchurian':'https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=300&q=70',
+  'Pani Puri':'https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=300&q=70',
+  'Bhel Puri':'https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=300&q=70',
+  // Soup
+  'Tomato Soup':'https://images.unsplash.com/photo-1547592180-85f173990554?w=300&q=70',
+  // Noodles / Pasta
+  'Hakka Noodles':'https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=300&q=70',
+  'Masala Potato Pasta':'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=300&q=70',
+  'Pasta Arrabbiata':'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=300&q=70',
+  // Sweets
   'Gulab Jamun':'https://images.unsplash.com/photo-1631300715412-29db1c79f5e1?w=300&q=70',
   'Kheer':'https://images.unsplash.com/photo-1631300715412-29db1c79f5e1?w=300&q=70',
   'Gajar Halwa':'https://images.unsplash.com/photo-1631300715412-29db1c79f5e1?w=300&q=70',
+  'Sooji Halwa':'https://images.unsplash.com/photo-1631300715412-29db1c79f5e1?w=300&q=70',
+  'Rasgulla':'https://images.unsplash.com/photo-1631300715412-29db1c79f5e1?w=300&q=70',
   'Chocolate Cake':'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=300&q=70',
-  'Pav Bhaji':'https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=300&q=70',
-  'Vada Pav':'https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=300&q=70',
-  'Samosa':'https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=300&q=70',
-  'Pani Puri':'https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=300&q=70',
+  // Drinks
   'Mango Shake':'https://images.unsplash.com/photo-1553530666-ba11a90bb0ae?w=300&q=70',
   'Lassi':'https://images.unsplash.com/photo-1553530666-ba11a90bb0ae?w=300&q=70',
-  'Biryani':'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=300&q=70',
-  'Vegetable Biryani':'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=300&q=70',
-  'Chicken Curry':'https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=300&q=70',
-  'Dal Tadka':'https://images.unsplash.com/photo-1546549032-9571cd6b27df?w=300&q=70',
+  'Masala Chai':'https://images.unsplash.com/photo-1571934811356-5cc061b6821f?w=300&q=70',
+  // Non-veg
+  'Chilli Chicken':'https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=300&q=70',
   'Grilled Chicken':'https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?w=300&q=70',
-  'Pasta Arrabbiata':'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=300&q=70',
+  // World food
   'Ramen':'https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?w=300&q=70',
   'Tacos':'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=300&q=70',
+  'Pizza':'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=300&q=70',
 };
 function getRecipeImg(r){
   if(r.id && RECIPE_IMGS[r.id]) return RECIPE_IMGS[r.id];
   if(r.title && CAT_IMGS[r.title]) return CAT_IMGS[r.title];
-  // fallback by css class
+  // Keyword match in title
+  const t=(r.title||'').toLowerCase();
+  if(t.includes('paneer')||t.includes('kofta')) return 'https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=300&q=70';
+  if(t.includes('biryani')) return 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=300&q=70';
+  if(t.includes('dal')||t.includes('chole')||t.includes('rajma')||t.includes('sambar')) return 'https://images.unsplash.com/photo-1546549032-9571cd6b27df?w=300&q=70';
+  if(t.includes('aloo')||t.includes('gobi')||t.includes('jeera')) return 'https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=300&q=70';
+  if(t.includes('palak')||t.includes('saag')||t.includes('spinach')||t.includes('baingan')) return 'https://images.unsplash.com/photo-1601050690597-df0568f70950?w=300&q=70';
+  if(t.includes('rice')||t.includes('pulao')||t.includes('khichdi')||t.includes('pongal')) return 'https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=300&q=70';
+  if(t.includes('roti')||t.includes('naan')||t.includes('paratha')||t.includes('chapati')||t.includes('dosa')) return 'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=300&q=70';
+  if(t.includes('pakora')||t.includes('pakoda')||t.includes('samosa')||t.includes('vada')||t.includes('manchurian')) return 'https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=300&q=70';
+  if(t.includes('pasta')||t.includes('noodle')) return 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=300&q=70';
+  if(t.includes('soup')) return 'https://images.unsplash.com/photo-1547592180-85f173990554?w=300&q=70';
+  if(t.includes('halwa')||t.includes('kheer')||t.includes('gulab')||t.includes('rasgulla')) return 'https://images.unsplash.com/photo-1631300715412-29db1c79f5e1?w=300&q=70';
+  if(t.includes('chicken')||t.includes('mutton')||t.includes('curry')) return 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=300&q=70';
+  if(t.includes('poha')||t.includes('upma')||t.includes('pav')||t.includes('bhaji')) return 'https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=300&q=70';
+  // CSS class fallback
   const fallbacks={
     'food-aloo':'https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=300&q=70',
     'food-pasta':'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=300&q=70',
@@ -1126,9 +1174,7 @@ function getRecipeImg(r){
     'food-soup':'https://images.unsplash.com/photo-1547592180-85f173990554?w=300&q=70',
     'food-roti':'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=300&q=70',
     'food-biryani':'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=300&q=70',
-    'food-salad':'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=300&q=70',
     'food-paneer':'https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=300&q=70',
-    'food-sandwich':'https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=300&q=70',
     'food-khichdi':'https://images.unsplash.com/photo-1626200420028-cb0f30d26630?w=300&q=70',
   };
   return fallbacks[r.css]||'https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=300&q=70';
@@ -1408,34 +1454,47 @@ async function analyzeImage(input){
   const file=input.files[0]; if(!file) return;
   const reader=new FileReader();
   reader.onload=async function(e){
-    const base64=e.target.result.split(',')[1];
-    const previewBox=document.getElementById('cam-preview-box');
-    previewBox.innerHTML=`<img src="${e.target.result}" style="width:100%;border-radius:14px;max-height:200px;object-fit:cover;">`;
-    document.getElementById('cam-status').textContent='🤖 AI analyzing your photo...';
-    try{
-      const res=await fetch('/api/analyze-image',{
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({image:base64,mimeType:file.type})
-      });
-      if(!res.ok) throw new Error(`Server error ${res.status}`);
-      const data=await res.json();
-      const raw=Array.isArray(data.ingredients)?data.ingredients:[];
-      detectedIngredients=raw.map(i=>normalizeIngredient(i.toLowerCase().trim())).filter(Boolean);
-      if(!detectedIngredients.length){
-        document.getElementById('cam-status').textContent='😕 No ingredients detected. Try a clearer photo.';
-        return;
+    // Compress image before sending
+    const img=new Image();
+    img.onload=async function(){
+      const canvas=document.createElement('canvas');
+      const MAX=800;
+      let w=img.width, h=img.height;
+      if(w>h){ if(w>MAX){h=h*(MAX/w);w=MAX;} } else { if(h>MAX){w=w*(MAX/h);h=MAX;} }
+      canvas.width=w; canvas.height=h;
+      canvas.getContext('2d').drawImage(img,0,0,w,h);
+      const compressed=canvas.toDataURL('image/jpeg',0.7);
+      const base64=compressed.split(',')[1];
+
+      const previewBox=document.getElementById('cam-preview-box');
+      previewBox.innerHTML=`<img src="${compressed}" style="width:100%;border-radius:14px;max-height:200px;object-fit:cover;">`;
+      document.getElementById('cam-status').textContent='🤖 AI analyzing your photo...';
+      try{
+        const res=await fetch('/api/analyze-image',{
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({image:base64,mimeType:'image/jpeg'})
+        });
+        if(!res.ok) throw new Error(`Server error ${res.status}`);
+        const data=await res.json();
+        const raw=Array.isArray(data.ingredients)?data.ingredients:[];
+        detectedIngredients=raw.map(i=>normalizeIngredient(i.toLowerCase().trim())).filter(Boolean);
+        if(!detectedIngredients.length){
+          document.getElementById('cam-status').textContent='😕 No ingredients detected. Try a clearer photo.';
+          return;
+        }
+        document.getElementById('cam-status').textContent=`✅ Detected ${detectedIngredients.length} ingredients!`;
+        const chipsCont=document.getElementById('cam-detected-chips');
+        chipsCont.innerHTML=detectedIngredients.map(i=>`
+          <div style="display:flex;align-items:center;gap:6px;background:var(--green-light);border:1.5px solid var(--green);border-radius:50px;padding:5px 10px;font-size:12px;font-weight:700;color:var(--green);">
+            ${EMOJI_MAP[i]||'🥗'} ${i}
+          </div>`).join('');
+        document.getElementById('cam-add-btn').style.display='block';
+      }catch(err){
+        document.getElementById('cam-status').textContent='❌ Error: '+err.message;
       }
-      document.getElementById('cam-status').textContent=`✅ Detected ${detectedIngredients.length} ingredients!`;
-      const chipsCont=document.getElementById('cam-detected-chips');
-      chipsCont.innerHTML=detectedIngredients.map(i=>`
-        <div style="display:flex;align-items:center;gap:6px;background:var(--green-light);border:1.5px solid var(--green);border-radius:50px;padding:5px 10px;font-size:12px;font-weight:700;color:var(--green);">
-          ${EMOJI_MAP[i]||'🥗'} ${i}
-        </div>`).join('');
-      document.getElementById('cam-add-btn').style.display='block';
-    }catch(err){
-      document.getElementById('cam-status').textContent='❌ Error: '+err.message;
-    }
+    };
+    img.src=e.target.result;
   };
   reader.readAsDataURL(file);
 }
