@@ -156,9 +156,8 @@ html,body { font-family:'Nunito',sans-serif; background:var(--bg); color:var(--t
 .step-num { width:30px; height:30px; border-radius:50%; background:var(--green); color:#fff; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:900; flex-shrink:0; }
 .step-txt { font-size:14px; color:var(--text2); line-height:1.55; padding-top:5px; font-weight:600; }
 .step-txt-hi { font-size:13px; color:var(--text3); line-height:1.5; font-weight:600; margin-top:3px; font-style:italic; }
-.step-img-wrap { width:100%; height:160px; overflow:hidden; position:relative; }
-.step-img-wrap img { width:100%; height:100%; object-fit:cover; display:block; transition:opacity .4s; }
-.step-img-wrap .step-img-label { position:absolute; bottom:0; left:0; right:0; background:linear-gradient(to top,rgba(0,0,0,0.6),transparent); padding:8px 12px 6px; font-size:11px; font-weight:800; color:#fff; }
+.step-img-wrap { width:100%; height:155px; overflow:hidden; background:var(--bg); }
+.step-img-wrap svg { display:block; }
 .tips-box { background:var(--green-light); border-radius:14px; padding:14px 16px; margin-bottom:22px; border:1px solid #c8e6d6; }
 .tips-title { font-size:12px; font-weight:800; color:var(--green); margin-bottom:6px; }
 .tips-box p { font-size:13px; color:var(--green); font-weight:700; line-height:1.5; }
@@ -1684,108 +1683,53 @@ const GRAD={
 // ══════════════════════════════════════
 // STEP IMAGES — Curated exact cooking photos per action
 // ══════════════════════════════════════
-const STEP_IMG_MAP = [
-  {
-    keys:['chop','cut','slice','dice','mince','kaatein','kaat','tukde','kaaten','thin slice','paper thin'],
-    url:'https://images.unsplash.com/photo-1528712306091-ed0763094c98?w=600&q=80',
-    label:'🔪 Chop / काटें'
-  },
-  {
-    keys:['boil','pressure cook','whistle','seeti','ubaal','ubaalen','ubaalo','ubaalin','parboil','par-boil'],
-    url:'https://images.unsplash.com/photo-1617461306896-30b8b5a8c9f4?w=600&q=80',
-    label:'🫧 Boil / उबालें'
-  },
-  {
-    keys:['fry','sauté','saute','sautey','talaen','talo','tadka','crackle','sizzle','golden brown','bhunein','bhuno','deep fry','shallow fry','pan fry'],
-    url:'https://images.unsplash.com/photo-1556909211-36987daf7b4d?w=600&q=80',
-    label:'🍳 Fry / तलें'
-  },
-  {
-    keys:['blend','grind','puree','paste','mixer','blender','smooth paste','pees','pis','grind to'],
-    url:'https://images.unsplash.com/photo-1593491034808-7e4bb15fd00f?w=600&q=80',
-    label:'🌀 Blend / पीसें'
-  },
-  {
-    keys:['knead','goondhein','goondh','atta','aata','dough','chapati dough','wheat flour'],
-    url:'https://images.unsplash.com/photo-1574085733277-851d9d856a3a?w=600&q=80',
-    label:'🤌 Knead / गूंधें'
-  },
-  {
-    keys:['roll','belan','flatten','paratha roll','roll out','rolling pin'],
-    url:'https://images.unsplash.com/photo-1585703900468-13b02c36d4bb?w=600&q=80',
-    label:'🫓 Roll / बेलें'
-  },
-  {
-    keys:['marinate','marination','bhigo','soak','bheego','bheegoein'],
-    url:'https://images.unsplash.com/photo-1598515213113-1f52a62a6cf7?w=600&q=80',
-    label:'⏱ Marinate / भिगोएं'
-  },
-  {
-    keys:['roast on','grill','tawa','toast','char','jalaen','seedhe aag','open flame','direct flame','lau par'],
-    url:'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600&q=80',
-    label:'🔥 Roast / भूनें'
-  },
-  {
-    keys:['garnish','serve','parosein','plate','sprinkle coriander','dhaniya se','top with coriander'],
-    url:'https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=600&q=80',
-    label:'🌿 Garnish / सजाएं'
-  },
-  {
-    keys:['simmer','slow cook','dum','dhimi aag','low heat','low flame','cover and cook','dhakkan lagao','cover,'],
-    url:'https://images.unsplash.com/photo-1547592166-23ac45744acd?w=600&q=80',
-    label:'🍲 Simmer / धीमे पकाएं'
-  },
-  {
-    keys:['whisk','beat','fent','phent','scramble','egg','ande'],
-    url:'https://images.unsplash.com/photo-1582169296194-e4d644c48063?w=600&q=80',
-    label:'🥚 Whisk / फेंटें'
-  },
-  {
-    keys:['drain','strain','chhan','chhaan','colander','sieve'],
-    url:'https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=600&q=80',
-    label:'🫙 Drain / छानें'
-  },
-  {
-    keys:['mix','stir','combine','toss','milaao','milayein','hilao','fold','gently mix','achhe se mix'],
-    url:'https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=600&q=80',
-    label:'🥄 Mix / मिलाएं'
-  },
-  {
-    keys:['heat oil','tel garam','garam karein','oil hot','warm oil'],
-    url:'https://images.unsplash.com/photo-1574484284002-952d92456975?w=600&q=80',
-    label:'🫙 Heat Oil / तेल गरम करें'
-  },
-  {
-    keys:['add','pour','daalein','daalo','daal ','put in','mix in'],
-    url:'https://images.unsplash.com/photo-1466637574441-749b8f19452f?w=600&q=80',
-    label:'➕ Add / डालें'
-  },
-];
+// ══ STEP SVG ILLUSTRATIONS — no external images, always correct ══
+const STEP_SVG = {
+chop:`<svg viewBox="0 0 320 155" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><rect width="320" height="155" fill="#fdf6ec"/><rect x="50" y="75" width="220" height="55" rx="7" fill="#deb887" stroke="#c8a060" stroke-width="2"/><ellipse cx="105" cy="98" rx="20" ry="11" fill="#e74c3c"/><ellipse cx="150" cy="94" rx="15" ry="9" fill="#27ae60"/><ellipse cx="190" cy="99" rx="17" ry="10" fill="#f39c12"/><rect x="96" y="92" width="9" height="9" rx="1" fill="#c0392b"/><rect x="107" y="92" width="9" height="9" rx="1" fill="#c0392b"/><rect x="118" y="94" width="7" height="7" rx="1" fill="#c0392b"/><rect x="232" y="60" width="5" height="62" rx="2" fill="#95a5a6"/><rect x="229" y="60" width="11" height="9" rx="2" fill="#7f8c8d"/><rect x="230" y="69" width="8" height="45" rx="1" fill="#bdc3c7"/><text x="160" y="148" font-family="Nunito,sans-serif" font-size="13" font-weight="800" fill="#7f5a2a" text-anchor="middle">🔪 Chop / काटें</text></svg>`,
 
-// Fallback images by recipe type
-const RECIPE_STEP_FALLBACK = {
-  'food-dal':    'https://images.unsplash.com/photo-1546549032-9571cd6b27df?w=600&q=80',
-  'food-curry':  'https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=600&q=80',
-  'food-paneer': 'https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=600&q=80',
-  'food-roti':   'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=600&q=80',
-  'food-rice':   'https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=600&q=80',
-  'food-biryani':'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=600&q=80',
-  'food-omelette':'https://images.unsplash.com/photo-1525351484163-7529414344d8?w=600&q=80',
-  'food-soup':   'https://images.unsplash.com/photo-1547592180-85f173990554?w=600&q=80',
-  'food-pakora': 'https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=600&q=80',
-  'default':     'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80',
+boil:`<svg viewBox="0 0 320 155" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><rect width="320" height="155" fill="#e8f4f8"/><path d="M118 52 Q123 38 118 24" stroke="#90cce8" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M160 46 Q167 30 160 16" stroke="#90cce8" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M202 52 Q197 36 202 22" stroke="#90cce8" stroke-width="3" fill="none" stroke-linecap="round"/><rect x="78" y="72" width="164" height="62" rx="13" fill="#3498db"/><ellipse cx="160" cy="72" rx="82" ry="14" fill="#5dade2"/><ellipse cx="160" cy="70" rx="72" ry="11" fill="#7fb3d3"/><circle cx="132" cy="80" r="6" fill="#85c1e9" opacity="0.7"/><circle cx="160" cy="76" r="8" fill="#85c1e9" opacity="0.5"/><circle cx="188" cy="82" r="5" fill="#85c1e9" opacity="0.7"/><circle cx="148" cy="88" r="4" fill="#aed6f1" opacity="0.6"/><circle cx="172" cy="86" r="5" fill="#aed6f1" opacity="0.6"/><rect x="58" y="78" width="22" height="11" rx="5" fill="#2471a3"/><rect x="240" y="78" width="22" height="11" rx="5" fill="#2471a3"/><rect x="58" y="132" width="204" height="10" rx="4" fill="#7f8c8d"/><text x="160" y="150" font-family="Nunito,sans-serif" font-size="13" font-weight="800" fill="#1a5276" text-anchor="middle">🫧 Boil / उबालें</text></svg>`,
+
+fry:`<svg viewBox="0 0 320 155" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><rect width="320" height="155" fill="#fff3e0"/><path d="M138 52 Q143 39 138 27" stroke="#ffb74d" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.7"/><path d="M165 47 Q171 32 165 18" stroke="#ffb74d" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M192 52 Q187 37 192 25" stroke="#ffb74d" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.7"/><ellipse cx="175" cy="100" rx="105" ry="30" fill="#e67e22"/><ellipse cx="175" cy="96" rx="98" ry="25" fill="#f39c12"/><ellipse cx="175" cy="92" rx="84" ry="19" fill="#ffd54f"/><ellipse cx="148" cy="91" rx="19" ry="11" fill="none" stroke="#f57f17" stroke-width="3"/><ellipse cx="148" cy="91" rx="10" ry="5" fill="none" stroke="#f57f17" stroke-width="2"/><ellipse cx="200" cy="89" rx="15" ry="9" fill="none" stroke="#f57f17" stroke-width="3"/><circle cx="162" cy="93" r="2.5" fill="#fff176"/><circle cx="178" cy="86" r="2" fill="#fff176"/><circle cx="155" cy="84" r="1.5" fill="#fff176"/><rect x="55" y="90" width="76" height="13" rx="6" fill="#bf360c"/><rect x="47" y="92" width="18" height="9" rx="4" fill="#d84315"/><text x="165" y="143" font-family="Nunito,sans-serif" font-size="13" font-weight="800" fill="#bf360c" text-anchor="middle">🍳 Fry / तलें</text></svg>`,
+
+blend:`<svg viewBox="0 0 320 155" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><rect width="320" height="155" fill="#f3e5f5"/><polygon points="115,28 205,28 220,122 100,122" fill="#ce93d8" stroke="#9c27b0" stroke-width="2"/><polygon points="115,28 205,28 200,48 120,48" fill="#ba68c8"/><ellipse cx="160" cy="88" rx="50" ry="37" fill="#f8bbd0" opacity="0.7"/><path d="M135 72 Q160 84 185 72 Q168 95 160 89 Q152 100 135 85 Z" fill="#e91e63" opacity="0.4"/><path d="M142 96 Q160 88 178 98" stroke="#ad1457" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M138 86 Q160 78 182 86" stroke="#c2185b" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.6"/><rect x="96" y="120" width="128" height="22" rx="7" fill="#7b1fa2"/><rect x="135" y="115" width="50" height="10" rx="5" fill="#6a1b9a"/><rect x="110" y="20" width="100" height="14" rx="7" fill="#9c27b0"/><circle cx="160" cy="135" r="7" fill="#ce93d8"/><text x="160" y="152" font-family="Nunito,sans-serif" font-size="13" font-weight="800" fill="#6a1b9a" text-anchor="middle">🌀 Blend / पीसें</text></svg>`,
+
+knead:`<svg viewBox="0 0 320 155" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><rect width="320" height="155" fill="#fdf6e3"/><ellipse cx="160" cy="100" rx="85" ry="42" fill="#f5deb3"/><ellipse cx="148" cy="92" rx="72" ry="34" fill="#f0d49a"/><circle cx="108" cy="74" r="6" fill="white" opacity="0.6"/><circle cx="215" cy="70" r="4" fill="white" opacity="0.5"/><circle cx="195" cy="80" r="5" fill="white" opacity="0.4"/><ellipse cx="112" cy="95" rx="30" ry="17" fill="#f4a460"/><rect x="86" y="80" width="13" height="20" rx="6" fill="#f4a460"/><rect x="100" y="77" width="12" height="22" rx="5" fill="#f4a460"/><rect x="113" y="76" width="12" height="22" rx="5" fill="#f4a460"/><rect x="126" y="78" width="11" height="20" rx="5" fill="#f4a460"/><ellipse cx="208" cy="95" rx="30" ry="17" fill="#f4a460"/><rect x="222" y="80" width="13" height="20" rx="6" fill="#f4a460"/><rect x="209" y="77" width="12" height="22" rx="5" fill="#f4a460"/><rect x="196" y="76" width="12" height="22" rx="5" fill="#f4a460"/><rect x="183" y="78" width="11" height="20" rx="5" fill="#f4a460"/><text x="160" y="150" font-family="Nunito,sans-serif" font-size="13" font-weight="800" fill="#8b5e2a" text-anchor="middle">🤌 Knead / गूंधें</text></svg>`,
+
+roll:`<svg viewBox="0 0 320 155" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><rect width="320" height="155" fill="#fdf6e3"/><ellipse cx="160" cy="108" rx="100" ry="33" fill="#f5deb3" stroke="#e8c97a" stroke-width="2"/><ellipse cx="154" cy="103" rx="84" ry="26" fill="#f0d49a"/><ellipse cx="160" cy="103" rx="62" ry="19" fill="none" stroke="#e8c97a" stroke-width="1" opacity="0.5"/><ellipse cx="160" cy="103" rx="36" ry="11" fill="none" stroke="#e8c97a" stroke-width="1" opacity="0.4"/><rect x="50" y="76" width="220" height="22" rx="11" fill="#a0522d"/><rect x="50" y="78" width="220" height="8" rx="4" fill="#c68642" opacity="0.5"/><rect x="34" y="72" width="22" height="30" rx="11" fill="#8b4513"/><rect x="264" y="72" width="22" height="30" rx="11" fill="#8b4513"/><text x="160" y="150" font-family="Nunito,sans-serif" font-size="13" font-weight="800" fill="#8b5e2a" text-anchor="middle">🫓 Roll / बेलें</text></svg>`,
+
+simmer:`<svg viewBox="0 0 320 155" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><rect width="320" height="155" fill="#fff8e1"/><path d="M138 50 Q142 40 138 31" stroke="#ffcc02" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.5"/><path d="M160 46 Q164 35 160 26" stroke="#ffcc02" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.8"/><path d="M182 50 Q178 40 182 31" stroke="#ffcc02" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.5"/><rect x="72" y="66" width="176" height="68" rx="14" fill="#e67e22"/><ellipse cx="160" cy="66" rx="88" ry="13" fill="#f39c12"/><ellipse cx="160" cy="62" rx="74" ry="9" fill="#f5ab35"/><ellipse cx="160" cy="56" rx="14" ry="7" fill="#e67e22"/><ellipse cx="160" cy="78" rx="72" ry="11" fill="#e74c3c" opacity="0.75"/><circle cx="143" cy="80" r="5" fill="#c0392b" opacity="0.6"/><circle cx="172" cy="77" r="4" fill="#c0392b" opacity="0.5"/><ellipse cx="160" cy="144" rx="52" ry="7" fill="#f39c12" opacity="0.3"/><path d="M132 138 Q138 122 130 112 Q146 126 150 116 Q155 128 160 118 Q165 130 170 116 Q175 126 190 112 Q182 124 188 138 Z" fill="#f39c12"/><path d="M143 138 Q147 127 143 119 Q153 128 157 120 Q160 130 168 120 Q171 128 177 138 Z" fill="#e74c3c" opacity="0.7"/><text x="160" y="153" font-family="Nunito,sans-serif" font-size="12" font-weight="800" fill="#784212" text-anchor="middle">🍲 Simmer / धीमे पकाएं</text></svg>`,
+
+mix:`<svg viewBox="0 0 320 155" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><rect width="320" height="155" fill="#e8f5e9"/><ellipse cx="160" cy="118" rx="108" ry="25" fill="#a5d6a7"/><path d="M52 100 Q57 143 160 146 Q263 143 268 100 Z" fill="#66bb6a"/><ellipse cx="160" cy="100" rx="108" ry="22" fill="#81c784"/><ellipse cx="160" cy="100" rx="92" ry="16" fill="#c8e6c9"/><path d="M98 100 Q128 84 160 100 Q192 116 222 100" stroke="#43a047" stroke-width="3.5" fill="none" stroke-linecap="round"/><path d="M108 107 Q138 93 160 107 Q186 120 212 107" stroke="#388e3c" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.5"/><rect x="200" y="52" width="8" height="72" rx="4" fill="#8d6e63" transform="rotate(-18,204,88)"/><ellipse cx="194" cy="60" rx="13" ry="8" fill="#a1887f" transform="rotate(-18,194,60)"/><text x="160" y="150" font-family="Nunito,sans-serif" font-size="13" font-weight="800" fill="#2e7d32" text-anchor="middle">🥄 Mix / मिलाएं</text></svg>`,
+
+marinate:`<svg viewBox="0 0 320 155" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><rect width="320" height="155" fill="#fff3e0"/><path d="M78 82 Q83 138 160 141 Q237 138 242 82 Z" fill="#ff8f00"/><ellipse cx="160" cy="82" rx="82" ry="18" fill="#ffa000"/><ellipse cx="160" cy="82" rx="70" ry="13" fill="#ffca28"/><circle cx="128" cy="82" r="4.5" fill="#e65100"/><circle cx="153" cy="79" r="3.5" fill="#bf360c"/><circle cx="175" cy="85" r="4" fill="#e65100"/><circle cx="142" cy="90" r="3" fill="#4e342e"/><circle cx="192" cy="82" r="3.5" fill="#4e342e"/><circle cx="165" cy="75" r="2.5" fill="#bf360c"/><circle cx="258" cy="52" r="24" fill="white" stroke="#ff8f00" stroke-width="3"/><line x1="258" y1="52" x2="258" y2="39" stroke="#333" stroke-width="2.5" stroke-linecap="round"/><line x1="258" y1="52" x2="268" y2="57" stroke="#e65100" stroke-width="2.5" stroke-linecap="round"/><circle cx="258" cy="52" r="3" fill="#333"/><text x="148" y="152" font-family="Nunito,sans-serif" font-size="13" font-weight="800" fill="#e65100" text-anchor="middle">⏱ Marinate / भिगोएं</text></svg>`,
+
+roast:`<svg viewBox="0 0 320 155" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><rect width="320" height="155" fill="#1c0d00"/><ellipse cx="160" cy="130" rx="115" ry="22" fill="#f57f17" opacity="0.25"/><ellipse cx="160" cy="126" rx="72" ry="11" fill="none" stroke="#616161" stroke-width="8"/><ellipse cx="160" cy="126" rx="46" ry="7" fill="none" stroke="#424242" stroke-width="6"/><path d="M98 126 Q107 105 98 88 Q115 108 121 95 Q127 110 138 99 Q141 116 152 105 Q155 122 162 112 Q168 122 175 105 Q179 116 182 99 Q193 110 199 95 Q205 110 222 88 Q213 106 222 126 Z" fill="#f39c12"/><path d="M113 126 Q119 111 113 101 Q127 113 132 103 Q136 116 145 107 Q149 120 155 112 Q158 120 165 112 Q169 120 175 107 Q179 116 188 103 Q192 113 207 101 Q201 113 207 126 Z" fill="#e74c3c" opacity="0.75"/><path d="M128 126 Q132 116 128 108 Q138 116 143 110 Q147 120 154 114 Q158 122 162 114 Q167 122 174 114 Q177 120 183 110 Q188 116 192 108 Q188 118 192 126 Z" fill="#ffeb3b" opacity="0.55"/><ellipse cx="160" cy="86" rx="57" ry="14" fill="#d4a55a"/><ellipse cx="160" cy="83" rx="50" ry="11" fill="#c8955a"/><ellipse cx="138" cy="83" rx="9" ry="4" fill="#5d3a1a" opacity="0.65"/><ellipse cx="178" cy="81" rx="7" ry="3" fill="#5d3a1a" opacity="0.55"/><text x="160" y="152" font-family="Nunito,sans-serif" font-size="12" font-weight="800" fill="#f39c12" text-anchor="middle">🔥 Roast / भूनें</text></svg>`,
+
+garnish:`<svg viewBox="0 0 320 155" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><rect width="320" height="155" fill="#f1f8e9"/><ellipse cx="160" cy="118" rx="112" ry="26" fill="#e0e0e0"/><ellipse cx="160" cy="113" rx="107" ry="22" fill="#f5f5f5"/><ellipse cx="160" cy="108" rx="92" ry="19" fill="#fff9c4"/><ellipse cx="160" cy="106" rx="75" ry="15" fill="#e74c3c" opacity="0.9"/><ellipse cx="155" cy="103" rx="62" ry="11" fill="#c0392b"/><ellipse cx="133" cy="96" rx="9" ry="5" fill="#27ae60" transform="rotate(-20,133,96)"/><ellipse cx="148" cy="93" rx="8" ry="4.5" fill="#27ae60" transform="rotate(10,148,93)"/><ellipse cx="163" cy="92" rx="9" ry="4.5" fill="#27ae60" transform="rotate(-5,163,92)"/><ellipse cx="178" cy="94" rx="8" ry="4" fill="#2ecc71" transform="rotate(15,178,94)"/><ellipse cx="190" cy="97" rx="7" ry="4" fill="#27ae60" transform="rotate(-10,190,97)"/><path d="M128 100 Q145 95 162 100 Q177 105 193 100" stroke="white" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.75"/><text x="160" y="150" font-family="Nunito,sans-serif" font-size="13" font-weight="800" fill="#2e7d32" text-anchor="middle">🌿 Garnish / सजाएं</text></svg>`,
+
+whisk:`<svg viewBox="0 0 320 155" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><rect width="320" height="155" fill="#fffde7"/><path d="M88 88 Q93 138 160 141 Q227 138 232 88 Z" fill="#fdd835"/><ellipse cx="160" cy="88" rx="72" ry="15" fill="#f9a825"/><ellipse cx="160" cy="86" rx="62" ry="11" fill="#fff9c4"/><circle cx="143" cy="88" r="13" fill="white"/><circle cx="143" cy="88" r="8" fill="#ffb300"/><circle cx="178" cy="86" r="11" fill="white" opacity="0.9"/><circle cx="178" cy="86" r="7" fill="#ffb300"/><line x1="200" y1="28" x2="188" y2="88" stroke="#795548" stroke-width="5" stroke-linecap="round"/><path d="M188 88 Q177 67 188 52 Q199 67 188 88" fill="none" stroke="#a1887f" stroke-width="2.5"/><path d="M188 88 Q170 70 181 54 Q196 66 188 88" fill="none" stroke="#a1887f" stroke-width="2.5"/><path d="M188 88 Q204 68 195 52 Q182 66 188 88" fill="none" stroke="#a1887f" stroke-width="2.5"/><text x="160" y="152" font-family="Nunito,sans-serif" font-size="13" font-weight="800" fill="#f57f17" text-anchor="middle">🥚 Whisk / फेंटें</text></svg>`,
+
+add:`<svg viewBox="0 0 320 155" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><rect width="320" height="155" fill="#fce4ec"/><path d="M62 90 Q67 142 160 145 Q253 142 258 90 Z" fill="#bf360c"/><ellipse cx="160" cy="90" rx="98" ry="20" fill="#d84315"/><ellipse cx="160" cy="87" rx="85" ry="15" fill="#ff7043"/><rect x="40" y="84" width="26" height="13" rx="6" fill="#8d6e63"/><rect x="254" y="84" width="26" height="13" rx="6" fill="#8d6e63"/><path d="M225 30 Q233 52 222 72" stroke="#f57f17" stroke-width="3" fill="none" stroke-dasharray="4,3" stroke-linecap="round"/><circle cx="227" cy="50" r="3.5" fill="#ff5722"/><circle cx="230" cy="60" r="3" fill="#ff8f00"/><circle cx="222" cy="68" r="3.5" fill="#f44336"/><circle cx="234" cy="43" r="2.5" fill="#ff5722"/><ellipse cx="238" cy="32" rx="15" ry="7" fill="#ff8f00"/><rect x="235" y="25" width="6" height="22" rx="2" fill="#e65100" transform="rotate(28,238,32)"/><ellipse cx="133" cy="89" rx="21" ry="10" fill="none" stroke="#ffcc80" stroke-width="3"/><ellipse cx="185" cy="87" rx="17" ry="8" fill="none" stroke="#ffcc80" stroke-width="2.5"/><text x="160" y="153" font-family="Nunito,sans-serif" font-size="13" font-weight="800" fill="#bf360c" text-anchor="middle">➕ Add / डालें</text></svg>`,
+
+cook:`<svg viewBox="0 0 320 155" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><rect width="320" height="155" fill="#f9fbe7"/><ellipse cx="160" cy="46" rx="44" ry="32" fill="white" stroke="#e0e0e0" stroke-width="2"/><rect x="116" y="57" width="88" height="20" rx="4" fill="white" stroke="#e0e0e0" stroke-width="2"/><circle cx="160" cy="92" r="30" fill="#f9c784"/><circle cx="149" cy="87" r="4.5" fill="#333"/><circle cx="171" cy="87" r="4.5" fill="#333"/><path d="M149 101 Q160 110 171 101" stroke="#e67e22" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M98 138 Q102 126 98 115" stroke="#bdbdbd" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M118 136 Q122 123 118 112" stroke="#bdbdbd" stroke-width="2.5" fill="none" stroke-linecap="round"/><rect x="82" y="136" width="84" height="16" rx="6" fill="#ff7043"/><rect x="79" y="130" width="90" height="11" rx="5" fill="#ff5722"/><text x="160" y="153" font-family="Nunito,sans-serif" font-size="13" font-weight="800" fill="#558b2f" text-anchor="middle">👨‍🍳 Cook / पकाएं</text></svg>`,
 };
 
-function getStepImage(stepText, recipeCss) {
+function getStepSVG(stepText) {
   const t = (stepText || '').toLowerCase();
-  for (const entry of STEP_IMG_MAP) {
-    if (entry.keys.some(k => t.includes(k))) {
-      return { url: entry.url, label: entry.label };
-    }
-  }
-  // Fallback to recipe-type image
-  const fb = RECIPE_STEP_FALLBACK[recipeCss] || RECIPE_STEP_FALLBACK['default'];
-  return { url: fb, label: '👨‍🍳 Cook / पकाएं' };
+  if (t.match(/chop|cut |slice|dice|mince|kaatein|kaat|tukde/)) return STEP_SVG.chop;
+  if (t.match(/boil|pressure cook|whistle|seeti|ubaal|parboil/)) return STEP_SVG.boil;
+  if (t.match(/fry|sauté|saute|talaen|talo|tadka|crackle|sizzle|golden|bhunein/)) return STEP_SVG.fry;
+  if (t.match(/blend|grind|puree|paste|blender|smooth paste|pees/)) return STEP_SVG.blend;
+  if (t.match(/knead|goondhein|goondh|dough|atta |aata/)) return STEP_SVG.knead;
+  if (t.match(/roll |belan|flatten|rolling pin/)) return STEP_SVG.roll;
+  if (t.match(/marinate|marination|bhigo/)) return STEP_SVG.marinate;
+  if (t.match(/roast|grill|tawa|lau par|seedhe aag|open flame/)) return STEP_SVG.roast;
+  if (t.match(/garnish|parosein|serve|coriander|dhaniya se/)) return STEP_SVG.garnish;
+  if (t.match(/simmer|slow cook|dum|dhimi aag|low heat|dhakkan/)) return STEP_SVG.simmer;
+  if (t.match(/whisk|beat|phent|scramble/)) return STEP_SVG.whisk;
+  if (t.match(/mix|stir|combine|toss|milaao|milayein|hilao/)) return STEP_SVG.mix;
+  if (t.match(/add |pour|daalein|daalo/)) return STEP_SVG.add;
+  return STEP_SVG.cook;
 }
 
 function showDetail(id){
@@ -1830,10 +1774,10 @@ function showDetail(id){
     const hiName=ING_HI[ing.toLowerCase()]||ING_HI[normalizeIngredient(ing.toLowerCase())]||'';
     return `<div class="ing-row"><div class="ing-left"><div class="ck ${have?'y':'n'}">${have?'✓':'✕'}</div><div><span class="ing-name">${ing.charAt(0).toUpperCase()+ing.slice(1)}</span>${hiName?`<span style="font-size:11px;color:var(--text3);display:block;font-weight:600;">${hiName}</span>`:''}</div></div><span class="ing-st ${have?'y':'n'}">${have?'है ✓':'लें'}</span></div>`;
   }).join('');
-  // Steps - English + Hindi + Image
+  // Steps - English + Hindi + SVG Illustration
   const stepsHi = STEPS_HI[r.id] || hindiCache[r.id] || [];
   document.getElementById('detail-steps-list').innerHTML = r.steps.map((s,i) => {
-    const img = getStepImage(s + ' ' + (stepsHi[i]||''), r.css);
+    const svg = getStepSVG(s + ' ' + (stepsHi[i]||''));
     return `
     <div class="step-row">
       <div class="step-row-top">
@@ -1845,16 +1789,10 @@ function showDetail(id){
           </div>
         </div>
       </div>
-      <div class="step-img-wrap">
-        <img src="${img.url}" alt="Step ${i+1}" loading="lazy" onerror="this.parentElement.style.display='none'">
-        <div class="step-img-label">${img.label}</div>
-      </div>
+      <div class="step-img-wrap">${svg}</div>
     </div>`;
   }).join('');
-  // Auto-trigger Hindi translation if not already available
-  if(!stepsHi.length) {
-    translateStepsToHindi(r);
-  }
+  if(!stepsHi.length) translateStepsToHindi(r);
 
   // Tips
   const tipHi=TIPS_HI[r.id]||'';
