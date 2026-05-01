@@ -600,19 +600,17 @@ html,body { font-family:'Nunito',sans-serif; background:var(--bg); color:var(--t
       <div class="privacy-divider"></div>
       <div class="privacy-section"><h3>1. Information We Collect</h3><p><strong>a) User Profile Information</strong></p><ul><li>We do not collect email addresses or passwords.</li><li>Users may set a username and choose an avatar — stored only on your device.</li><li>Profile data never leaves your device.</li></ul><br><p><strong>b) User Input Data</strong></p><ul><li>Ingredients you enter in the app</li><li>Recipes you save or mark as favorites</li><li>Ratings you give to recipes</li><li>All of this data is stored locally on your device using browser storage (localStorage) only.</li></ul><br><p><strong>c) Technical Information</strong></p><ul><li>No personal data, usage logs, or analytics are collected by us.</li><li>We do not track how you use the app.</li></ul></div>
       <div class="privacy-divider"></div>
-      <div class="privacy-section"><h3>2. Camera & Device Permissions</h3><p>This app does <strong>not</strong> use your camera or request any camera permission.</p><ul><li>No camera access is requested or used at any point.</li><li>No photos are captured, stored, or transmitted.</li><li>The image scan feature has been removed from this version.</li></ul></div>
+      <div class="privacy-section"><h3>2. Local Data Storage</h3><p>All your data — saved recipes, favorites, your name, avatar, and ratings — is stored <strong>only on your device</strong> using localStorage.</p><ul><li>This data is never sent to any server.</li><li>You can clear it anytime via Settings → Clear History.</li><li>Uninstalling or clearing browser data removes everything.</li></ul></div>
       <div class="privacy-divider"></div>
-      <div class="privacy-section"><h3>3. Local Data Storage</h3><p>All your data — saved recipes, favorites, your name, avatar, and ratings — is stored <strong>only on your device</strong> using localStorage.</p><ul><li>This data is never sent to any server.</li><li>You can clear it anytime via Settings → Clear History.</li><li>Uninstalling or clearing browser data removes everything.</li></ul></div>
+      <div class="privacy-section"><h3>3. AI Recipe Generation</h3><p>When you tap "Find Recipes with AI", your ingredient list is sent to an AI service to generate recipe suggestions.</p><ul><li>Only ingredient names are shared — no personal information.</li><li>No data is stored by us after the response is received.</li><li>This feature requires an internet connection.</li></ul></div>
       <div class="privacy-divider"></div>
-      <div class="privacy-section"><h3>4. AI Recipe Generation</h3><p>When you tap "Find Recipes with AI", your ingredient list is sent to an AI service to generate recipe suggestions.</p><ul><li>Only ingredient names are shared — no personal information.</li><li>No data is stored by us after the response is received.</li><li>This feature requires an internet connection.</li></ul></div>
+      <div class="privacy-section"><h3>4. Third-Party Services</h3><p>We may use:</p><ul><li>AI services (for recipe generation and Hindi translation of steps)</li><li>Unsplash (for food images — no personal data shared)</li><li>Google Fonts (for typography — standard CDN request)</li></ul><br><p>We do not use advertising networks or sell any data.</p></div>
       <div class="privacy-divider"></div>
-      <div class="privacy-section"><h3>5. Third-Party Services</h3><p>We may use:</p><ul><li>AI services (for recipe generation and Hindi translation of steps)</li><li>Unsplash (for food images — no personal data shared)</li><li>Google Fonts (for typography — standard CDN request)</li></ul><br><p>We do not use advertising networks or sell any data.</p></div>
+      <div class="privacy-section"><h3>5. Data Sharing</h3><p>We do not sell, rent, or share your personal data with any third party. Ingredient data sent for AI generation is transient and not stored by us.</p></div>
       <div class="privacy-divider"></div>
-      <div class="privacy-section"><h3>6. Data Sharing</h3><p>We do not sell, rent, or share your personal data with any third party. Ingredient data sent for AI generation is transient and not stored by us.</p></div>
+      <div class="privacy-section"><h3>6. Children's Privacy</h3><p>This app is not intended for children under 13. We do not knowingly collect personal data from children.</p></div>
       <div class="privacy-divider"></div>
-      <div class="privacy-section"><h3>7. Children's Privacy</h3><p>This app is not intended for children under 13. We do not knowingly collect personal data from children.</p></div>
-      <div class="privacy-divider"></div>
-      <div class="privacy-section"><h3>8. Your Rights & Control</h3><ul><li>You can delete all your data anytime using Settings → Clear History.</li><li>Stop using the app anytime — no account deletion needed.</li><li>Your data belongs to you and stays on your device.</li></ul></div>
+      <div class="privacy-section"><h3>7. Your Rights & Control</h3><ul><li>You can delete all your data anytime using Settings → Clear History.</li><li>Stop using the app anytime — no account deletion needed.</li><li>Your data belongs to you and stays on your device.</li></ul></div>
       <div class="privacy-divider"></div>
       <div class="privacy-section"><h3>9. Changes to This Policy</h3><p>We may update this policy as the app evolves. Changes will be reflected with an updated date at the top of this page.</p></div>
       <div class="privacy-divider"></div>
@@ -1716,19 +1714,36 @@ cook:`<svg viewBox="0 0 320 155" xmlns="http://www.w3.org/2000/svg" width="100%"
 
 function getStepSVG(stepText) {
   const t = (stepText || '').toLowerCase();
-  if (t.match(/chop|cut |slice|dice|mince|kaatein|kaat|tukde/)) return STEP_SVG.chop;
-  if (t.match(/boil|pressure cook|whistle|seeti|ubaal|parboil/)) return STEP_SVG.boil;
-  if (t.match(/fry|sauté|saute|talaen|talo|tadka|crackle|sizzle|golden|bhunein/)) return STEP_SVG.fry;
-  if (t.match(/blend|grind|puree|paste|blender|smooth paste|pees/)) return STEP_SVG.blend;
-  if (t.match(/knead|goondhein|goondh|dough|atta |aata/)) return STEP_SVG.knead;
-  if (t.match(/roll |belan|flatten|rolling pin/)) return STEP_SVG.roll;
-  if (t.match(/marinate|marination|bhigo/)) return STEP_SVG.marinate;
-  if (t.match(/roast|grill|tawa|lau par|seedhe aag|open flame/)) return STEP_SVG.roast;
-  if (t.match(/garnish|parosein|serve|coriander|dhaniya se/)) return STEP_SVG.garnish;
-  if (t.match(/simmer|slow cook|dum|dhimi aag|low heat|dhakkan/)) return STEP_SVG.simmer;
-  if (t.match(/whisk|beat|phent|scramble/)) return STEP_SVG.whisk;
-  if (t.match(/mix|stir|combine|toss|milaao|milayein|hilao/)) return STEP_SVG.mix;
-  if (t.match(/add |pour|daalein|daalo/)) return STEP_SVG.add;
+  // Blend - only actual blending actions, NOT "add X paste" or "paste daalein"
+  // Exclude: lines that start with "add" + contain "paste", or "paste daalein/daalo"
+  const isJustAddingPaste = t.match(/^add\b.*\bpaste\b/) || t.match(/paste\s+daalein|paste\s+daalo|paste\s+daal\b/);
+  if (!isJustAddingPaste && t.match(/\bblend\b|\bgrind\b|blend until|grind to|blender|mixer jar|make.*puree|blend.*smooth|pis kar|pees kar|smooth paste bana|paste bana lein|paste banaao|\bmake.*paste\b|into.*paste|ka paste bana/)) return STEP_SVG.blend;
+  // Chop/cut - before fry to avoid "cut" inside other words
+  if (t.match(/\bchop\b|\bslice\b|\bdice\b|\bmince\b|cut into|kaatein|kaat |tukde|barik kar/)) return STEP_SVG.chop;
+  // Boil
+  if (t.match(/\bboil\b|pressure cook|whistle|seeti|ubaal|parboil|steam.*min|boiling water/)) return STEP_SVG.boil;
+  // Fry/sauté
+  if (t.match(/\bfry\b|saut[eé]|talaen|\btalo\b|\btadka\b|crackle|sizzle|golden brown|bhunein|deep.fry|shallow.fry|pan.fry|tawa.*cook|cook.*tawa/)) return STEP_SVG.fry;
+  // Knead
+  if (t.match(/\bknead\b|goondhein|goondh|make.*dough|dough.*knead|atta.*goondhein/)) return STEP_SVG.knead;
+  // Roll
+  if (t.match(/\broll\b.*\b(out|flat|thin|dough|roti|paratha)\b|belan|rolling pin|flatten.*dough/)) return STEP_SVG.roll;
+  // Marinate/soak - not "add cashew paste"
+  if (t.match(/marinate|marination|\bbhigo\b|soak.*hour|soak.*min|bheegne/)) return STEP_SVG.marinate;
+  // Roast/grill on flame
+  if (t.match(/roast.*flame|grill|lau par|seedhe aag|open flame|direct flame|char.*skin|tawa.*roast/)) return STEP_SVG.roast;
+  // Garnish/serve
+  if (t.match(/garnish|parosein|\bserve\b|top with coriander|dhaniya se|sprinkle.*over|plate and serve/)) return STEP_SVG.garnish;
+  // Simmer - must come before mix/add
+  if (t.match(/\bsimmer\b|slow cook|\bdum\b|dhimi aag|low.*heat.*cook|low.*flame|cover and cook|dhakkan.*lagao|cook.*covered/)) return STEP_SVG.simmer;
+  // Whisk/beat eggs
+  if (t.match(/\bwhisk\b|\bbeat\b.*egg|phent|scramble.*egg|break.*egg|egg.*beat/)) return STEP_SVG.whisk;
+  // Drain
+  if (t.match(/\bdrain\b|\bstrain\b|chhan|colander|rinse.*and.*drain/)) return STEP_SVG.drain;
+  // Mix/stir/combine
+  if (t.match(/\bmix\b|\bstir\b|\bcombine\b|\btoss\b|milaao|milayein|\bhilao\b|fold.*in|toss.*together/)) return STEP_SVG.mix;
+  // Add/pour - last resort after all others
+  if (t.match(/\badd\b|\bpour\b|daalein|daalo|daal kar/)) return STEP_SVG.add;
   return STEP_SVG.cook;
 }
 
@@ -1921,6 +1936,87 @@ const CAT_DB = [
   {cat:'Street Food',emoji:'🥣',title:'Bhel Puri',time:10,cal:220,rating:4.7,veg:true,healthy:false,css:'food-salad',ingredients:['puffed rice','sev','tomato','onion','potato','tamarind chutney','green chutney','coriander'],steps:['Boil and dice potato.','Mix puffed rice with tomato, onion, potato.','Add tamarind chutney and green chutney.','Toss with sev.','Serve immediately topped with coriander.'],tips:'Mix and serve instantly - bhel puri goes soggy fast!'},
   {cat:'Street Food',emoji:'🥔',title:'Aloo Tikki',time:25,cal:260,rating:4.7,veg:true,healthy:false,css:'food-aloo',ingredients:['potato','onion','coriander','green chili','cumin','bread crumbs','oil'],steps:['Boil and mash potatoes.','Mix with onion, chili, spices.','Shape into flat round patties.','Coat in bread crumbs.','Shallow fry both sides golden.'],tips:'Refrigerate patties 15 min before frying to keep shape.'},
   {cat:'Street Food',emoji:'🌯',title:'Kathi Roll',time:20,cal:320,rating:4.6,veg:false,healthy:false,css:'food-sandwich',ingredients:['paratha','egg','chicken','onion','capsicum','chutney','lemon'],steps:['Cook paratha on tawa.','Break egg on paratha, cook on top.','Add spiced chicken filling.','Add onion, capsicum, chutney.','Roll tightly, wrap in paper.'],tips:'Egg-coated paratha base is the Kolkata kathi roll secret.'},
+
+  // ══ STREET FOOD / CAFE VEG ══
+  {cat:'Cafe Veg',emoji:'🌯',title:'Paneer Tikka Wrap',time:25,cal:380,rating:4.8,veg:true,healthy:false,css:'food-paneer',ingredients:['paneer','roti/paratha','capsicum','onion','tikka masala','yogurt','mint chutney','lemon'],steps:['Marinate paneer cubes in yogurt, tikka masala, lemon 15 min.','Grill or tawa-cook paneer till charred.','Warm roti/paratha on tawa.','Spread mint chutney, place paneer and sliced onion, capsicum.','Roll tight and serve with extra chutney.'],tips:'Charring paneer is key for that smoky street food flavor.'},
+  {cat:'Cafe Veg',emoji:'🍟',title:'Peri Peri Fries',time:25,cal:340,rating:4.8,veg:true,healthy:false,css:'food-aloo',ingredients:['potato','peri peri seasoning','oil','salt','garlic powder','paprika'],steps:['Peel and cut potatoes into sticks. Soak in cold water 20 min.','Dry completely. Toss with oil, garlic powder, salt.','Air fry at 200°C for 20 min or deep fry till crispy.','Immediately toss with peri peri seasoning and paprika.','Serve hot with mayo dip.'],tips:'Soaking removes starch - this is the secret to extra crispy fries!'},
+  {cat:'Cafe Veg',emoji:'🥪',title:'Cheese Corn Sandwich',time:15,cal:380,rating:4.7,veg:true,healthy:false,css:'food-sandwich',ingredients:['bread','sweet corn','cheese','onion','capsicum','butter','black pepper','salt'],steps:['Mix boiled corn, grated cheese, chopped onion, capsicum, salt, pepper.','Butter both sides of bread.','Spread corn-cheese filling generously on one slice.','Place second slice on top. Press lightly.','Grill in sandwich maker or tawa till golden and crispy. Serve hot.'],tips:'Use processed cheese for best melt. Add jalapeños for a spicy kick!'},
+  {cat:'Cafe Veg',emoji:'🍝',title:'White Sauce Pasta',time:25,cal:420,rating:4.7,veg:true,healthy:false,css:'food-pasta',ingredients:['pasta','butter','flour','milk','cheese','garlic','onion','black pepper','mixed herbs'],steps:['Boil pasta with salt till al dente. Drain and set aside.','Sauté garlic and onion in butter till soft.','Add flour, cook 1 min stirring constantly.','Slowly add milk, whisking to avoid lumps. Cook till thick.','Add cheese, herbs, pepper. Toss pasta in sauce. Serve hot.'],tips:'Add milk gradually and keep whisking to get a smooth lump-free béchamel.'},
+  {cat:'Cafe Veg',emoji:'🍝',title:'Pink Sauce Pasta',time:25,cal:430,rating:4.8,veg:true,healthy:false,css:'food-pasta',ingredients:['pasta','butter','garlic','tomato puree','cream','cheese','onion','mixed herbs','chili flakes'],steps:['Boil pasta till al dente. Drain and keep.','Sauté garlic and onion in butter till golden.','Add tomato puree, herbs, chili flakes. Cook 5 min.','Lower heat, stir in cream and cheese till combined.','Toss pasta in pink sauce. Serve hot with garlic bread.'],tips:'Pink sauce = red tomato + white cream. Balance is everything!'},
+  {cat:'Cafe Veg',emoji:'🍕',title:'Margherita Pizza',time:30,cal:450,rating:4.8,veg:true,healthy:false,css:'food-roti',ingredients:['pizza base','mozzarella cheese','tomato sauce','fresh basil','olive oil','garlic','salt','oregano'],steps:['Preheat oven to 220°C.','Spread tomato sauce on pizza base evenly.','Top generously with shredded mozzarella.','Add fresh basil leaves, drizzle olive oil.','Bake 12-15 min till crust is golden and cheese is bubbly.'],tips:'Less is more on a Margherita - let quality of each ingredient shine.'},
+  {cat:'Cafe Veg',emoji:'🍕',title:'Farmhouse Pizza',time:30,cal:490,rating:4.8,veg:true,healthy:false,css:'food-roti',ingredients:['pizza base','mozzarella','tomato sauce','capsicum','onion','mushroom','sweet corn','olives','oregano'],steps:['Preheat oven to 220°C.','Spread tomato sauce on pizza base.','Layer with mozzarella cheese.','Top with capsicum, onion, mushroom, corn, olives.','Bake 12-15 min. Sprinkle oregano and serve.'],tips:'Slice mushrooms thin so they cook fully in the oven.'},
+  {cat:'Cafe Veg',emoji:'🥟',title:'Veg Momos',time:40,cal:280,rating:4.8,veg:true,healthy:false,css:'food-roti',ingredients:['flour','cabbage','carrot','onion','garlic','ginger','soy sauce','sesame oil'],steps:['Knead flour and water into stiff dough. Rest 15 min.','Finely chop cabbage, carrot, onion. Sauté with garlic, ginger, soy sauce.','Roll small thin circles. Place filling in center.','Fold and pleat edges tightly.','Steam 10-12 min. Serve with spicy red chutney.'],tips:'Thin wrappers are key. Keep dough covered to prevent drying.'},
+  {cat:'Cafe Veg',emoji:'🥟',title:'Fried Momos',time:45,cal:360,rating:4.9,veg:true,healthy:false,css:'food-roti',ingredients:['flour','cabbage','carrot','onion','garlic','ginger','soy sauce','sesame oil','oil'],steps:['Make dough and filling same as steamed momos.','Fold and pleat momos tightly.','Steam first for 8 min till half cooked.','Heat oil in pan. Fry steamed momos till golden and crispy all around.','Serve hot with mayo and chili sauce.'],tips:'Always steam first before frying - ensures filling is cooked inside.'},
+  {cat:'Cafe Veg',emoji:'🌯',title:'Spring Rolls',time:35,cal:310,rating:4.7,veg:true,healthy:false,css:'food-pakora',ingredients:['spring roll sheets','cabbage','carrot','capsicum','garlic','ginger','soy sauce','cornflour','oil'],steps:['Sauté vegetables with garlic, ginger, soy sauce till tender.','Cool filling completely.','Place filling on spring roll sheet. Fold sides, roll tight.','Seal edge with cornflour paste.','Deep fry in hot oil till golden crispy. Serve with sweet chili sauce.'],tips:'Seal edges well with cornflour paste to prevent oil from entering.'},
+  {cat:'Cafe Veg',emoji:'🍟',title:'Honey Chilli Potato',time:30,cal:380,rating:4.9,veg:true,healthy:false,css:'food-aloo',ingredients:['potato','cornflour','soy sauce','honey','chili sauce','garlic','spring onion','sesame seeds','oil'],steps:['Cut potatoes into fingers. Boil 5 min, drain and dry.','Coat in cornflour paste. Deep fry till golden crispy.','In a pan, sauté garlic. Add soy sauce, honey, chili sauce.','Toss crispy potatoes in sauce till coated.','Garnish with sesame seeds and spring onion.'],tips:'Don\'t skip drying potatoes after boiling - moisture causes oil splatter!'},
+  {cat:'Cafe Veg',emoji:'🌽',title:'Crispy Corn',time:20,cal:280,rating:4.8,veg:true,healthy:false,css:'food-soup',ingredients:['sweet corn','cornflour','garlic','capsicum','butter','salt','chili flakes','lemon','coriander'],steps:['Boil sweet corn kernels, drain and dry completely.','Coat in cornflour, salt, chili flakes.','Deep fry till light golden and crispy.','In a pan, toss with butter, garlic, capsicum.','Add lemon juice and coriander. Serve hot.'],tips:'Drying corn is crucial - any moisture stops it from getting crispy.'},
+  {cat:'Cafe Veg',emoji:'🫓',title:'Chole Kulche',time:30,cal:480,rating:4.9,veg:true,healthy:false,css:'food-roti',ingredients:['kulche/bread','chickpeas','onion','tomato','ginger','chole masala','lemon','coriander','butter'],steps:['Pressure cook chickpeas till soft.','Sauté onion, ginger, tomato till masala.','Add chickpeas and chole masala, cook 15 min.','Lightly butter and toast kulche on tawa.','Serve piping hot chole on kulche with onion, lemon.'],tips:'Add a pinch of baking soda while boiling chickpeas to make them extra soft.'},
+  {cat:'Cafe Veg',emoji:'🫓',title:'Dabeli',time:25,cal:350,rating:4.8,veg:true,healthy:false,css:'food-roti',ingredients:['pav','potato','dabeli masala','tamarind chutney','green chutney','pomegranate seeds','sev','onion','coriander'],steps:['Boil and mash potatoes with dabeli masala.','Slit pav from middle without separating.','Spread tamarind and green chutney inside.','Fill with potato mixture.','Press, stuff with onion, pomegranate, sev. Toast on buttered tawa.'],tips:'Dabeli masala is the secret - use authentic Kutchi dabeli masala.'},
+  {cat:'Cafe Veg',emoji:'🍔',title:'Vada Pav',time:30,cal:380,rating:5.0,veg:true,healthy:false,css:'food-aloo',ingredients:['pav','potato','gram flour','garlic','green chili','mustard seeds','turmeric','curry leaves','dry garlic chutney'],steps:['Boil and mash potatoes. Add fried mustard, chili, curry leaves, garlic.','Shape into round balls. Coat in besan batter with turmeric, salt.','Deep fry vadas golden brown.','Slit pav, apply dry garlic chutney and green chutney.','Place hot vada inside. Press and serve immediately.'],tips:'Dry garlic chutney inside is what makes vada pav authentic!'},
+  {cat:'Cafe Veg',emoji:'🫕',title:'Tandoori Chaap',time:30,cal:340,rating:4.8,veg:true,healthy:false,css:'food-paneer',ingredients:['soya chaap','yogurt','tandoori masala','ginger garlic paste','lemon','red chili','oil','capsicum','onion'],steps:['Cut chaap into pieces. Make cuts for marinade to penetrate.','Mix yogurt, tandoori masala, ginger garlic paste, lemon, chili.','Marinate chaap 30 min (longer is better).','Thread on skewers with capsicum and onion.','Grill/tawa cook till charred. Serve with mint chutney.'],tips:'Rest chaap after grilling 5 min - juices redistribute and it tastes better.'},
+  {cat:'Cafe Veg',emoji:'🫕',title:'Afghani Chaap',time:35,cal:360,rating:4.8,veg:true,healthy:false,css:'food-paneer',ingredients:['soya chaap','cream','cashew paste','ginger garlic paste','cardamom','white pepper','salt','butter'],steps:['Boil chaap 5 min to soften. Cut into pieces.','Mix cream, cashew paste, ginger garlic paste, cardamom, white pepper.','Marinate chaap in white marinade 30 min.','Cook on tawa with butter till golden on all sides.','Serve with roomali roti and green chutney.'],tips:'Afghani marinade is white (no red color) - cardamom is the hero flavor.'},
+  {cat:'Cafe Veg',emoji:'🍔',title:'Paneer Burger',time:25,cal:420,rating:4.7,veg:true,healthy:false,css:'food-paneer',ingredients:['burger bun','paneer','tikka masala','yogurt','onion','tomato','lettuce','cheese','mayo','mint chutney'],steps:['Marinate thick paneer slice in yogurt and tikka masala.','Grill or tawa cook paneer till charred on both sides.','Toast burger buns on tawa.','Spread mayo on bottom bun, mint chutney on top.','Assemble: lettuce, paneer, onion, tomato, cheese. Press and serve.'],tips:'Grilling paneer gives it a firm texture that doesn\'t fall apart in the burger.'},
+  {cat:'Cafe Veg',emoji:'🌮',title:'Loaded Nachos',time:20,cal:480,rating:4.7,veg:true,healthy:false,css:'food-pakora',ingredients:['nachos chips','mozzarella cheese','tomato','onion','capsicum','jalapeño','sour cream','salsa','guacamole'],steps:['Spread nachos on a baking tray in single layer.','Top generously with shredded mozzarella.','Add diced tomato, onion, capsicum, jalapeños.','Bake at 200°C for 8-10 min till cheese melts.','Top with sour cream, salsa, guacamole. Serve immediately.'],tips:'Serve immediately - nachos get soggy within minutes!'},
+
+  // ══ STREET FOOD / CAFE NON-VEG ══
+  {cat:'Cafe Non-Veg',emoji:'🌯',title:'Chicken Tikka Wrap',time:30,cal:420,rating:4.9,veg:false,healthy:false,css:'food-sandwich',ingredients:['chicken','roti/paratha','yogurt','tikka masala','onion','mint chutney','lemon','capsicum'],steps:['Marinate chicken in yogurt, tikka masala, lemon 20 min.','Grill or tawa cook chicken till charred.','Warm roti on tawa.','Spread mint chutney, place chicken, sliced onion, capsicum.','Roll tightly. Serve hot with extra chutney.'],tips:'Don\'t skip the char on chicken - it\'s what makes it a proper tikka wrap.'},
+  {cat:'Cafe Non-Veg',emoji:'🍔',title:'Chicken Burger',time:25,cal:480,rating:4.8,veg:false,healthy:false,css:'food-sandwich',ingredients:['burger bun','chicken breast','garlic','salt','pepper','egg','breadcrumbs','lettuce','tomato','cheese','mayo'],steps:['Pound chicken breast flat. Season with garlic, salt, pepper.','Dip in egg, coat with breadcrumbs.','Shallow fry till golden and cooked through (7 min each side).','Toast buns on tawa.','Assemble with mayo, lettuce, tomato, cheese.'],tips:'Pounding chicken ensures even cooking and a juicy burger.'},
+  {cat:'Cafe Non-Veg',emoji:'🍔',title:'Crispy Chicken Burger',time:30,cal:520,rating:4.9,veg:false,healthy:false,css:'food-sandwich',ingredients:['chicken thigh','buttermilk','flour','cornstarch','garlic powder','paprika','chili','burger bun','coleslaw','cheese','mayo'],steps:['Marinate chicken in buttermilk + spices 30 min.','Mix flour, cornstarch, garlic powder, paprika, chili, salt.','Coat chicken in flour mixture (press firmly for craggy texture).','Deep fry at 175°C for 8-10 min till golden crispy.','Serve in toasted bun with coleslaw, cheese, spicy mayo.'],tips:'Double dip in flour for maximum crunch - wet hand dry hand technique works best.'},
+  {cat:'Cafe Non-Veg',emoji:'🥟',title:'Chicken Momos',time:45,cal:320,rating:4.9,veg:false,healthy:false,css:'food-roti',ingredients:['flour','chicken mince','onion','garlic','ginger','soy sauce','sesame oil','green chili','coriander'],steps:['Make stiff dough with flour and water. Rest 15 min.','Mix chicken mince with onion, garlic, ginger, soy sauce, sesame oil.','Roll thin circles. Place filling in center.','Fold and pleat tightly into momos shape.','Steam 12-15 min till chicken is fully cooked. Serve hot.'],tips:'Ensure chicken mince filling is at room temp when filling to cook evenly.'},
+  {cat:'Cafe Non-Veg',emoji:'🥟',title:'Fried Chicken Momos',time:50,cal:400,rating:4.9,veg:false,healthy:false,css:'food-roti',ingredients:['flour','chicken mince','onion','garlic','ginger','soy sauce','sesame oil','oil'],steps:['Make dough and chicken filling same as steamed momos.','Shape and pleat momos tightly.','Steam for 10 min first.','Heat oil in pan, fry steamed momos till golden and crispy.','Serve with garlic mayo and chili sauce.'],tips:'Steam first - this ensures chicken is cooked before frying for crunch.'},
+  {cat:'Cafe Non-Veg',emoji:'🍗',title:'Chicken Popcorn',time:25,cal:380,rating:4.8,veg:false,healthy:false,css:'food-pakora',ingredients:['chicken','buttermilk','flour','cornstarch','garlic powder','paprika','chili powder','salt','oil'],steps:['Cut chicken into small 2cm pieces.','Marinate in buttermilk, garlic powder, paprika, salt 20 min.','Mix flour, cornstarch, chili powder.','Coat chicken pieces, pressing to adhere.','Deep fry at 180°C for 4-5 min till golden. Serve with ketchup.'],tips:'Small pieces cook fast - don\'t overcrowd the oil or they steam instead of fry.'},
+  {cat:'Cafe Non-Veg',emoji:'🍗',title:'Chicken Nuggets',time:30,cal:360,rating:4.8,veg:false,healthy:false,css:'food-pakora',ingredients:['chicken mince','breadcrumbs','egg','garlic powder','onion powder','salt','pepper','flour','oil'],steps:['Mix chicken mince with garlic powder, onion powder, salt, pepper.','Shape into oval nugget shapes.','Coat in flour, dip in egg, coat in breadcrumbs.','Freeze 15 min for better shape retention.','Deep fry at 175°C for 5-6 min till golden. Serve with dip.'],tips:'Freezing before frying keeps the nugget shape intact during cooking.'},
+  {cat:'Cafe Non-Veg',emoji:'🍗',title:'Chicken Wings',time:40,cal:450,rating:4.9,veg:false,healthy:false,css:'food-pakora',ingredients:['chicken wings','garlic','butter','hot sauce','soy sauce','lemon','salt','pepper','baking powder'],steps:['Pat wings dry. Toss with baking powder, salt, pepper (key for crispy skin!).','Bake at 220°C for 45 min, flipping halfway.','Make sauce: melt butter, add garlic, hot sauce, soy, lemon.','Toss hot baked wings in sauce till coated.','Serve immediately with blue cheese dip and celery.'],tips:'Baking powder on wings draws out moisture making skin incredibly crispy.'},
+  {cat:'Cafe Non-Veg',emoji:'🍗',title:'Peri Peri Chicken',time:35,cal:420,rating:4.8,veg:false,healthy:false,css:'food-pakora',ingredients:['chicken','peri peri sauce','garlic','lemon','paprika','chili','olive oil','salt'],steps:['Score chicken pieces deeply with knife.','Mix peri peri sauce, garlic, lemon, paprika, chili, oil.','Marinate chicken 2 hours or overnight.','Grill or oven roast at 200°C for 25-30 min.','Baste with extra marinade halfway through.'],tips:'Overnight marination makes peri peri chicken incredibly flavorful.'},
+  {cat:'Cafe Non-Veg',emoji:'🌯',title:'Chicken Shawarma',time:35,cal:450,rating:4.9,veg:false,healthy:false,css:'food-sandwich',ingredients:['chicken','shawarma spices','garlic','lemon','yogurt','pita/roti','onion','tomato','tahini','pickles'],steps:['Marinate chicken in shawarma spices, garlic, lemon, yogurt 2 hours.','Grill or tawa cook chicken till charred and juicy.','Slice chicken thinly.','Warm pita, spread tahini.','Layer chicken, onion, tomato, pickles. Roll tight.'],tips:'The secret to shawarma is thin slicing chicken after cooking - not before!'},
+  {cat:'Cafe Non-Veg',emoji:'🍕',title:'Chicken Pizza',time:35,cal:520,rating:4.8,veg:false,healthy:false,css:'food-roti',ingredients:['pizza base','mozzarella','tomato sauce','chicken','capsicum','onion','chili flakes','oregano'],steps:['Marinate and cook chicken with garlic, salt, pepper.','Spread tomato sauce on pizza base.','Add mozzarella cheese layer.','Top with chicken, capsicum, onion, chili flakes.','Bake 200°C for 12-15 min. Sprinkle oregano.'],tips:'Use leftover tikka chicken for an amazing smoky pizza topping.'},
+  {cat:'Cafe Non-Veg',emoji:'🍝',title:'Chicken Pasta',time:30,cal:480,rating:4.7,veg:false,healthy:false,css:'food-pasta',ingredients:['pasta','chicken','garlic','onion','tomato sauce or cream','cheese','mixed herbs','chili flakes','butter'],steps:['Boil pasta till al dente. Drain.','Sauté garlic, onion in butter. Add cooked diced chicken.','Add tomato sauce or cream. Simmer 5 min.','Add cheese, herbs, chili flakes.','Toss pasta in sauce. Serve hot.'],tips:'Use chicken thigh not breast for juicier pasta - it stays moist when reheated.'},
+  {cat:'Cafe Non-Veg',emoji:'🍚',title:'Chicken Fried Rice',time:25,cal:440,rating:4.8,veg:false,healthy:false,css:'food-rice',ingredients:['rice','chicken','egg','garlic','spring onion','soy sauce','sesame oil','chili sauce','vegetable oil'],steps:['Use day-old rice for best results. Break up clumps.','Sauté garlic in high-heat oil. Add diced chicken, cook through.','Push to side, scramble eggs.','Add rice, toss on high heat.','Add soy sauce, sesame oil, chili sauce, spring onion. Toss vigorously.'],tips:'High heat and day-old rice are the two secrets to perfect fried rice.'},
+  {cat:'Cafe Non-Veg',emoji:'🍗',title:'Chilli Chicken',time:30,cal:410,rating:4.9,veg:false,healthy:false,css:'food-pakora',ingredients:['chicken','cornflour','egg','soy sauce','garlic','ginger','capsicum','onion','green chili','chili sauce','vinegar'],steps:['Cut chicken, coat in cornflour, egg, soy sauce. Deep fry till crispy.','Sauté garlic, ginger, green chili in oil.','Add capsicum, onion. Stir fry 2 min.','Add soy sauce, chili sauce, vinegar. Mix.','Toss fried chicken in sauce till coated. Serve hot.'],tips:'Keep capsicum crunchy - don\'t overcook it. Add at the very end.'},
+  {cat:'Cafe Non-Veg',emoji:'🍗',title:'Chicken Lollipop',time:40,cal:390,rating:4.8,veg:false,healthy:false,css:'food-pakora',ingredients:['chicken lollipop pieces','soy sauce','chili sauce','garlic','ginger','cornflour','egg','food coloring (optional)','oil'],steps:['French cut chicken wings into lollipop shape.','Marinate in soy sauce, chili sauce, garlic, ginger 30 min.','Coat in cornflour-egg batter.','Deep fry at 175°C for 8-10 min till crispy.','Serve with schezwan dip.'],tips:'Scraping the meat down to one end (french cutting) is what makes it a lollipop.'},
+  {cat:'Cafe Non-Veg',emoji:'🥪',title:'Chicken Sandwich',time:20,cal:420,rating:4.7,veg:false,healthy:false,css:'food-sandwich',ingredients:['bread','chicken','lettuce','tomato','onion','mayo','mustard','cheese','butter','salt','pepper'],steps:['Season and cook chicken breast till done. Slice thinly.','Toast bread slices with butter.','Spread mayo on one slice, mustard on other.','Layer lettuce, chicken, tomato, onion, cheese.','Top with second slice. Cut diagonally. Serve.'],tips:'Cold sandwiches: chill chicken first. Hot: use freshly cooked chicken.'},
+  {cat:'Cafe Non-Veg',emoji:'🌮',title:'Chicken Quesadilla',time:20,cal:480,rating:4.8,veg:false,healthy:false,css:'food-sandwich',ingredients:['tortilla/roti','chicken','mozzarella cheese','capsicum','onion','taco seasoning','sour cream','salsa'],steps:['Cook chicken with taco seasoning. Shred or slice.','Place tortilla on medium-heat pan.','Layer half with chicken, capsicum, onion, cheese.','Fold tortilla in half. Cook 2 min each side till crispy.','Cut into wedges. Serve with sour cream and salsa.'],tips:'Medium heat is key - too hot burns outside before cheese melts.'},
+  {cat:'Cafe Non-Veg',emoji:'🐟',title:'Fish Fingers',time:25,cal:350,rating:4.7,veg:false,healthy:false,css:'food-pakora',ingredients:['fish fillet','breadcrumbs','egg','flour','garlic powder','salt','pepper','lemon','oil'],steps:['Cut fish into finger-sized strips.','Season flour with garlic powder, salt, pepper.','Coat fish: flour → egg → breadcrumbs.','Shallow or deep fry till golden on all sides.','Serve with tartar sauce and lemon wedges.'],tips:'Keep fish refrigerated until frying - cold fish holds coating better.'},
+  {cat:'Cafe Non-Veg',emoji:'🦐',title:'Butter Garlic Prawns',time:20,cal:320,rating:4.9,veg:false,healthy:false,css:'food-pakora',ingredients:['prawns','butter','garlic','lemon','parsley','chili flakes','salt','white wine (optional)'],steps:['Clean and devein prawns. Pat dry.','Melt butter in pan on high heat. Add garlic, cook 30 seconds.','Add prawns in single layer. Cook 2 min per side.','Add chili flakes, lemon juice, parsley.','Toss and serve immediately - prawns go rubbery if overcooked.'],tips:'2 minutes per side maximum - overcooked prawns turn rubbery and tasteless.'},
+  {cat:'Cafe Non-Veg',emoji:'🥚',title:'Egg Roll',time:20,cal:310,rating:4.7,veg:false,healthy:false,css:'food-sandwich',ingredients:['paratha/roti','egg','onion','capsicum','green chili','chaat masala','mint chutney','ketchup'],steps:['Beat egg with salt and chili.','Cook paratha on tawa. Pour egg on top while still cooking.','Flip once to cook egg side.','Place on plate egg side up. Add sliced onion, capsicum, chili.','Sprinkle chaat masala, add chutneys. Roll tight in foil.'],tips:'This is Kolkata\'s most loved street food - the egg cooks directly onto the paratha!'},
+
+  // ══ SUMMER DRINKS ══
+  {cat:'Summer Drinks',emoji:'☕',title:'Cold Coffee',time:5,cal:220,rating:4.8,veg:true,healthy:false,css:'food-soup',ingredients:['instant coffee','cold milk','sugar','ice cream','ice','chocolate syrup'],steps:['Dissolve 2 tsp coffee and 2 tsp sugar in 2 tbsp warm water.','Add 1 cup cold milk and vanilla ice cream scoop.','Add ice cubes.','Blend till frothy and smooth.','Pour in tall glass, drizzle chocolate syrup.'],tips:'Freeze coffee into ice cubes to avoid diluting your drink!'},
+  {cat:'Summer Drinks',emoji:'🍪',title:'Oreo Shake',time:7,cal:380,rating:4.9,veg:true,healthy:false,css:'food-soup',ingredients:['oreo cookies','vanilla ice cream','milk','whipped cream','chocolate syrup'],steps:['Add 6 Oreo cookies, 2 scoops ice cream, 1 cup milk to blender.','Blend till smooth and thick.','Pour into tall glass.','Top with whipped cream.','Crush extra Oreo on top and drizzle chocolate syrup.'],tips:'Use less milk for extra thick shake - adjust to your preference.'},
+  {cat:'Summer Drinks',emoji:'🥭',title:'Mango Shake',time:7,cal:280,rating:4.9,veg:true,healthy:false,css:'food-soup',ingredients:['ripe mango','milk','sugar','ice cream (optional)','cardamom','ice'],steps:['Peel and cube ripe mango.','Blend with cold milk, sugar, cardamom.','Add ice cream scoop for extra richness (optional).','Add ice and blend again.','Pour in glass, garnish with mango slice.'],tips:'Alphonso or Kesar mangoes make the best shake - peak summer only!'},
+  {cat:'Summer Drinks',emoji:'🍃',title:'Mint Mojito',time:8,cal:80,rating:4.8,veg:true,healthy:true,css:'food-soup',ingredients:['fresh mint','lime/lemon','sugar syrup','soda water','ice','black salt'],steps:['Muddle mint leaves gently with sugar syrup and lime juice.','Don\'t over-muddle - just bruise the leaves.','Fill glass with ice cubes.','Pour soda water over.','Stir gently, garnish with mint sprig and lime slice.'],tips:'Muddle mint gently - over-muddling releases bitter compounds from stems.'},
+  {cat:'Summer Drinks',emoji:'🍉',title:'Watermelon Cooler',time:8,cal:90,rating:4.8,veg:true,healthy:true,css:'food-soup',ingredients:['watermelon','lemon','mint','black salt','sugar','soda water','ice'],steps:['Blend seedless watermelon chunks till smooth.','Strain to remove pulp if desired.','Mix with lemon juice, black salt, sugar.','Pour over ice. Top with soda water.','Garnish with mint and watermelon slice.'],tips:'Add a tiny pinch of black pepper for a spicy edge to your cooler!'},
+  {cat:'Summer Drinks',emoji:'🍋',title:'Iced Tea',time:10,cal:60,rating:4.7,veg:true,healthy:true,css:'food-soup',ingredients:['tea bags','sugar','lemon','mint','ice','cold water'],steps:['Brew 2 tea bags in 1 cup hot water for 5 min.','Remove bags. Add sugar while hot, stir to dissolve.','Cool completely, then refrigerate.','Fill glass with ice, pour cold tea.','Add lemon slice and mint. Serve.'],tips:'Don\'t squeeze tea bags - it releases tannins and makes tea bitter.'},
+  {cat:'Summer Drinks',emoji:'🥤',title:'Fruit Soda',time:5,cal:100,rating:4.7,veg:true,healthy:false,css:'food-soup',ingredients:['mixed fruit juice','soda water','lemon','sugar syrup','ice','salt'],steps:['Mix fruit juice with sugar syrup and lemon juice.','Add a pinch of black salt.','Fill glass with ice cubes.','Pour fruit mix halfway.','Top with chilled soda water. Stir gently and serve.'],tips:'Use chilled soda and juice - temperature is key for a refreshing drink.'},
+  {cat:'Summer Drinks',emoji:'🥛',title:'Thick Shake',time:8,cal:420,rating:4.8,veg:true,healthy:false,css:'food-soup',ingredients:['ice cream','milk','your choice of flavor (strawberry/chocolate/vanilla)','whipped cream'],steps:['Add 3 big scoops of ice cream to blender.','Add just 1/4 cup milk (less = thicker).','Add flavor syrup or fresh fruit.','Blend quickly - 10-15 seconds only.','Pour in chilled glass, top with whipped cream.'],tips:'Use minimum milk and blend briefly for ultra-thick shake.'},
+  {cat:'Summer Drinks',emoji:'🍓',title:'Smoothie Bowl',time:10,cal:280,rating:4.8,veg:true,healthy:true,css:'food-soup',ingredients:['frozen banana','frozen berries','greek yogurt','honey','granola','fresh fruit','chia seeds','coconut'],steps:['Blend frozen banana and berries with minimal yogurt till thick.','Mixture should be thick enough to eat with a spoon.','Pour into bowl.','Top with granola, fresh fruit, chia seeds, coconut.','Drizzle honey. Eat immediately before it melts.'],tips:'Use frozen fruit only - fresh fruit makes it watery, not bowl-thick.'},
+  {cat:'Summer Drinks',emoji:'🥭',title:'Mango Yogurt Cup',time:10,cal:180,rating:4.7,veg:true,healthy:true,css:'food-soup',ingredients:['mango','yogurt','honey','cardamom','mint','granola'],steps:['Peel and dice ripe mango into small cubes.','Whip yogurt with honey and cardamom till smooth.','Layer yogurt at bottom of cup.','Top with diced mango.','Garnish with mint and granola. Chill and serve.'],tips:'Use Greek yogurt for creamy thick base. Regular yogurt works too - strain it first.'},
+
+  // ══ LEFTOVERS CREATIVE ══
+  {cat:'Leftovers',emoji:'🍚',title:'Rice Cutlets',time:20,cal:280,rating:4.6,veg:true,healthy:false,css:'food-aloo',ingredients:['leftover rice','onion','green chili','coriander','potato (boiled)','breadcrumbs','salt','oil'],steps:['Mash leftover rice with boiled potato, onion, chili, coriander.','Add salt and mix well till it holds shape.','Form into flat round cutlets.','Coat in breadcrumbs.','Shallow fry both sides till golden crispy. Serve with chutney.'],tips:'Refrigerating the mixture 30 min helps cutlets hold shape better when frying.'},
+  {cat:'Leftovers',emoji:'🍚',title:'Leftover Dal Paratha',time:20,cal:320,rating:4.7,veg:true,healthy:false,css:'food-roti',ingredients:['leftover dal','wheat flour','onion','green chili','coriander','ajwain','salt','ghee'],steps:['Mix leftover dal into wheat flour along with onion, chili, coriander, ajwain.','Knead into soft dough (dal adds moisture, add flour as needed).','Roll into parathas.','Cook on tawa with ghee till golden on both sides.','Serve hot with yogurt and pickle.'],tips:'Thick dal works best here. If too thin, reduce on stove first.'},
+  {cat:'Leftovers',emoji:'🫓',title:'Roti Quesadilla',time:15,cal:350,rating:4.7,veg:true,healthy:false,css:'food-roti',ingredients:['leftover roti','cheese','capsicum','onion','jalapeño','butter','salsa'],steps:['Place roti flat on buttered pan.','Cover half with grated cheese, chopped capsicum, onion, jalapeño.','Fold other half over to make a semicircle.','Cook on medium heat 2 min each side till crispy and cheese melts.','Cut into wedges. Serve with salsa and sour cream.'],tips:'Any leftover sabzi works great as filling too - Roti Sabzi Quesadilla!'},
+  {cat:'Leftovers',emoji:'🍞',title:'Masala Idli Fry',time:15,cal:260,rating:4.7,veg:true,healthy:false,css:'food-pakora',ingredients:['leftover idli','oil','mustard seeds','curry leaves','green chili','onion','turmeric','salt','lemon'],steps:['Cut leftover idlis into quarters.','Heat oil, crackle mustard seeds and curry leaves.','Add onion and green chili, sauté till soft.','Add idli pieces, turmeric, salt. Toss on high heat.','Add lemon juice and coriander. Serve hot.'],tips:'Day-old idli works best - fresh idli is too soft and breaks while frying.'},
+  {cat:'Leftovers',emoji:'🍞',title:'Bread Upma',time:15,cal:290,rating:4.5,veg:true,healthy:false,css:'food-pakora',ingredients:['leftover bread','onion','tomato','green chili','mustard seeds','curry leaves','turmeric','coriander','salt'],steps:['Cut bread into small cubes.','Heat oil, crackle mustard seeds, curry leaves.','Add onion, green chili. Sauté till soft.','Add tomato, turmeric, salt. Cook 2 min.','Add bread cubes, toss well. Cook 3 min. Garnish with coriander.'],tips:'Any bread works - white, brown or even slightly stale bread is perfect.'},
+  {cat:'Leftovers',emoji:'🥙',title:'Veggie Grilled Sandwich',time:15,cal:320,rating:4.6,veg:true,healthy:false,css:'food-sandwich',ingredients:['bread','leftover sabzi (any)','cheese','butter','green chutney','tomato','onion'],steps:['Mash leftover sabzi slightly.','Butter bread. Spread green chutney on one side.','Layer with sabzi, sliced tomato, onion, cheese.','Top with second slice.','Grill in sandwich maker till golden and crispy.'],tips:'Any dry sabzi works - aloo, paneer, mixed veg. Leftover dal paratha filling too!'},
+
+  // ══ MORE VEG RECIPES ══
+  {cat:'Indian Veg',emoji:'🍄',title:'Mushroom Masala',time:25,cal:280,rating:4.6,veg:true,healthy:true,css:'food-curry',ingredients:['mushroom','onion','tomato','garlic','ginger','garam masala','cream','coriander'],steps:['Clean and quarter mushrooms.','Sauté onion till golden. Add ginger garlic paste.','Add tomatoes, cook till masala.','Add mushrooms, cook till tender.','Add cream and garam masala. Garnish coriander.'],tips:'Don\'t overcrowd mushrooms or they release water and steam instead of sauté.'},
+  {cat:'Indian Veg',emoji:'🫑',title:'Stuffed Capsicum',time:30,cal:260,rating:4.5,veg:true,healthy:true,css:'food-curry',ingredients:['capsicum','potato','onion','paneer','spices','cheese','oil'],steps:['Cut tops off capsicum, remove seeds.','Sauté filling: potato, onion, paneer, spices.','Stuff capsicums with filling.','Top with grated cheese.','Bake 200°C for 15 min or cook covered on tawa.'],tips:'Pre-cook capsicum 2 min in microwave for softer texture.'},
+  {cat:'Indian Veg',emoji:'🌱',title:'Palak Corn Cutlet',time:25,cal:240,rating:4.5,veg:true,healthy:true,css:'food-aloo',ingredients:['spinach','corn','potato','bread crumbs','onion','green chili','cumin','salt'],steps:['Blanch spinach, squeeze dry, chop fine.','Mix with boiled potato, corn, onion, chili, cumin.','Shape into flat cutlets.','Coat in breadcrumbs.','Shallow fry golden on both sides.'],tips:'Squeezing spinach completely dry is essential to prevent mushy cutlets.'},
+  {cat:'Indian Veg',emoji:'🥜',title:'Peanut Chaat',time:10,cal:220,rating:4.7,veg:true,healthy:true,css:'food-salad',ingredients:['roasted peanuts','onion','tomato','cucumber','lemon','chaat masala','coriander','green chili'],steps:['Roughly crush roasted peanuts.','Add diced onion, tomato, cucumber, green chili.','Add lemon juice, chaat masala, salt.','Toss well and garnish with coriander.','Serve immediately while peanuts are still crunchy.'],tips:'Add pomegranate seeds for a sweet burst. Serve immediately after mixing.'},
+
+  // ══ MORE NON-VEG ══
+  {cat:'Non-Veg',emoji:'🍗',title:'Butter Chicken',time:40,cal:480,rating:4.9,veg:false,healthy:false,css:'food-curry',ingredients:['chicken','butter','cream','tomato','cashew','onion','garlic','ginger','garam masala','kasuri methi'],steps:['Marinate chicken in yogurt and spices. Grill or tawa cook.','Make tomato-cashew gravy with butter, garlic, ginger.','Blend gravy smooth and strain.','Add grilled chicken to gravy.','Add cream, kasuri methi, butter. Simmer 5 min.'],tips:'Kasuri methi added at end gives butter chicken its signature restaurant aroma.'},
+  {cat:'Non-Veg',emoji:'🍗',title:'Chicken Tikka',time:30,cal:350,rating:4.8,veg:false,healthy:false,css:'food-pakora',ingredients:['chicken','yogurt','tikka masala','lemon','garlic','ginger','oil','capsicum','onion'],steps:['Marinate chicken with yogurt, tikka masala, garlic, ginger, lemon 2 hours.','Thread on skewers with capsicum and onion.','Grill or cook in oven at 220°C for 15 min.','Baste with butter and cook 5 more min.','Serve with mint chutney and lemon.'],tips:'Rest chicken 5 min after cooking - juices redistribute for maximum flavor.'},
+  {cat:'Non-Veg',emoji:'🍗',title:'Tandoori Chicken',time:45,cal:420,rating:4.9,veg:false,healthy:false,css:'food-pakora',ingredients:['chicken','yogurt','tandoori masala','lemon','garlic','ginger','red chili','oil'],steps:['Score chicken with deep cuts. Rub with lemon and salt.','Marinate in yogurt, tandoori masala, garlic, ginger 4 hours.','Cook in very hot oven 230°C for 25 min or grill.','Turn halfway, baste with butter.','Serve with naan, mint chutney and sliced onion.'],tips:'Very high heat is essential - it creates the char that defines tandoori.'},
+  {cat:'Non-Veg',emoji:'🍗',title:'Chicken Korma',time:45,cal:480,rating:4.7,veg:false,healthy:false,css:'food-curry',ingredients:['chicken','yogurt','cashew paste','cream','onion','whole spices','saffron','rose water'],steps:['Fry onion till deep golden. Blend to paste.','Sauté whole spices. Add onion paste.','Add chicken, brown slightly.','Add yogurt, cashew paste, water. Simmer 20 min.','Add cream, saffron, rose water. Cook 5 min.'],tips:'Fried onion paste gives korma its rich sweet base - don\'t rush this step.'},
+  {cat:'Non-Veg',emoji:'🍗',title:'Chicken Seekh Kebab',time:35,cal:380,rating:4.8,veg:false,healthy:false,css:'food-pakora',ingredients:['chicken mince','onion','green chili','coriander','ginger garlic paste','garam masala','egg','breadcrumbs'],steps:['Mix chicken mince with all ingredients. Refrigerate 30 min.','Wet hands, take portions and mold around skewers.','Grill or cook on tawa rotating to cook all sides.','Baste with butter while cooking.','Serve with mint chutney and sliced onion.'],tips:'Chilling the mince makes it easier to mold onto skewers.'},
+  {cat:'Non-Veg',emoji:'🐟',title:'Fish Curry',time:30,cal:350,rating:4.7,veg:false,healthy:true,css:'food-curry',ingredients:['fish','onion','tomato','coconut milk','garlic','ginger','turmeric','chili','coriander'],steps:['Marinate fish with turmeric, salt, chili. Rest 15 min.','Sauté onion, garlic, ginger till golden.','Add tomato and spices. Cook till masala.','Add coconut milk, bring to simmer.','Add fish gently. Cook 8-10 min without stirring.'],tips:'Never stir curry after adding fish - it will break apart. Swirl the pan instead.'},
+  {cat:'Non-Veg',emoji:'🐟',title:'Fish Tikka',time:25,cal:300,rating:4.7,veg:false,healthy:true,css:'food-pakora',ingredients:['fish fillet','yogurt','tikka masala','lemon','garlic','ginger','oil','carom seeds'],steps:['Cut fish into cubes. Marinate with yogurt, tikka masala, garlic, lemon.','Rest 20 min minimum.','Thread on skewers.','Grill or tawa cook till slightly charred.','Serve with green chutney and lemon.'],tips:'Carom seeds (ajwain) in marinade aids digestion and enhances fish flavor.'},
+  {cat:'Non-Veg',emoji:'🍖',title:'Mutton Rogan Josh',time:60,cal:520,rating:4.9,veg:false,healthy:false,css:'food-curry',ingredients:['mutton','yogurt','onion','garlic','ginger','Kashmiri chili','whole spices','ghee','fennel','dry ginger'],steps:['Brown mutton in ghee with whole spices.','Add onion paste, cook till dark golden.','Add Kashmiri chili, fennel, dry ginger powders.','Add yogurt gradually, stirring constantly.','Pressure cook 20 min or slow cook 1 hour till tender.'],tips:'Kashmiri red chili gives the iconic bright red color without excessive heat.'},
+  {cat:'Non-Veg',emoji:'🥚',title:'Shakshuka',time:25,cal:280,rating:4.7,veg:false,healthy:true,css:'food-soup',ingredients:['eggs','tomato','capsicum','onion','garlic','cumin','paprika','chili','coriander','feta cheese'],steps:['Sauté garlic, onion, capsicum in olive oil.','Add tomatoes, cumin, paprika, chili. Simmer 10 min.','Make wells in sauce with spoon.','Crack eggs into wells. Cover pan.','Cook 5-8 min till whites set but yolks runny. Top with feta and coriander.'],tips:'Cover pan to cook egg whites while keeping yolks perfectly runny.'},
+  {cat:'Non-Veg',emoji:'🍖',title:'Galouti Kebab',time:50,cal:440,rating:4.9,veg:false,healthy:false,css:'food-pakora',ingredients:['mutton mince','raw papaya','onion','garam masala','rose water','saffron','ghee','khoya','cardamom'],steps:['Grind raw papaya and mix with mince to tenderize.','Add all spices, khoya, saffron, rose water. Mix well.','Rest 2 hours in refrigerator.','Shape into very thin flat patties.','Cook in ghee on medium heat - they are delicate, handle gently.'],tips:'Raw papaya is the ancient tenderizing secret - it breaks down tough mutton proteins.'},
 ];
 
 const CATEGORIES = [
@@ -1935,6 +2031,10 @@ const CATEGORIES = [
   {key:'Healthy', label:'🥗 Healthy', color:'#27ae60'},
   {key:'Street Food', label:'🛺 Street Food', color:'#d35400'},
   {key:'International', label:'🌍 World', color:'#16a085'},
+  {key:'Cafe Veg', label:'☕ Cafe Veg', color:'#27ae60'},
+  {key:'Cafe Non-Veg', label:'🍗 Cafe Non-Veg', color:'#c0392b'},
+  {key:'Summer Drinks', label:'🥤 Summer Drinks', color:'#2980b9'},
+  {key:'Leftovers', label:'♻️ Leftovers', color:'#7f8c8d'},
 ];
 let activeCat=CATEGORIES[0].key;
 let catShowAll={};
@@ -1953,8 +2053,45 @@ const TITLE_HI = {
   33:'पालक दाल', 34:'लहसुन ब्रेड', 35:'अंडा करी', 36:'सांभर',
   37:'सूजी हलवा', 38:'चिकन करी', 39:'वेन पोंगल', 40:'मसूर दाल',
   41:'ब्रेड उपमा', 42:'पालक सूप', 43:'नारियल चावल',
-  // Category recipes (title-based)
-  'Paneer Butter Masala':'पनीर बटर मसाला', 'Shahi Paneer':'शाही पनीर',
+  // New Cafe Veg
+  'Paneer Tikka Wrap':'पनीर टिक्का रैप', 'Peri Peri Fries':'पेरी पेरी फ्राइज़',
+  'Cheese Corn Sandwich':'चीज़ कॉर्न सैंडविच', 'White Sauce Pasta':'व्हाइट सॉस पास्ता',
+  'Pink Sauce Pasta':'पिंक सॉस पास्ता', 'Margherita Pizza':'मार्गरीटा पिज़्ज़ा',
+  'Farmhouse Pizza':'फार्महाउस पिज़्ज़ा', 'Veg Momos':'वेज मोमोज़',
+  'Fried Momos':'फ्राइड मोमोज़', 'Spring Rolls':'स्प्रिंग रोल्स',
+  'Honey Chilli Potato':'हनी चिली पोटैटो', 'Crispy Corn':'क्रिस्पी कॉर्न',
+  'Chole Kulche':'छोले कुलचे', 'Dabeli':'दाबेली', 'Vada Pav':'वड़ा पाव',
+  'Tandoori Chaap':'तंदूरी चाप', 'Afghani Chaap':'अफगानी चाप',
+  'Paneer Burger':'पनीर बर्गर', 'Loaded Nachos':'लोडेड नाचोस',
+  // New Cafe Non-Veg
+  'Chicken Tikka Wrap':'चिकन टिक्का रैप', 'Chicken Burger':'चिकन बर्गर',
+  'Crispy Chicken Burger':'क्रिस्पी चिकन बर्गर', 'Chicken Momos':'चिकन मोमोज़',
+  'Fried Chicken Momos':'फ्राइड चिकन मोमोज़', 'Chicken Popcorn':'चिकन पॉपकॉर्न',
+  'Chicken Nuggets':'चिकन नगेट्स', 'Chicken Wings':'चिकन विंग्स',
+  'Peri Peri Chicken':'पेरी पेरी चिकन', 'Chicken Shawarma':'चिकन शावर्मा',
+  'Chicken Pizza':'चिकन पिज़्ज़ा', 'Chicken Pasta':'चिकन पास्ता',
+  'Chicken Fried Rice':'चिकन फ्राइड राइस', 'Chilli Chicken':'चिली चिकन',
+  'Chicken Lollipop':'चिकन लॉलीपॉप', 'Chicken Sandwich':'चिकन सैंडविच',
+  'Chicken Quesadilla':'चिकन क्वेसादिला', 'Fish Fingers':'फिश फिंगर्स',
+  'Butter Garlic Prawns':'बटर गार्लिक प्रॉन्स', 'Egg Roll':'एग रोल',
+  // Summer Drinks
+  'Cold Coffee':'कोल्ड कॉफ़ी', 'Oreo Shake':'ओरियो शेक',
+  'Mango Shake':'आम शेक', 'Mint Mojito':'मिंट मोजिटो',
+  'Watermelon Cooler':'तरबूज़ कूलर', 'Iced Tea':'आइस्ड टी',
+  'Fruit Soda':'फ्रूट सोडा', 'Thick Shake':'थिक शेक',
+  'Smoothie Bowl':'स्मूदी बाउल', 'Mango Yogurt Cup':'आम दही कप',
+  // Leftovers
+  'Rice Cutlets':'राइस कटलेट', 'Leftover Dal Paratha':'दाल का पराठा',
+  'Roti Quesadilla':'रोटी क्वेसादिला', 'Masala Idli Fry':'मसाला इडली फ्राई',
+  'Bread Upma':'ब्रेड उपमा', 'Veggie Grilled Sandwich':'वेज़ी ग्रिल्ड सैंडविच',
+  // More veg/non-veg
+  'Mushroom Masala':'मशरूम मसाला', 'Stuffed Capsicum':'भरवां शिमला मिर्च',
+  'Palak Corn Cutlet':'पालक कॉर्न कटलेट', 'Peanut Chaat':'मूंगफली चाट',
+  'Butter Chicken':'बटर चिकन', 'Chicken Tikka':'चिकन टिक्का',
+  'Tandoori Chicken':'तंदूरी चिकन', 'Chicken Korma':'चिकन कोर्मा',
+  'Chicken Seekh Kebab':'चिकन सीख कबाब', 'Fish Curry':'मछली करी',
+  'Fish Tikka':'मछली टिक्का', 'Mutton Rogan Josh':'मटन रोगन जोश',
+  'Shakshuka':'शक्षुका', 'Galouti Kebab':'गलौटी कबाब', 'Shahi Paneer':'शाही पनीर',
   'Kadai Paneer':'कड़ाई पनीर', 'Palak Paneer':'पालक पनीर',
   'Chole Masala':'छोले मसाला', 'Rajma Curry':'राजमा करी',
   'Aloo Gobi':'आलू गोभी', 'Baingan Bharta':'बैंगन भर्ता',
@@ -2241,6 +2378,457 @@ const CAT_STEPS_HI = {
     'Ghee mein kashmiri mirch ke saath pyaaz paste pakayein.',
     'Dahi, saunf powder, adrak daalein.',
     'Aloo daalein, bilkul dhimi aag par 15 min dum karein.'
+  ],
+
+  // ══ CAFE VEG ══
+  'Paneer Tikka Wrap':[
+    'Paneer cubes ko dahi, tikka masala, lemon mein 15 min marinate karein.',
+    'Grill ya tawa par paneer ko char aane tak pakayein.',
+    'Roti ya paratha ko tawa par garam karein.',
+    'Mint chutney lagaayein, paneer aur kati pyaaz-shimla mirch rakhein.',
+    'Tight roll karein aur extra chutney ke saath serve karein.'
+  ],
+  'Peri Peri Fries':[
+    'Aloo ke sticks kaatein. Starch nikaalney ke liye 20 min thande paani mein bheegne dein.',
+    'Achhi tarah se sukhaaein. Tel, garlic powder, namak ke saath mix karein.',
+    'Air fryer mein 200°C par 20 min ya deep fry karein crispy hone tak.',
+    'Turant peri peri seasoning aur paprika se toss karein.',
+    'Mayo dip ke saath garam serve karein.'
+  ],
+  'Cheese Corn Sandwich':[
+    'Ubla hua corn, kasa hua cheese, pyaaz, shimla mirch, namak, kaali mirch mix karein.',
+    'Bread ke dono taraf butter lagaayein.',
+    'Ek slice par corn-cheese filling achhi tarah se phailaaein.',
+    'Doosra slice upar rakhein. Halka dabaaein.',
+    'Sandwich maker ya tawa par golden crispy hone tak grill karein. Garam serve karein.'
+  ],
+  'White Sauce Pasta':[
+    'Pasta namak ke saath al dente ubaalein. Paani nikaal kar alag rakhein.',
+    'Makhan mein lehsun aur pyaaz soft hone tak bhunaein.',
+    'Maida daalein, chalte hue 1 min pakayein.',
+    'Doodh thoda thoda karke daalein, whisking karte rehein. Gaadha hone tak pakayein.',
+    'Cheese, herbs, kaali mirch daalein. Pasta toss karein. Garam serve karein.'
+  ],
+  'Pink Sauce Pasta':[
+    'Pasta al dente ubaalein. Paani nikaalein aur rakhein.',
+    'Makhan mein lehsun aur pyaaz golden hone tak bhunaein.',
+    'Tamatar puree, herbs, chili flakes daalein. 5 min pakayein.',
+    'Aag dhimi karein, cream aur cheese daalein jab tak mil jaaye.',
+    'Pasta pink sauce mein toss karein. Garlic bread ke saath garam serve karein.'
+  ],
+  'Margherita Pizza':[
+    'Oven ko 220°C par preheat karein.',
+    'Pizza base par tamatar sauce evenly phailaaein.',
+    'Khub saara kasa hua mozzarella daalein.',
+    'Taazi tulsi ki pattiyaan rakhein, jaitun ka tel daalein.',
+    '12-15 min bake karein jab tak crust golden aur cheese bubbly ho jaaye.'
+  ],
+  'Farmhouse Pizza':[
+    'Oven ko 220°C par preheat karein.',
+    'Pizza base par tamatar sauce phailaaein.',
+    'Mozzarella cheese ki layer lagaayein.',
+    'Shimla mirch, pyaaz, mushroom, corn, olives daalein.',
+    '12-15 min bake karein. Oregano daalein aur serve karein.'
+  ],
+  'Veg Momos':[
+    'Maida aur paani se sakht aata goondhein. 15 min dhakkar rakhein.',
+    'Patta gobhi, gajar, pyaaz barik kaatein. Lehsun, adrak, soy sauce ke saath bhunaein.',
+    'Chhote patli circles belein. Beech mein filling rakhein.',
+    'Kinaarein tight fold karke pleat karein.',
+    '10-12 min steam karein. Lal mirch ki chutney ke saath garam serve karein.'
+  ],
+  'Fried Momos':[
+    'Steamed momos ki tarah aata aur filling banaayein.',
+    'Momos ko tight fold aur pleat karein.',
+    'Pehle 8 min steam karein aadha pakne tak.',
+    'Pan mein tel garam karein. Steamed momos golden aur crispy hone tak fry karein.',
+    'Mayo aur chili sauce ke saath garam serve karein.'
+  ],
+  'Spring Rolls':[
+    'Sabziyan lehsun, adrak, soy sauce ke saath tender hone tak bhunaein.',
+    'Filling bilkul thandi ho jaane dein.',
+    'Spring roll sheet par filling rakhein. Sides fold karein, tight roll karein.',
+    'Kinaarein cornflour paste se seal karein.',
+    'Garma garam tel mein golden crispy hone tak fry karein. Sweet chili sauce ke saath serve karein.'
+  ],
+  'Honey Chilli Potato':[
+    'Aloo ke fingers kaatein. 5 min ubaalein, paani nikaalein aur sukhaaein.',
+    'Cornflour paste mein coat karein. Golden crispy hone tak deep fry karein.',
+    'Pan mein lehsun bhunaein. Soy sauce, honey, chili sauce daalein.',
+    'Crispy aloo ko sauce mein coat hone tak toss karein.',
+    'Sesame seeds aur spring onion se garnish karein.'
+  ],
+  'Crispy Corn':[
+    'Sweet corn ke daane ubaalein, paani nikaalein aur bilkul sukhaaein.',
+    'Cornflour, namak, chili flakes mein coat karein.',
+    'Deep fry karein light golden aur crispy hone tak.',
+    'Pan mein makhan, lehsun, shimla mirch ke saath toss karein.',
+    'Neebu ka ras aur dhaniya daalein. Garam serve karein.'
+  ],
+  'Chole Kulche':[
+    'Chhole pressure cooker mein soft hone tak pakaaein.',
+    'Makhan mein pyaaz, adrak, tamatar masala banaayein.',
+    'Chhole aur chole masala daalein, 15 min pakaaein.',
+    'Kulche par halka makhan lagaayein aur tawa par senkein.',
+    'Piping hot chole kulche par dein, pyaaz aur neebu ke saath serve karein.'
+  ],
+  'Dabeli':[
+    'Aloo ubaalein, mash karein, dabeli masala mein mix karein.',
+    'Pav ko beech se slit karein bina alag kiye.',
+    'Andar tamarind aur green chutney lagaayein.',
+    'Aloo mixture se bharein.',
+    'Pyaaz, anaar, sev se bharein. Makhan lagey tawa par senkein.'
+  ],
+  'Vada Pav':[
+    'Aloo ubaalein, mash karein. Fried mustard, mirch, curry patta, lehsun milaaein.',
+    'Besan, haldi, namak ka batter banaayein. Aloo balls ko coat karein.',
+    'Vadas ko golden brown hone tak deep fry karein.',
+    'Pav slit karein, dry garlic chutney aur green chutney lagaayein.',
+    'Garam vada andar rakhein. Dabaaein aur turant serve karein.'
+  ],
+  'Tandoori Chaap':[
+    'Chaap ke tukde karein. Marinade ghusne ke liye cuts daalein.',
+    'Dahi, tandoori masala, ginger garlic paste, lemon, mirch mix karein.',
+    '30 min marinate karein (zyada behtar hai).',
+    'Shimla mirch aur pyaaz ke saath skewers par daalein.',
+    'Grill/tawa par charred hone tak pakaaein. Mint chutney ke saath serve karein.'
+  ],
+  'Afghani Chaap':[
+    'Chaap 5 min ubaalein soft karne ke liye. Tukde karein.',
+    'Cream, kaju paste, ginger garlic paste, elaichi, safed mirch mix karein.',
+    '30 min white marinade mein marinate karein.',
+    'Tawa par makhan ke saath dono taraf golden hone tak pakaaein.',
+    'Roomali roti aur green chutney ke saath serve karein.'
+  ],
+  'Paneer Burger':[
+    'Moti paneer slice ko dahi aur tikka masala mein marinate karein.',
+    'Grill ya tawa par dono taraf charred hone tak pakaaein.',
+    'Burger buns ko tawa par toast karein.',
+    'Neeche mayo, upar mint chutney lagaayein.',
+    'Assemble karein: lettuce, paneer, pyaaz, tamatar, cheese. Dabaaein aur serve karein.'
+  ],
+  'Loaded Nachos':[
+    'Nachos chips baking tray par ek layer mein phailaaein.',
+    'Khaub saara kasa hua mozzarella daalein.',
+    'Diced tamatar, pyaaz, shimla mirch, jalapeños daalein.',
+    '200°C par 8-10 min bake karein jab tak cheese pighle.',
+    'Sour cream, salsa, guacamole daalein. Turant serve karein.'
+  ],
+
+  // ══ CAFE NON-VEG ══
+  'Chicken Tikka Wrap':[
+    'Chicken ko dahi, tikka masala, neebu mein 20 min marinate karein.',
+    'Grill ya tawa par chicken ko charred hone tak pakaaein.',
+    'Roti ko tawa par garam karein.',
+    'Mint chutney lagaayein, chicken, kati pyaaz, shimla mirch rakhein.',
+    'Tight roll karein. Extra chutney ke saath garam serve karein.'
+  ],
+  'Chicken Burger':[
+    'Chicken breast ko flat peetein. Lehsun, namak, kaali mirch se season karein.',
+    'Ande mein daalein, breadcrumbs se coat karein.',
+    'Dono taraf 7-7 min shallow fry karein golden aur cooked hone tak.',
+    'Buns ko tawa par toast karein.',
+    'Mayo, lettuce, tamatar, cheese ke saath assemble karein.'
+  ],
+  'Crispy Chicken Burger':[
+    'Chicken ko buttermilk aur masalon mein 30 min marinate karein.',
+    'Maida, cornstarch, garlic powder, paprika, chili, namak mix karein.',
+    'Chicken ko flour mixture mein achhi tarah coat karein (dabaaein for crunchy texture).',
+    '175°C par 8-10 min deep fry karein golden crispy hone tak.',
+    'Toast kiye bun mein coleslaw, cheese, spicy mayo ke saath serve karein.'
+  ],
+  'Chicken Momos':[
+    'Maida aur paani se sakht aata goondhein. 15 min rakhein.',
+    'Chicken mince ko pyaaz, lehsun, adrak, soy sauce, sesame oil mein mix karein.',
+    'Patli circles belein. Beech mein filling rakhein.',
+    'Tight pleat karke band karein.',
+    '12-15 min steam karein jab tak chicken puri tarah pak jaaye. Garam serve karein.'
+  ],
+  'Fried Chicken Momos':[
+    'Aata aur chicken filling steamed momos jaise banaayein.',
+    'Momos ko shape dein aur tight band karein.',
+    'Pehle 10 min steam karein.',
+    'Pan mein tel garam karein, steamed momos golden crispy hone tak fry karein.',
+    'Garlic mayo aur chili sauce ke saath serve karein.'
+  ],
+  'Chicken Popcorn':[
+    'Chicken ke 2cm chhote tukde kaatein.',
+    'Buttermilk, garlic powder, paprika, namak mein 20 min marinate karein.',
+    'Maida, cornstarch, chili powder mix karein.',
+    'Chicken pieces coat karein, achhi tarah dabaaein.',
+    '180°C par 4-5 min deep fry karein golden hone tak. Ketchup ke saath serve karein.'
+  ],
+  'Chicken Nuggets':[
+    'Chicken mince ko garlic powder, onion powder, namak, kaali mirch mein mix karein.',
+    'Oval nugget shapes mein dhaalein.',
+    'Maida mein coat karein, ande mein daalein, breadcrumbs lagaayein.',
+    '15 min freeze karein shape ke liye.',
+    '175°C par 5-6 min deep fry karein golden hone tak. Dip ke saath serve karein.'
+  ],
+  'Chicken Wings':[
+    'Wings sukhaaein. Baking powder, namak, kaali mirch se toss karein (crispy skin ke liye!).',
+    '220°C par 45 min bake karein, beech mein palatein.',
+    'Sauce banaayein: makhan, lehsun, hot sauce, soy, neebu pighlaayein.',
+    'Garam baked wings ko sauce mein coat hone tak toss karein.',
+    'Blue cheese dip aur celery ke saath turant serve karein.'
+  ],
+  'Peri Peri Chicken':[
+    'Chicken pieces mein gehre cuts daalein.',
+    'Peri peri sauce, lehsun, neebu, paprika, chili, tel mix karein.',
+    '2 ghante ya raat bhar marinate karein.',
+    'Grill ya oven mein 200°C par 25-30 min pakaaein.',
+    'Beech mein extra marinade se baste karein.'
+  ],
+  'Chicken Shawarma':[
+    'Chicken ko shawarma masalon, lehsun, neebu, dahi mein 2 ghante marinate karein.',
+    'Grill ya tawa par chicken ko charred aur juicy hone tak pakaaein.',
+    'Chicken ko patla patla kaatein.',
+    'Pita garam karein, tahini lagaayein.',
+    'Chicken, pyaaz, tamatar, pickles layer karein. Tight roll karein.'
+  ],
+  'Chicken Pizza':[
+    'Chicken ko lehsun, namak, kaali mirch ke saath marinate karke pakaaein.',
+    'Pizza base par tamatar sauce phailaaein.',
+    'Mozzarella cheese ki layer lagaayein.',
+    'Chicken, shimla mirch, pyaaz, chili flakes daalein.',
+    '200°C par 12-15 min bake karein. Oregano daalein.'
+  ],
+  'Chicken Pasta':[
+    'Pasta al dente ubaalein. Paani nikaalein.',
+    'Makhan mein lehsun, pyaaz bhunaein. Diced cooked chicken daalein.',
+    'Tamatar sauce ya cream daalein. 5 min simmer karein.',
+    'Cheese, herbs, chili flakes daalein.',
+    'Pasta sauce mein toss karein. Garam serve karein.'
+  ],
+  'Chicken Fried Rice':[
+    'Ek din purana chawal use karein. Dhele thodon mein todel dein.',
+    'Tez aag par tel mein lehsun bhunaein. Diced chicken daalein, pakaaein.',
+    'Ek taraf karein, ande scramble karein.',
+    'Chawal daalein, tez aag par toss karein.',
+    'Soy sauce, sesame oil, chili sauce, spring onion daalein. Zor se toss karein.'
+  ],
+  'Chilli Chicken':[
+    'Chicken ko cornflour, anda, soy sauce mein coat karein. Golden crispy hone tak fry karein.',
+    'Tel mein lehsun, adrak, hari mirch bhunaein.',
+    'Shimla mirch, pyaaz daalein. 2 min stir fry karein.',
+    'Soy sauce, chili sauce, sirka daalein. Mix karein.',
+    'Fried chicken ko sauce mein coat hone tak toss karein. Garam serve karein.'
+  ],
+  'Chicken Lollipop':[
+    'Chicken wings ko lollipop shape mein french cut karein.',
+    'Soy sauce, chili sauce, lehsun, adrak mein 30 min marinate karein.',
+    'Cornflour-anda batter mein coat karein.',
+    '175°C par 8-10 min deep fry karein crispy hone tak.',
+    'Schezwan dip ke saath serve karein.'
+  ],
+  'Chicken Sandwich':[
+    'Chicken breast ko season karke pakaaein. Patla patla kaatein.',
+    'Bread slices ko makhan ke saath toast karein.',
+    'Ek slice par mayo, doosre par mustard lagaayein.',
+    'Lettuce, chicken, tamatar, pyaaz, cheese layer karein.',
+    'Doosra slice upar rakhein. Diagonal mein kaatein. Serve karein.'
+  ],
+  'Chicken Quesadilla':[
+    'Chicken ko taco seasoning ke saath pakaaein. Shred ya slice karein.',
+    'Medium aag par pan mein tortilla rakhein.',
+    'Aadhe hisse par chicken, shimla mirch, pyaaz, cheese daalein.',
+    'Tortilla fold karein. Dono taraf 2-2 min crispy hone tak pakaaein.',
+    'Wedges mein kaatein. Sour cream aur salsa ke saath serve karein.'
+  ],
+  'Fish Fingers':[
+    'Fish ko finger-size strips mein kaatein.',
+    'Maida ko garlic powder, namak, kaali mirch ke saath season karein.',
+    'Fish coat karein: maida → anda → breadcrumbs.',
+    'Dono taraf golden hone tak shallow ya deep fry karein.',
+    'Tartar sauce aur neebu wedges ke saath serve karein.'
+  ],
+  'Butter Garlic Prawns':[
+    'Prawns clean karein aur devein karein. Achhi tarah sukhaaein.',
+    'Pan mein makhan ko tez aag par pighlaayein. Lehsun daalein, 30 second pakaaein.',
+    'Prawns ek layer mein daalein. Dono taraf 2-2 min pakaaein.',
+    'Chili flakes, neebu ka ras, parsley daalein.',
+    'Toss karein aur turant serve karein - prawns zyada pakenge toh rubbery ho jaayenge.'
+  ],
+  'Egg Roll':[
+    'Ande ko namak aur mirch ke saath phentein.',
+    'Tawa par paratha pakaaein. Upar anda daalein pakne tak.',
+    'Anda wali side upar rakh kar plate mein nikalein.',
+    'Kati pyaaz, shimla mirch, hari mirch daalein.',
+    'Chaat masala daalein, chutneys lagaayein. Foil mein tight roll karein.'
+  ],
+
+  // ══ SUMMER DRINKS ══
+  'Cold Coffee':[
+    '2 tsp coffee aur 2 tsp sugar ko 2 tbsp garam paani mein ghol lein.',
+    '1 cup thanda doodh aur vanilla ice cream scoop daalein.',
+    'Ice cubes daalein.',
+    'Sab kuch blend karein frothy aur smooth hone tak.',
+    'Tall glass mein daalein, chocolate syrup drizzle karein.'
+  ],
+  'Oreo Shake':[
+    '6 Oreo cookies, 2 scoops ice cream, 1 cup doodh blender mein daalein.',
+    'Smooth aur thick hone tak blend karein.',
+    'Tall glass mein daalein.',
+    'Whipped cream se top karein.',
+    'Extra Oreo crush karein upar aur chocolate syrup drizzle karein.'
+  ],
+  'Mango Shake':[
+    'Pakke aam ko chilein aur cube mein kaatein.',
+    'Thande doodh, chini, elaichi ke saath blend karein.',
+    'Extra richness ke liye ice cream scoop daalein (optional).',
+    'Ice daalein aur phir blend karein.',
+    'Glass mein daalein, aam ke slice se garnish karein.'
+  ],
+  'Mint Mojito':[
+    'Pudina pattiyaan chini syrup aur neebu ke ras ke saath dhire se muddle karein.',
+    'Zyada muddle mat karein - sirf halka dabaaein.',
+    'Glass ko ice cubes se bharein.',
+    'Upar se soda water daalein.',
+    'Dhire se hilaaein, pudina sprig aur neebu slice se garnish karein.'
+  ],
+  'Watermelon Cooler':[
+    'Beej nikale tarbooz ke tukkon ko smooth hone tak blend karein.',
+    'Chaahein toh pulp nikaalne ke liye chhaanein.',
+    'Neebu ka ras, kala namak, chini milaaein.',
+    'Ice ke upar daalein. Soda water se top karein.',
+    'Pudina aur tarbooz slice se garnish karein.'
+  ],
+  'Iced Tea':[
+    '1 cup garam paani mein 2 tea bags 5 min ke liye bhigoyein.',
+    'Bags hataayein. Garam hi chini daalein, hilaaein ghul jaane tak.',
+    'Bilkul thanda karein, phir fridge mein rakhein.',
+    'Glass ko ice se bharein, thandi chai daalein.',
+    'Neebu slice aur pudina daalein. Serve karein.'
+  ],
+  'Fruit Soda':[
+    'Fruit juice ko chini syrup aur neebu ke ras ke saath mix karein.',
+    'Thoda kala namak daalein.',
+    'Glass ko ice cubes se bharein.',
+    'Fruit mix aadha glass tak daalein.',
+    'Thandi soda water se top karein. Dhire se hilaaein aur serve karein.'
+  ],
+  'Thick Shake':[
+    'Blender mein 3 bade scoops ice cream daalein.',
+    'Sirf 1/4 cup doodh daalein (kam = zyada thick).',
+    'Flavor syrup ya taza fruit daalein.',
+    'Jaldi blend karein - sirf 10-15 second.',
+    'Thande glass mein daalein, whipped cream se top karein.'
+  ],
+  'Smoothie Bowl':[
+    'Frozen kela aur berries ko minimal yogurt ke saath thick hone tak blend karein.',
+    'Mixture itna thick hona chahiye ki chamche se khaa sakein.',
+    'Bowl mein daalein.',
+    'Granola, taza fruit, chia seeds, coconut se top karein.',
+    'Honey drizzle karein. Turant khaaein melt hone se pehle.'
+  ],
+  'Mango Yogurt Cup':[
+    'Pakke aam ko chilein aur chhote cubes mein kaatein.',
+    'Dahi ko honey aur elaichi ke saath smooth hone tak phentein.',
+    'Cup ke neeche dahi ki layer daalein.',
+    'Upar aam ke cubes daalein.',
+    'Pudina aur granola se garnish karein. Thanda karke serve karein.'
+  ],
+
+  // ══ LEFTOVERS ══
+  'Rice Cutlets':[
+    'Bacha hua chawal, ubala aloo, pyaaz, mirch, dhaniya mash karein.',
+    'Namak daalein aur achhi tarah mix karein jab tak shape le sake.',
+    '납작 gol cutlets banaayein.',
+    'Breadcrumbs mein coat karein.',
+    'Dono taraf golden crispy hone tak shallow fry karein. Chutney ke saath serve karein.'
+  ],
+  'Leftover Dal Paratha':[
+    'Bacha hua dal aata mein mix karein saath mein pyaaz, mirch, dhaniya, ajwain.',
+    'Naram aata goondhein (dal mein moisture hota hai, zaroorat par maida daalein).',
+    'Parathe belein.',
+    'Tawa par ghee ke saath dono taraf golden hone tak senkein.',
+    'Dahi aur achaar ke saath garam serve karein.'
+  ],
+  'Roti Quesadilla':[
+    'Makhan lagi pan par roti flat rakhein.',
+    'Aadhi roti par kasa hua cheese, kati shimla mirch, pyaaz, jalapeño daalein.',
+    'Doosri aadhi fold karein semicircle banaane ke liye.',
+    'Medium aag par dono taraf 2-2 min crispy aur cheese pighalne tak pakaaein.',
+    'Wedges mein kaatein. Salsa aur sour cream ke saath serve karein.'
+  ],
+  'Masala Idli Fry':[
+    'Bacha hua idli charon mein kaatein.',
+    'Tel mein rai aur curry patta chatak lein.',
+    'Pyaaz aur hari mirch daalein, soft hone tak pakaaein.',
+    'Idli ke tukde, haldi, namak daalein. Tez aag par toss karein.',
+    'Neebu ka ras aur dhaniya daalein. Garam serve karein.'
+  ],
+  'Bread Upma':[
+    'Bread ke chhote chhote tukde kaatein.',
+    'Tel mein rai, curry patta chatak lein.',
+    'Pyaaz, hari mirch soft hone tak bhunaein.',
+    'Tamatar, haldi, namak daalein. 2 min pakaaein.',
+    'Bread ke tukde daalein, achhi tarah mix karein. 3 min pakaaein. Dhaniya se garnish karein.'
+  ],
+  'Veggie Grilled Sandwich':[
+    'Bacha hua sabzi ko thoda mash karein.',
+    'Bread par makhan lagaayein. Ek taraf green chutney lagaayein.',
+    'Sabzi, kate tamatar, pyaaz, cheese layer karein.',
+    'Doosra slice upar rakhein.',
+    'Sandwich maker mein golden aur crispy hone tak grill karein.'
+  ],
+
+  // ══ MORE NON-VEG ══
+  'Butter Chicken':[
+    'Chicken ko dahi aur masalon mein marinate karein. Grill ya tawa par pakaaein.',
+    'Makhan mein lehsun, adrak, tamatar se gravy banaayein.',
+    'Gravy ko smooth blend karein aur chhaanein.',
+    'Grilled chicken gravy mein daalein.',
+    'Cream, kasuri methi, makhan daalein. 5 min simmer karein.'
+  ],
+  'Chicken Tikka':[
+    'Chicken ko dahi, tikka masala, lehsun, adrak, neebu mein 2 ghante marinate karein.',
+    'Shimla mirch aur pyaaz ke saath skewers par daalein.',
+    'Grill ya oven mein 220°C par 15 min pakaaein.',
+    'Makhan se baste karein aur 5 min aur pakaaein.',
+    'Mint chutney aur neebu ke saath serve karein.'
+  ],
+  'Tandoori Chicken':[
+    'Chicken mein gehre cuts daalein. Neebu aur namak se ragadein.',
+    'Dahi, tandoori masala, lehsun, adrak mein 4 ghante marinate karein.',
+    'Bahut tez oven 230°C mein 25 min pakaaein ya grill karein.',
+    'Beech mein palatein, makhan se baste karein.',
+    'Naan, mint chutney aur kati pyaaz ke saath serve karein.'
+  ],
+  'Chicken Korma':[
+    'Pyaaz ko gehre golden hone tak talein. Paste banaayein.',
+    'Saabut masale bhunaein. Pyaaz paste daalein.',
+    'Chicken daalein, thoda brown karein.',
+    'Dahi, kaju paste, paani daalein. 20 min simmer karein.',
+    'Cream, kesar, rose water daalein. 5 min pakaaein.'
+  ],
+  'Chicken Seekh Kebab':[
+    'Chicken mince ko saari cheezein mein mix karein. 30 min fridge mein rakhein.',
+    'Geele haath se portions lein aur skewers ke gird dhaalein.',
+    'Grill ya tawa par sab taraf ghuma ghuma kar pakaaein.',
+    'Pakate waqt makhan se baste karein.',
+    'Mint chutney aur kati pyaaz ke saath serve karein.'
+  ],
+  'Fish Curry':[
+    'Fish ko haldi, namak, mirch mein marinate karein. 15 min rakhein.',
+    'Pyaaz, lehsun, adrak golden hone tak bhunaein.',
+    'Tamatar aur masale daalein. Masala pakne tak pakaaein.',
+    'Coconut milk daalein, simmer par laaein.',
+    'Fish dhire se daalein. 8-10 min pakaaein bina hilaaein. Chawal ke saath serve karein.'
+  ],
+  'Mutton Rogan Josh':[
+    'Ghee mein saabut masalon ke saath mutton brown karein.',
+    'Pyaaz paste daalein, gehre golden hone tak pakaaein.',
+    'Kashmiri mirch, saunf, dry ginger powder daalein.',
+    'Dahi thoda thoda karke daalein, chalte rehein.',
+    'Pressure cook karein 20 min ya slow cook karein 1 ghante tak tender hone tak.'
+  ],
+  'Galouti Kebab':[
+    'Kachchi papita pees lein aur mince mein mix karein tender karne ke liye.',
+    'Saare masale, khoya, kesar, rose water daalein. Achhi tarah mix karein.',
+    '2 ghante fridge mein rakhein.',
+    'Bahut patli납작 patties banaayein.',
+    'Medium aag par ghee mein pakaaein - bahut naauk hote hain, dhire se handle karein.'
   ],
 };
 
